@@ -8,7 +8,7 @@ and this repository focuses on the **DevOps and cloud migration aspects**.
 
 ## Overview
 
-The capstone project is a **task management system** built with Django. My work focused on:
+The capstone project is a **restaurant website** built with Django. My work focused on:
 1. Migrating the database to Amazon RDS.
 2. Deploying the back-end to AWS Lambda using API Gateway.
 3. Hosting static files (CSS, JS, images) in an S3 bucket, served through CloudFront.
