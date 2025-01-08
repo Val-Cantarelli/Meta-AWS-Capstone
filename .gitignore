@@ -1,0 +1,19 @@
+# General
+*.pyc
+__pycache__/
+*.log
+*.sqlite3
+
+# Backend
+/backend/env/
+/backend/.venv/
+/backend/.env/
+/backend/migrations/__pycache__/
+
+
+# Frontend
+
+
+
+# DevOps
+
