@@ -27,6 +27,20 @@ The capstone project is a **restaurant website** built with Django. My work focu
   - **AWS CodePipeline & CodeBuild:** For CI/CD automation.
 
 ---
+## Components
+
+1. **Backend:** A Django REST API for managing a restaurant's operations.
+   - Path: `/backend/`
+   - Documentation: [Backend README](./backend/README.md)
+
+2. **Frontend:** Static templates and assets for the restaurant's website.
+   - Path: `/frontend/`
+   - Documentation: [Frontend README](./frontend/README.md)
+
+3. **DevOps:** AWS deployment and infrastructure as code.
+   - Path: `/devops/`
+   - Documentation: [DevOps README](./devops/README.md)
+
 
 ## Repository Structure
 
