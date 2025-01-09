@@ -7,7 +7,7 @@ __pycache__/
 # Backend
 /backend/env/
 /backend/.venv/
-/backend/.env/
+/backend/.env
 /backend/migrations/__pycache__/
 
 
