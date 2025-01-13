@@ -1,4 +1,5 @@
 from pathlib import Path
+from decouple import config
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -69,13 +70,25 @@ WSGI_APPLICATION = 'LittleLemon.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'littlelemon',
-        'HOST': '127.0.0.1', 
-        'USER': 'root',
-        'PASSWORD': 'Database151622@',
-        'PORT': '3306'
+        'NAME': config('DB_NAME'),
+        'USER': config('DB_USER'),
+        'PASSWORD': config('DB_PASSWORD'),
+        'HOST': config('DB_HOST'),
+        'PORT': config('DB_PORT', default='3306'),
+        'OPTIONS': {
+            'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
+            'connect_timeout': 20, 
+        },
     }
 }
+
+print("Database Name:", config('DB_NAME'))
+print("user:", config('DB_USER'))
+print("passw:", config('DB_PASSWORD'))
+print("host:", config('DB_HOST'))
+print("port:", config('DB_PORT'))
+
+
 
 
 # Password validation
