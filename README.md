@@ -1,7 +1,7 @@
 # Meta AWS Capstone Project
 
 This repository showcases my work in deploying a Django-based capstone project to AWS.  
-The original project was developed as part of the [Meta Professional Certificate](https://www.coursera.org/professional-certificates/meta-backend-developer), 
+The original project was developed as part of the [Meta Professional Certificate](https://www.coursera.org/professional-certificates/meta-back-end-developer), 
 and this repository focuses on the **DevOps and cloud migration aspects**.
 
 ---
