@@ -16,8 +16,9 @@ This directory contains the back-end code for the restaurant management system.
 2. **Create and Activate the Virtual Environment**  
    ```bash
    pipenv --python 3.11
-   pipenv install
    pipenv shell
+   pipenv install
+   
 3. **Run the server**
     ```bash
     python manage.py runserver
