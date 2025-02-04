@@ -30,26 +30,3 @@ Categories:
 13 - main-dishes
 14 - desserts
 15 - drinks
-
-===RDS===
-RDS:
-endpoint:database-1.cncggq6wib9a.us-east-1.rds.amazonaws.com
-Port:3306
-AZ:us-east-1c
-VPC:vpc-076af69e3bd55b0ee
-Subnet-group:default-vpc-076af69e3bd55b0ee
-Subnets:
-subnet-0c7fb7032769ecd14
-subnet-0b434c47a2f6033d4
-subnet-0266f42adaa05929f
-subnet-0705125360e62f45e
-subnet-04859e51850b0b6e7
-subnet-05ecc3c276e4a0401
-======VPC======
-VPC security groups:RDS-SG (sg-040aebaff168e3f85)
-VPC ID: vpc-076af69e3bd55b0ee
-Main route table: rtb-0e48d9f16016fc863
-VPC CIDR: 172.31.0.0/16.
-Client IPv4 CIDR: 10.8.0.0/16 (para os dispositivos que se conectarem via VPN).
-
-====
