@@ -12,6 +12,10 @@ djangorestframework-csv = "*"
 djangorestframework-yaml = "*"
 django-filter = "*"
 mysqlclient = "*"
+django-storages = "*"
+pymysql = "*"
+zappa = "*"
+aws-lambda-wsgi = "*"
 
 [dev-packages]
 
