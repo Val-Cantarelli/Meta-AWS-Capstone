@@ -14,6 +14,10 @@ from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.throttling import UserRateThrottle, AnonRateThrottle
 from rest_framework.filters import OrderingFilter
 
+from django.http import JsonResponse
+
+def health_check(request):
+    return JsonResponse({"status": "ok"}, status=200)
 
 class IsDeliveryCrew(BasePermission):
         def has_permission(self, request, view):
