@@ -5,6 +5,17 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = 'django-insecure-mu&li2hw%0-djn@wehmb7oa13trib-&_x&pyo)b1)s75$h#_a&'
 DEBUG = False
+'''INSTALLED_APPS += ['corsheaders']
+
+MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.common.CommonMiddleware',
+]
+
+CORS_ALLOWED_ORIGINS = [
+    "https://seu-dominio-frontend.com",
+]
+'''
 
 ALLOWED_HOSTS = ['*']
 INSTALLED_APPS = [
