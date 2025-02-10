@@ -6,7 +6,7 @@
     <article>
         <h1>Menu item</h1>
         <span>
-            <a href="{% url 'home' %}">Home</a> /
+            <a href="{% url 'home' %}">Home</a> -->
             <a href="{% url 'menu' %}">Menu</a>/
             {{menu_item.name}}
         </span>
@@ -15,7 +15,7 @@
             <!--Begin col-->
             <div class="column">
                 <h2>
-                    {{ menu_item.name }}
+                    {{ menu_item.title }}
                 </h2>
                 <p>
                     {{ menu_item.description }}
@@ -27,7 +27,7 @@
             <!--End col-->
             <!--Begin col-->
             <div class="column">
-                <img src="/restaurant/static/img/menu_items/{{menu_item.name}}.jpg" alt="{{ menu_item.name}}" />
+                <img src="/restaurant/static/img/menu_items/{{menu_item.title}}.jpg" alt="{{ menu_item.title}}" />
                 
             </div>
             <!--End col-->
