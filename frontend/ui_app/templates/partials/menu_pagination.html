@@ -1,0 +1,13 @@
+{% load static %}
+<div id="menu-items-content">
+    {% for item in items %}
+        <div class="menu-item">
+            <a href="#">{{ item.title }}</a>
+            <span class="menu-price">$ {{ item.price }}</span>
+        </div>
+    {% endfor %}
+</div>
+
+{% if next_page %}
+    <button id="load-more" data-next-page="{{ next_page }}">Next</button>
+{% endif %}
