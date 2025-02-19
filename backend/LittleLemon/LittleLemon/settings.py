@@ -1,21 +1,9 @@
 from pathlib import Path
-#from decouple import config
 from datetime import timedelta
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = 'django-insecure-mu&li2hw%0-djn@wehmb7oa13trib-&_x&pyo)b1)s75$h#_a&'
 DEBUG = False
-'''INSTALLED_APPS += ['corsheaders']
-
-MIDDLEWARE = [
-    'corsheaders.middleware.CorsMiddleware',
-    'django.middleware.common.CommonMiddleware',
-]
-
-CORS_ALLOWED_ORIGINS = [
-    "https://seu-dominio-frontend.com",
-]
-'''
 
 ALLOWED_HOSTS = ['*']
 INSTALLED_APPS = [
@@ -27,8 +15,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'LittleLemonAPI',
     'rest_framework',
-    'rest_framework.authtoken',
     'djoser',
+    'rest_framework_simplejwt',
     'django_filters',
     'storages',
 
@@ -117,8 +105,7 @@ REST_FRAMEWORK = {
         'rest_framework.permissions.IsAuthenticated',
     ],
     'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework.authentication.TokenAuthentication',
-        'rest_framework.authentication.SessionAuthentication',
+        #'rest_framework.authentication.SessionAuthentication',
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ),
     'DEFAULT_FILTER_BACKENDS': [
@@ -139,11 +126,13 @@ REST_FRAMEWORK = {
     },
 }
 
+
 DJOSER = {
-    "USER_ID_FIELD":"username",
+    'USER_ID_FIELD': 'username',
     'USER_CREATE_PASSWORD_RETYPE': True,
     'PASSWORD_RESET_CONFIRM_URL': '#/password/reset/confirm/{uid}/{token}',
     'USER_AGENT': True,
+    'TOKEN_MODEL': None,
 }
 
 SIMPLE_JWT = {
