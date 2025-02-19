@@ -1,0 +1,108 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="auth-container">
+    <!-- Login Section -->
+    <div class="auth-column">
+        <h2>Login</h2>
+        <form id="login-form">
+            {% csrf_token %}
+            <label for="login-username">Username:</label>
+            <input type="text" id="login-username" name="username" required />
+
+            <label for="login-password">Password:</label>
+            <input type="password" id="login-password" name="password" required />
+
+            <button type="submit">Login</button>
+        </form>
+    </div>
+
+    <!-- Sign Up Section -->
+    <div class="auth-column">
+        <h2>Sign Up</h2>
+        <form id="signup-form">
+            {% csrf_token %}
+            <label for="signup-username">Username:</label>
+            <input type="text" id="signup-username" name="username" required />
+
+            <label for="signup-email">Email:</label>
+            <input type="email" id="signup-email" name="email" required />
+
+            <label for="signup-password">Password:</label>
+            <input type="password" id="signup-password" name="password" required />
+
+            <button type="submit">Sign Up</button>
+        </form>
+    </div>
+</div>
+
+<script>
+    // Função para login
+    document.getElementById('login-form').addEventListener('submit', async function(event) {
+        event.preventDefault();  // Impede o envio tradicional do formulário
+
+        const username = document.getElementById('login-username').value;
+        const password = document.getElementById('login-password').value;
+
+        const apiUrl = "https://xy3r212g98.execute-api.us-east-1.amazonaws.com/dev/auth/jwt/create/";
+
+        try {
+            const response = await fetch(apiUrl, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ username, password })
+            });
+
+            if (response.ok) {
+                const data = await response.json();
+                const token = data.access; // Token de acesso retornado pela API
+
+                // Armazenar o token no localStorage ou cookies
+                localStorage.setItem('access_token', token);
+                alert('Login successful!');
+                window.location.href = "/home";  // Redirecionar para a página inicial
+            } else {
+                const errorData = await response.json();
+                alert('Error: ' + errorData.detail || 'Invalid credentials');
+            }
+        } catch (error) {
+            console.error('Error during login:', error);
+        }
+    });
+
+    // Função para signup
+    document.getElementById('signup-form').addEventListener('submit', async function(event) {
+        event.preventDefault();  // Impede o envio tradicional do formulário
+
+        const username = document.getElementById('signup-username').value;
+        const email = document.getElementById('signup-email').value;
+        const password = document.getElementById('signup-password').value;
+
+        const apiUrl = "https://xy3r212g98.execute-api.us-east-1.amazonaws.com/dev/auth/users/";
+
+        try {
+            const response = await fetch(apiUrl, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ username, email, password })
+            });
+
+            if (response.ok) {
+                alert('Account created successfully! You can now log in.');
+                window.location.href = "/home";  // Redirecionar para a página inicial
+            } else {
+                const errorData = await response.json();
+                alert('Error: ' + errorData.detail || 'Something went wrong.');
+            }
+        } catch (error) {
+            console.error('Error during signup:', error);
+        }
+    });
+</script>
+
+{% endblock %}
