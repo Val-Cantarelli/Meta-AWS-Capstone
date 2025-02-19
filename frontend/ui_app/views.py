@@ -1,7 +1,10 @@
 import requests
 import logging
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from urllib.parse import urlparse, parse_qs
+from django.contrib import messages
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth import authenticate, login, logout
 
 
 def home(request):
@@ -13,17 +16,13 @@ def about(request):
 def book(request):
     return render(request, 'book.html')
 
-def login(request):
-    # render another page(signUp) if the customer is not registered
-    return render(request, 'login.html')
-
 def menu(request):
     page = request.GET.get('page', 1)
     base_api_url = "https://xy3r212g98.execute-api.us-east-1.amazonaws.com/dev/api/menu-items"
     api_url = f"{base_api_url}?page={page}"
     
-    token = "edcbb7e26d742ea692704781d5889497fbf744ad"
-    headers = {'Authorization': f'Token {token}'}
+    token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM5MzE2MTU1LCJpYXQiOjE3MzkzMTI1NTUsImp0aSI6ImFhZmJiYWU4ODBiNDQ5M2U5Y2VmNzdmNGVlMDY1MWIxIiwidXNlcl9pZCI6NH0.sBmN7vuFcVOCxoqlS21Zt7ggliWeRYFKEada81HVXm0"
+    headers = {'Authorization': f'Bearer {token}'}
     
     response = requests.get(api_url, headers=headers)
     data = response.json()
@@ -55,7 +54,10 @@ def menu(request):
     print("Page: ",response.url)
     logging.info("Status Code: %s", response.status_code)
     logging.info("Resposta da API: %s", response.text)
-
+    if response.status_code == 401:
+        print("Session expired!")
+        return redirect('auth_page')
+         
     
     if response.status_code == 200:
         try:
@@ -73,3 +75,67 @@ def menu(request):
     else:
         return render(request, 'menu.html', context)
         
+
+def auth_page(request):
+    if request.method == 'POST':
+        if 'username' in request.POST and 'password' in request.POST and 'email' not in request.POST:
+            return custom_login(request)
+        elif 'username' in request.POST and 'email' in request.POST:
+            return custom_signup(request)
+    
+    return render(request, 'login_signup.html')
+
+def custom_login(request):
+    
+    username = request.POST['username']
+    password = request.POST['password']
+    
+    api_url = "https://xy3r212g98.execute-api.us-east-1.amazonaws.com/dev/auth/jwt/create/"
+    response = requests.post(api_url, json={'username': username, 'password': password})
+    
+    if response.status_code == 200:
+        
+        tokens = response.json()
+        access_token = tokens.get('access')  
+        refresh_token = tokens.get('refresh')  
+        
+        request.session['access'] = access_token
+        request.session['refresh'] = refresh_token
+        
+        messages.success(request, 'Login successful!')
+        return redirect('home')
+    else:
+        messages.error(request, 'Invalid username or password.')
+        return render(request, 'login_signup.html')
+
+def custom_signup(request):
+    if request.method == 'POST':
+        username = request.POST['username']
+        email = request.POST['email'] 
+        password = request.POST['password']
+
+        # Faz a requisição para o endpoint de signup do Djoser
+        api_url = "https://xy3r212g98.execute-api.us-east-1.amazonaws.com/dev/auth/users/"
+        response = requests.post(api_url, json={
+            'username': username,
+            'email': email,
+            'password': password
+        })
+
+        if response.status_code == 201:
+            messages.success(request, 'Account created successfully! You can now log in.')
+            return redirect('login_signup')
+        else:
+            messages.error(request, 'Error during signup. Please try again.')
+            return render(request, 'login_signup.html')
+
+    return render(request, 'login_signup.html')
+
+'''
+Resumo de como ficará a arquitetura de endpoints:
+Cadastro de usuário: POST https://xy3r212g98.execute-api.us-east-1.amazonaws.com/dev/auth/users/
+Login e JWT: POST https://xy3r212g98.execute-api.us-east-1.amazonaws.com/dev/auth/jwt/create/
+Renovação de token: POST https://xy3r212g98.execute-api.us-east-1.amazonaws.com/dev/auth/jwt/refresh/
+
+
+'''

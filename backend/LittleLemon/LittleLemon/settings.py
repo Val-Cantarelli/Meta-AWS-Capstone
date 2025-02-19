@@ -145,3 +145,10 @@ SIMPLE_JWT = {
 AWS_STORAGE_BUCKET_NAME = 'zappa-ql19nrdtr'
 STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+
+
+# dev and prod envs
+try:
+    from .settings_local import *
+except ImportError:
+    pass  
