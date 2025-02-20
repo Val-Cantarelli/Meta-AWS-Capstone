@@ -1,4 +1,4 @@
-
+'''
 
 from pathlib import Path
 
@@ -42,7 +42,7 @@ MIDDLEWARE = [
     
 ]
 
-ROOT_URLCONF = 'frontend.urls'
+ROOT_URLCONF = 'core.urls'
 
 TEMPLATES = [
     {
@@ -60,7 +60,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'frontend.wsgi.application'
+WSGI_APPLICATION = 'core.wsgi.application'
 
 
 # Database
@@ -116,10 +116,14 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
-
-'''STATIC_URL = 'https://<cloudfront-url>/static/'
+# Ver depois onde colocar
+STATIC_URL = 'https://<cloudfront-url>/static/'
 STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 
 AWS_STORAGE_BUCKET_NAME = '<s3-bucket-name>'
 AWS_S3_CUSTOM_DOMAIN = '<cloudfront-url>'
 '''
+
+
+#=======================================================
+
