@@ -1,11 +1,15 @@
 from pathlib import Path
 from datetime import timedelta
-BASE_DIR = Path(__file__).resolve().parent.parent
+import os
+
+BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
 SECRET_KEY = 'django-insecure-mu&li2hw%0-djn@wehmb7oa13trib-&_x&pyo)b1)s75$h#_a&'
-DEBUG = False
 
-ALLOWED_HOSTS = ['*']
+DEBUG = False 
+
+ALLOWED_HOSTS = []
+
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -19,7 +23,6 @@ INSTALLED_APPS = [
     'rest_framework_simplejwt',
     'django_filters',
     'storages',
-
 ]
 
 MIDDLEWARE = [
@@ -52,42 +55,18 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'LittleLemon.wsgi.application'
 
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'mysqlRDS_littlelemon',
-        'USER': 'admin',
-        'PASSWORD': 'aIj5se6Pijrj22iqJEua',
-        'HOST': 'database-1.cncggq6wib9a.us-east-1.rds.amazonaws.com',
-        'PORT': '3306',
-        'OPTIONS': {
-            'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
-        },
-    }
-}
 AUTH_PASSWORD_VALIDATORS = [
-    {
-        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
-    },
+    {'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator'},
+    {'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator'},
+    {'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator'},
+    {'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator'},
 ]
 
 LANGUAGE_CODE = 'en-us'
-
 TIME_ZONE = 'UTC'
-
 USE_I18N = True
-
 USE_TZ = True
+
 STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
@@ -101,13 +80,8 @@ REST_FRAMEWORK = {
         'rest_framework_csv.renderers.CSVRenderer',
         'rest_framework_yaml.renderers.YAMLRenderer',
     ],
-    'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.IsAuthenticated',
-    ],
-    'DEFAULT_AUTHENTICATION_CLASSES': (
-        #'rest_framework.authentication.SessionAuthentication',
-        'rest_framework_simplejwt.authentication.JWTAuthentication',
-    ),
+    'DEFAULT_PERMISSION_CLASSES': ['rest_framework.permissions.IsAuthenticated'],
+    'DEFAULT_AUTHENTICATION_CLASSES': ('rest_framework_simplejwt.authentication.JWTAuthentication',),
     'DEFAULT_FILTER_BACKENDS': [
         'django_filters.rest_framework.DjangoFilterBackend',
         'rest_framework.filters.OrderingFilter',
@@ -115,7 +89,6 @@ REST_FRAMEWORK = {
     ],
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
     'PAGE_SIZE': 3,
-    
     'DEFAULT_THROTTLE_CLASSES': [
         'rest_framework.throttling.AnonRateThrottle',
         'rest_framework.throttling.UserRateThrottle'
@@ -125,7 +98,6 @@ REST_FRAMEWORK = {
         'user': '10/minute'
     },
 }
-
 
 DJOSER = {
     'USER_ID_FIELD': 'username',
@@ -141,14 +113,3 @@ SIMPLE_JWT = {
     'ROTATE_REFRESH_TOKENS': False,
     'BLACKLIST_AFTER_ROTATION': True,
 }
-
-AWS_STORAGE_BUCKET_NAME = 'zappa-ql19nrdtr'
-STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
-DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
-
-
-# dev and prod envs
-try:
-    from .settings_local import *
-except ImportError:
-    pass  

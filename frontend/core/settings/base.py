@@ -51,7 +51,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'core.wsgi.application'
 
-DATABASES = {}  # Cada ambiente define seu banco de dados
+DATABASES = {}  
 
 LANGUAGE_CODE = 'en-us'
 TIME_ZONE = 'UTC'

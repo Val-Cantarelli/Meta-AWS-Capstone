@@ -2,7 +2,7 @@ import requests
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.conf import settings
-from ui_app.api.auth_utils import login_user  # 🔥 Importa do `auth_utils.py`
+from ui_app.api.auth_utils import login_user 
 
 def auth_page(request):
     if request.method == 'POST':

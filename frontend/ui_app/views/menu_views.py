@@ -8,7 +8,7 @@ def menu(request):
     page = request.GET.get('page', 1)
     api_url = f"{settings.API_BASE_URL}/api/menu-items?page={page}"
     
-    token = request.session.get('access')  # 🔥 Usa token da sessão
+    token = request.session.get('access') 
     headers = {'Authorization': f'Bearer {token}'} if token else {}
 
     response = requests.get(api_url, headers=headers)
