@@ -6,7 +6,6 @@ comands.txt
 db.sqlite3
 
 
-
 # Bytecode and temporary folders
 __pycache__/
 *.pyc
