@@ -18,10 +18,11 @@ __pycache__/
 frontend/comands.txt
 frontend/manager.py
 frontend/core/settings.py
-static/
-media/
+frontend/ui_app/static/
+frontend/ui_app/migrations/
 frontend/tokens.json
 frontend/ui_app/views.txt
+frontend/ui_app/api/api_client.py
 
 *.env  
 *.pem   
