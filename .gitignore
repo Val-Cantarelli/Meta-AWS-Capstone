@@ -3,6 +3,9 @@
 __pycache__/
 *.log
 *.sqlite3
+.vscode/
+*.pot
+*.pyo
 
 # Backend
 /backend/env/
@@ -12,8 +15,17 @@ __pycache__/
 
 
 # Frontend
+frontend/comands.txt
+frontend/manager.py
+frontend/comands.txt
+frontend/core/settings.py
+static/
+media/
+frontend/tokens.json
 
-
+*.env  
+*.pem   
+*.key        
 
 # DevOps
 
