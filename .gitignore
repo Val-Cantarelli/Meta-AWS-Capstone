@@ -17,7 +17,6 @@ __pycache__/
 # Frontend
 frontend/comands.txt
 frontend/manager.py
-frontend/comands.txt
 frontend/core/settings.py
 static/
 media/
