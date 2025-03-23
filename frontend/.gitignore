@@ -1,0 +1,19 @@
+# Idea
+.vscode/
+comands.txt
+
+# Database 
+db.sqlite3
+
+
+
+# Bytecode and temporary folders
+__pycache__/
+*.pyc
+*.pyo
+
+# Security
+tokens.json
+*.env        # Arquivos de variáveis de ambiente, como .env
+*.pem        # Certificados privados
+*.key        # Chaves privadas
