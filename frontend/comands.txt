@@ -1,3 +1,0 @@
-export DJANGO_ENV=local python manage.py runserver
-
-python manage.py runserver --settings=core.settings.local 127.0.0.1:8000
