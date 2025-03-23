@@ -2,7 +2,7 @@ import requests
 from django.conf import settings
 
 def login_user(request, username, password):
-    """Autentica o usuário e armazena os tokens."""
+    """User login and store the tokens."""
     api_url = f"{settings.API_BASE_URL}/auth/jwt/create/"
     response = requests.post(api_url, json={'username': username, 'password': password})
 
@@ -14,7 +14,7 @@ def login_user(request, username, password):
     return False
 
 def refresh_access_token(request):
-    """Tenta renovar o token de acesso usando o refresh token."""
+    """Get the access token using the refresh token"""
     refresh_token = request.session.get('refresh')
     if not refresh_token:
         return None
