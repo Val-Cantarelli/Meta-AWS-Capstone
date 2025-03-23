@@ -21,6 +21,7 @@ frontend/core/settings.py
 static/
 media/
 frontend/tokens.json
+frontend/ui_app/views.txt
 
 *.env  
 *.pem   
