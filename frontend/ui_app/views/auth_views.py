@@ -17,10 +17,22 @@ def custom_login(request):
     username = request.POST['username']
     password = request.POST['password']
 
-    if login_user(request, username, password):
+    api_url = f"{settings.API_BASE_URL}/auth/jwt/create/"
+    response = requests.post(api_url, json={"username": username, "password": password})
+
+    if response.status_code == 200:
+        data = response.json()
+        access_token = data.get("access")
+
+        request.session["access"] = access_token
+        request.session["refresh"] = data.get("refresh")
+        
+
         messages.success(request, 'Login successful!')
-        return redirect('home')
+        return redirect('menu') 
+
     else:
+        print("Login error:", response.status_code, response.text)
         messages.error(request, 'Invalid username or password.')
         return render(request, 'login_signup.html')
 
@@ -29,15 +41,42 @@ def custom_signup(request):
         username = request.POST['username']
         email = request.POST['email'] 
         password = request.POST['password']
-
-        api_url = f"{settings.API_BASE_URL}/auth/users/"
-        response = requests.post(api_url, json={'username': username, 'email': email, 'password': password})
-
-        if response.status_code == 201:
-            messages.success(request, 'Account created successfully! You can now log in.')
-            return redirect('login_signup')
-        else:
-            messages.error(request, 'Error during signup. Please try again.')
+        re_password = request.POST['re_password']
+        
+        if password != re_password:
+            messages.error(request, 'Passwords do not match.')
             return render(request, 'login_signup.html')
 
+        api_url = f"{settings.API_BASE_URL}/auth/users/"
+        response = requests.post(api_url, json={
+            'username': username, 
+            'email': email, 
+            'password': password,
+            're_password': re_password,
+        })
+
+        if response.status_code == 201:
+            # login automático (tá certo)
+            login_response = requests.post(
+                f"{settings.API_BASE_URL}/auth/jwt/create/",
+                json={'username': username, 'password': password}
+            )
+
+            if login_response.status_code == 200:
+                data = login_response.json()
+                request.session["access"] = data.get("access")
+                request.session["refresh"] = data.get("refresh")
+                request.session["username"] = username
+
+                messages.success(request, 'Account created and logged in successfully!')
+                return redirect('menu')
+            else:
+                messages.success(request, 'Account created, but automatic login failed.')
+                return redirect('auth_page')
+
+        else:
+            print("Erro no signup:", response.status_code, response.text)
+            messages.error(request, 'Error during signup. Please try again.')
+            return render(request, 'login_signup.html')
+    
     return render(request, 'login_signup.html')
