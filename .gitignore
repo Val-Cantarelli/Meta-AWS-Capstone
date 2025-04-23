@@ -16,13 +16,15 @@ __pycache__/
 
 # Frontend
 frontend/comands.txt
-frontend/manager.py
-frontend/core/settings.py
-frontend/ui_app/static/
+
+!frontend/ui_app/static/
+!frontend/ui_app/static/**/*
 frontend/ui_app/migrations/
 frontend/tokens.json
 frontend/ui_app/views.txt
 frontend/ui_app/api/api_client.py
+frontend/.env
+frontend/staticfiles
 
 *.env  
 *.pem   
