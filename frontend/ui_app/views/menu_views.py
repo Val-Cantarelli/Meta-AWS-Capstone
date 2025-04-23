@@ -1,3 +1,4 @@
+from pyexpat.errors import messages
 import requests
 import logging
 from django.shortcuts import render, redirect
@@ -14,7 +15,8 @@ def menu(request):
     response = requests.get(api_url, headers=headers)
     
     if response.status_code == 401:
-        print("Session expired!")
+        request.session.flush()  
+        messages.warning(request, 'Session expired.')
         return redirect('auth_page')
 
     data = response.json()
@@ -37,5 +39,12 @@ def menu(request):
         'next_page': next_page,
         'previous_page': previous_page,
     }
+    
+    print("Itens recebidos:", items)
+    print("Erro ao buscar itens do menu:", response.status_code, response.text)
+    print("Token da sessão:", token)
+
+
+
 
     return render(request, 'menu.html', context)

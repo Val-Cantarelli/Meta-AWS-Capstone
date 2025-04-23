@@ -8,6 +8,12 @@
     {% endfor %}
 </div>
 
-{% if next_page %}
-    <button id="load-more" data-next-page="{{ next_page }}">Next</button>
-{% endif %}
+<div class="pagination">
+    {% if previous_page %}
+        <a href="?page={{ previous_page }}" class="btn">Previous</a>
+    {% endif %}
+
+    {% if next_page %}
+        <a href="?page={{ next_page }}" class="btn">Next</a>
+    {% endif %}
+</div>

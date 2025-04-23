@@ -1,6 +1,6 @@
-import os
+from decouple import config
 
-ENV = os.getenv("DJANGO_ENV", "local")
+ENV = config("DJANGO_ENV", default="local")
 
 if ENV == "production":
     from .production import *

@@ -1,15 +1,17 @@
 import os
 from pathlib import Path
+from decouple import config
 
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
-SECRET_KEY = 'django-insecure-4ro_2uyleg!fpbhwm63hi#nu9_th3emt-nr84@h@@0e)@whr=&'
-API_BASE_URL = os.getenv("API_BASE_URL", "http://127.0.0.1:8001")
+ALLOWED_HOSTS = ["127.0.0.1", "localhost"]
+SECRET_KEY = config("SECRET_KEY", default="unsafe-default-key") 
+API_BASE_URL = config("API_BASE_URL", default="https://xy3r212g98.execute-api.us-east-1.amazonaws.com/dev")
 
+STATIC_URL = '/static/'
 
 DEBUG = False 
 
-ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -36,7 +38,7 @@ ROOT_URLCONF = 'core.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS':[],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -51,13 +53,18 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'core.wsgi.application'
 
-DATABASES = {}  
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.dummy'
+    }
+}
+
+SESSION_ENGINE = "django.contrib.sessions.backends.signed_cookies"
 
 LANGUAGE_CODE = 'en-us'
 TIME_ZONE = 'UTC'
 USE_I18N = True
 USE_TZ = True
 
-STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
