@@ -21,13 +21,14 @@ def custom_login(request):
     response = requests.post(api_url, json={"username": username, "password": password})
 
     if response.status_code == 200:
-        data = response.json()
-        access_token = data.get("access")
-
-        request.session["access"] = access_token
-        request.session["refresh"] = data.get("refresh")
+        data = response.json()        
         
-
+        request.session["username"] = username
+        request.session["access"] = data.get("access")
+        request.session["refresh"] = data.get("refresh")
+        request.session.modified = True
+        print("Token salvo:", request.session.get("access"))
+        
         messages.success(request, 'Login successful!')
         return redirect('menu') 
 
@@ -48,15 +49,18 @@ def custom_signup(request):
             return render(request, 'login_signup.html')
 
         api_url = f"{settings.API_BASE_URL}/auth/users/"
+        headers = {
+            "Content-Type": "application/json",
+            "Host": "xy3r212g98.execute-api.us-east-1.amazonaws.com"
+        }
         response = requests.post(api_url, json={
             'username': username, 
             'email': email, 
             'password': password,
             're_password': re_password,
-        })
+        },headers=headers)
 
         if response.status_code == 201:
-            # login automático (tá certo)
             login_response = requests.post(
                 f"{settings.API_BASE_URL}/auth/jwt/create/",
                 json={'username': username, 'password': password}
