@@ -5,6 +5,8 @@ from django.shortcuts import render
 def home(request):
     print("STATICFILES_DIRS:", settings.STATICFILES_DIRS)
     print("STATIC_URL:", settings.STATIC_URL)
+    print("SECRET_KEY:", os.getenv("SECRET_KEY"))
+
     
     return render(request, 'index.html')
 
@@ -13,3 +15,7 @@ def about(request):
 
 def book(request):
     return render(request, 'book.html')
+
+
+
+
