@@ -1,0 +1,15 @@
+[tool.poetry]
+name = "littlelemon-documentation"
+version = "0.1.0"
+description = "Documentation of the Project Little Lemon Restaurant"
+authors = ["Valdielen Casarin <valcantarellic@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+diagrams = "^0.24.4"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
