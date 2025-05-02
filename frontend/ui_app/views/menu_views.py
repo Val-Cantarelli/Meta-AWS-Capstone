@@ -11,7 +11,11 @@ def menu(request):
     api_url = f"{settings.API_BASE_URL}/api/menu-items?page={page}"
     
     token = request.session.get('access') 
-    headers = {'Authorization': f'Bearer {token}'} if token else {}
+    if not token:
+        messages.warning(request, 'Você precisa estar logado.')
+        return redirect('auth_page')
+
+    headers = {'Authorization': f'Bearer {token}'}
 
     response = requests.get(api_url, headers=headers)
     

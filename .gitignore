@@ -1,32 +1,42 @@
-# General
+# Python
 *.pyc
+*.pyo
 __pycache__/
 *.log
 *.sqlite3
-.vscode/
 *.pot
-*.pyo
+*.egg-info
+.pytest_cache
+*.swp
+
+# IDEs and Editor folders
+.vscode/
+
+# Env and Secrets
+*.env
+*.pem
+*.key
+
+# Virtual Environments
+.venv/
+backend/.venv/
+frontend/.env/
 
 # Backend
-/backend/env/
-/backend/.venv/
-/backend/.env
-/backend/migrations/__pycache__/
-
+backend/db.sqlite3
+backend/media/
+backend/staticfiles/
+backend/backup.sql
+**/settings/local.py
 
 # Frontend
-frontend/comands.txt
-frontend/manager.py
-frontend/core/settings.py
-frontend/ui_app/static/
-frontend/ui_app/migrations/
+frontend/**/migrations/
+frontend/**/static/
 frontend/tokens.json
-frontend/ui_app/views.txt
-frontend/ui_app/api/api_client.py
+frontend/**/*.txt
+frontend/**/*.json
 
-*.env  
-*.pem   
-*.key        
-
-# DevOps
-
+# CDK / DevOps
+.cdk.staging
+cdk.out
+.env.deploy
