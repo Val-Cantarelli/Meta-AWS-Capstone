@@ -1,25 +1,28 @@
 from .base import *
+#from decouple import config
 
 DEBUG = False
-ALLOWED_HOSTS = ['*']
-
-DATABASES = {
+ALLOWED_HOSTS = [
+    '9llvug30gg.execute-api.us-east-1.amazonaws.com'
+]
+'''DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'mysqlRDS_littlelemon',
-        'USER': 'admin',
-        'PASSWORD': 'aIj5se6Pijrj22iqJEua',
-        'HOST': 'database-1.cncggq6wib9a.us-east-1.rds.amazonaws.com',
-        'PORT': '3306',
+        'NAME': config('DB_NAME'),
+        'USER': config('DB_USER'),
+        'PASSWORD': config('DB_PASSWORD'),
+        'HOST': config('DB_HOST'),
+        'PORT': config('DB_PORT'),
         'OPTIONS': {
             'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
         },
     }
 }
+'''
 
-AWS_STORAGE_BUCKET_NAME = 'zappa-ql19nrdtr'
-STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
-DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+#AWS_STORAGE_BUCKET_NAME = ('bucketname on aws')
+#STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+#DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 
 CSRF_COOKIE_SECURE = True
 SESSION_COOKIE_SECURE = True

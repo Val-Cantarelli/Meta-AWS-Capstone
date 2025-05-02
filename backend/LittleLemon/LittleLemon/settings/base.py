@@ -1,10 +1,11 @@
 from pathlib import Path
 from datetime import timedelta
 import os
+from decouple import config
 
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
-SECRET_KEY = 'django-insecure-mu&li2hw%0-djn@wehmb7oa13trib-&_x&pyo)b1)s75$h#_a&'
+SECRET_KEY = config('SECRET_KEY')
 
 DEBUG = False 
 
@@ -17,7 +18,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'LittleLemonAPI',
+    'LittleLemon.LittleLemonAPI',
     'rest_framework',
     'djoser',
     'rest_framework_simplejwt',
@@ -35,7 +36,8 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'LittleLemon.urls'
+ROOT_URLCONF = 'LittleLemon.LittleLemon.urls'
+
 
 TEMPLATES = [
     {
@@ -53,7 +55,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'LittleLemon.wsgi.application'
+WSGI_APPLICATION = 'LittleLemon.LittleLemon.wsgi.application'
 
 AUTH_PASSWORD_VALIDATORS = [
     {'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator'},
@@ -101,6 +103,7 @@ REST_FRAMEWORK = {
 
 DJOSER = {
     'USER_ID_FIELD': 'username',
+    'LOGIN_FIELD': 'username',
     'USER_CREATE_PASSWORD_RETYPE': True,
     'PASSWORD_RESET_CONFIRM_URL': '#/password/reset/confirm/{uid}/{token}',
     'USER_AGENT': True,

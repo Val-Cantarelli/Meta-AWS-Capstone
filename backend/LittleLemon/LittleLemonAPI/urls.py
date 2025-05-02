@@ -1,5 +1,5 @@
 from rest_framework.urls import path
-from .views import MenuItemsViewSet, CategoryViewSet, ManagerViewSet, CartViewSet,OrdersViewSet
+from .views import MenuItemsViewSet, CategoryViewSet, ManagerViewSet, CartViewSet,OrdersViewSet, debug_headers
 from rest_framework.routers import DefaultRouter
 
 
@@ -15,6 +15,7 @@ urlpatterns = [
     path('groups/<str:group_name>/users/<int:user_id>/', ManagerViewSet.as_view({'delete': 'destroy'}), name='group-user-detail'),
     path('cart/menu-items/', CartViewSet.as_view({'get': 'list', 'post': 'create', 'delete': 'destroy'}), name='cart-menu-items'),
     path('cart/orders/', OrdersViewSet.as_view({'get': 'list', 'post': 'create', 'delete': 'destroy'}), name='cart-orders'),
+    path("debug-headers/", debug_headers),
 ]
 
 urlpatterns += router.urls
