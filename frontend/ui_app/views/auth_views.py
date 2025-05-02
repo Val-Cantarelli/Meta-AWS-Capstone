@@ -21,21 +21,33 @@ def custom_login(request):
     response = requests.post(api_url, json={"username": username, "password": password})
 
     if response.status_code == 200:
-        data = response.json()        
-        
-        request.session["username"] = username
-        request.session["access"] = data.get("access")
-        request.session["refresh"] = data.get("refresh")
-        request.session.modified = True
-        print("Token salvo:", request.session.get("access"))
-        
-        messages.success(request, 'Login successful!')
-        return redirect('menu') 
+        data = response.json()
+        access = data.get("access")
+        refresh = data.get("refresh")
+
+        user_response = requests.get(
+            f"{settings.API_BASE_URL}/auth/users/me/",
+            headers={"Authorization": f"Bearer {access}"}
+        )
+
+        if user_response.status_code == 200:
+            user_data = user_response.json()
+            request.session["access"] = access
+            request.session["refresh"] = refresh
+            request.session["username"] = user_data["username"]
+            request.session["user_id"] = user_data["id"]
+
+            messages.success(request, 'Login successful!')
+            return redirect('menu')
+        else:
+            messages.error(request, 'Erro ao recuperar perfil do usuário.')
+            return render(request, 'login_signup.html')
 
     else:
         print("Login error:", response.status_code, response.text)
         messages.error(request, 'Invalid username or password.')
         return render(request, 'login_signup.html')
+
 
 def custom_signup(request):
     if request.method == 'POST':
