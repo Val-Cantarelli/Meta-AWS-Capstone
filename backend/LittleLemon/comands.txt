@@ -1,3 +1,0 @@
-python manage.py migrate --settings=LittleLemon.settings.local
-
-python manage.py runserver --settings=LittleLemon.settings.local 127.0.0.1:8001

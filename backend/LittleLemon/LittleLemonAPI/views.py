@@ -16,8 +16,16 @@ from rest_framework.filters import OrderingFilter
 
 from django.http import JsonResponse
 
+
+
 def health_check(request):
     return JsonResponse({"status": "ok"}, status=200)
+
+def debug_headers(request):
+    return JsonResponse(dict(request.headers))
+
+
+
 
 class IsDeliveryCrew(BasePermission):
         def has_permission(self, request, view):
