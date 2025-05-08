@@ -17,5 +17,19 @@ class IamRoles:
         lambda_role.add_managed_policy(
             iam.ManagedPolicy.from_aws_managed_policy_name("AmazonRDSFullAccess")
         )
+        # SSM to secret_key Django
+        lambda_role.add_to_policy(
+            iam.PolicyStatement(
+            actions=["ssm:GetParameter"],
+            resources=["arn:aws:ssm:us-east-1:557690602441:parameter/littlelemon/django/SECRET_KEY"]
+            )
+        )
+        # Secret Manager to db credential
+        lambda_role.add_to_policy(
+            iam.PolicyStatement(
+                actions=["secretsmanager:GetSecretValue"],
+                resources=["arn:aws:secretsmanager:us-east-1:557690602441:secret:credentialsRDSprod-*"]
+            )
+        )
 
         return lambda_role
