@@ -12,12 +12,8 @@ from aws_cdk import (
 from aws_cdk.aws_lambda_python_alpha import PythonFunction
 from aws_cdk.aws_lambda import Runtime
 from constructs import Construct
-from decouple import Config, RepositoryEnv
 
 from lib.iam_roles.iam_roles import IamRoles
-
-# load the var from .env.deploy(CDK)
-config = Config(RepositoryEnv(".env.deploy"))
 
 # path to lambda_function ans requirements.txt
 lambda_code_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '../../backend'))
@@ -26,7 +22,8 @@ class ComputeStack(Stack):
 
     def __init__(self, scope: Construct, construct_id: str, **kwargs) -> None:
         super().__init__(scope, construct_id, **kwargs)
-        SECRET_KEY = config("SECRET_KEY")
+        assert os.path.exists(os.path.join(lambda_code_path, "lambda_function.py")), "lambda_function.py não encontrado"
+
 
         # IAM Role to Lambda
         lambda_role = IamRoles.create_lambda_execution_role(self)
@@ -42,7 +39,11 @@ class ComputeStack(Stack):
             timeout=Duration.seconds(60),
             environment={
                 "DJANGO_ENV": "production",
-                "SECRET_KEY":config("SECRET_KEY"),
+                "DJANGO_SECRET_PARAM": "/littlelemon/django/SECRET_KEY",
+                "DB_SECRET_NAME": "credentialsRDSprod",
+                "DB_NAME": "mysqlRDS_littlelemon",
+                "DB_HOST": "database-1.cncggq6wib9a.us-east-1.rds.amazonaws.com",
+                "DB_PORT": "3306",
             },
             role=lambda_role,
             bundling={
