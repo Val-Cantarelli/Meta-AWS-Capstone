@@ -1,6 +1,7 @@
 # iam_roles.py
 from aws_cdk import aws_iam as iam
-from aws_cdk import Stack  # Usando App e Stack do CDK v2
+from aws_cdk import Stack  
+
 
 class IamRoles:
     
@@ -31,5 +32,46 @@ class IamRoles:
                 resources=["arn:aws:secretsmanager:us-east-1:557690602441:secret:credentialsRDSprod-*"]
             )
         )
+        # 
+        lambda_role.add_to_policy(
+            iam.PolicyStatement(
+                actions=[
+                "ec2:CreateNetworkInterface",
+                "ec2:DescribeNetworkInterfaces",
+                "ec2:DeleteNetworkInterface"
+            ],
+            resources=["*"]  
+            )
+        )
 
         return lambda_role
+    
+    
+    @staticmethod
+    def create_rds_proxy_role(scope: Stack) -> iam.Role:
+        proxy_role=iam.Role(
+            scope,"RDSProxyRole",
+            assumed_by=iam.ServicePrincipal("rds.amazonaws.com"),
+            description="Custom Role for RDS Proxy Access",
+        )
+        
+        proxy_role.add_to_policy(
+            iam.PolicyStatement(
+                actions=[
+                    "secretsmanager:GetSecretValue",
+                    "secretsmanager:DescribeSecret",
+                    "secretsmanager:ListSecrets",
+                    "rds-db:connect"
+                ],
+                resources=[
+                    "arn:aws:secretsmanager:us-east-1:557690602441:secret:credentialsRDSprod-icEXUK",
+                    "arn:aws:rds:us-east-1:557690602441:db:database-1"
+                ]
+            )
+        )
+        
+        return proxy_role
+    
+    
+    
+    
