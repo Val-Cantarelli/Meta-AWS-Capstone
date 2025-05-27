@@ -25,9 +25,6 @@ secrets = get_db_credentials()
 # Endpoint do RDS Proxy obtido via CDK 
 rds_proxy_endpoint = os.environ.get("RDS_PROXY_ENDPOINT", "databasestacklittlelemonrdsproxy33e1b918.proxy-cncggq6wib9a.us-east-1.rds.amazonaws.com")
 
-
-#'HOST': os.environ["DB_HOST"],
-
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
@@ -41,7 +38,7 @@ DATABASES = {
         },
     }
 }
-required_env_vars = ["DB_NAME", "DB_HOST", "DB_SECRET_NAME", "DJANGO_SECRET_PARAM"]
+required_env_vars = ["DB_NAME", "RDS_PROXY_ENDPOINT", "DB_SECRET_NAME", "DJANGO_SECRET_PARAM"]
 for var in required_env_vars:
     if not os.environ.get(var):
         raise RuntimeError(f"Missing required environment variable: {var}")
