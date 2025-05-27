@@ -16,8 +16,9 @@ class DatabaseStack(Stack):
 
         my_vpc = ec2.Vpc.from_lookup(self, "MyVPC", vpc_id="vpc-076af69e3bd55b0ee")
         
-        private_subnet_1 = ec2.Subnet.from_subnet_id(self, "PrivateSubnet200", "subnet-00c55983c320de3b1")
-        private_subnet_2 = ec2.Subnet.from_subnet_id(self, "PrivateSubnet201", "subnet-085c0350455dfef4f")
+        
+        private_subnet_1 = ec2.Subnet.from_subnet_id(self, "DatabaseSubnet200", "subnet-00c55983c320de3b1")
+        private_subnet_2 = ec2.Subnet.from_subnet_id(self, "DatabaseSubnet201", "subnet-085c0350455dfef4f")
 
 
         db_secret = secretsmanager.Secret.from_secret_name_v2(
@@ -35,11 +36,8 @@ class DatabaseStack(Stack):
                 ec2.SecurityGroup.from_security_group_id(self, "SG2", "sg-040aebaff168e3f85")
             ]
         )
-
     
         proxy_role = IamRoles.create_rds_proxy_role(self)
-
-
         # RDS Proxy
         self.rds_proxy = rds.DatabaseProxy(
             self, "LittleLemonRDSProxy",
@@ -61,3 +59,5 @@ class DatabaseStack(Stack):
                        value=self.rds_proxy.endpoint,
                        description="RDS Proxy Endpoint"
         )
+        
+        
