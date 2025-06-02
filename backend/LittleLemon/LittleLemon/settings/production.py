@@ -5,7 +5,7 @@ from ..utils.aws import get_db_credentials
 
 DEBUG = False
 ALLOWED_HOSTS = [
-    '9llvug30gg.execute-api.us-east-1.amazonaws.com'
+    '6qpkzrhv4c.execute-api.us-east-1.amazonaws.com'
 ]
 
 def get_parameter(param_name: str) -> str:
@@ -31,14 +31,15 @@ DATABASES = {
         'NAME': os.environ["DB_NAME"],
         'USER': secrets["username"],
         'PASSWORD': secrets["password"],
-        'HOST': rds_proxy_endpoint,
+         #'HOST': rds_proxy_endpoint,
+        'HOST': "database-1.cncggq6wib9a.us-east-1.rds.amazonaws.com",
         'PORT': os.environ.get("DB_PORT", "3306"),
         'OPTIONS': {
             'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
         },
     }
 }
-required_env_vars = ["DB_NAME", "RDS_PROXY_ENDPOINT", "DB_SECRET_NAME", "DJANGO_SECRET_PARAM"]
+required_env_vars = ["DB_NAME","DB_HOST", "DB_SECRET_NAME", "DJANGO_SECRET_PARAM"]
 for var in required_env_vars:
     if not os.environ.get(var):
         raise RuntimeError(f"Missing required environment variable: {var}")

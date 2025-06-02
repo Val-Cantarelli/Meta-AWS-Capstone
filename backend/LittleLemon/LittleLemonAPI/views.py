@@ -16,7 +16,8 @@ from rest_framework.filters import OrderingFilter
 
 from django.http import JsonResponse
 
-
+def ping_view(request):
+    return JsonResponse({"message": "pong"})
 
 def health_check(request):
     return JsonResponse({"status": "ok"}, status=200)
