@@ -38,7 +38,11 @@ class DatabaseStack(Stack):
         )
     
         proxy_role = IamRoles.create_rds_proxy_role(self)
+        
+        
+    '''    
         # RDS Proxy
+    
         self.rds_proxy = rds.DatabaseProxy(
             self, "LittleLemonRDSProxy",
             proxy_target=rds.ProxyTarget.from_instance(db_instance),
@@ -56,8 +60,9 @@ class DatabaseStack(Stack):
         )
         # Export endpoint RDS Proxy
         CfnOutput(self, "RdsProxyEndpoint",
-                       value=self.rds_proxy.endpoint,
-                       description="RDS Proxy Endpoint"
+                  value=self.rds_proxy.endpoint,
+                  export_name="RdsProxyEndpoint",
+                  description="RDS Proxy Endpoint"
         )
-        
+       ''' 
         

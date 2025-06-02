@@ -5,7 +5,6 @@ from lib.compute_stack import ComputeStack
 from lib.network_stack import NetworkStack
 from lib.database_stack import DatabaseStack
 
-
 PROFILE_NAME = "mfa-profile"
 
 account = os.popen(f'aws sts get-caller-identity --query "Account" --output text --profile {PROFILE_NAME}').read().strip()
@@ -18,7 +17,9 @@ env = Environment(account=account, region=region)
 
 app = App()
 
-ComputeStack(app, "ComputeStack", env=env)
 NetworkStack(app, "NetworkStack", env=env)
+ComputeStack(app, "ComputeStack", env=env)
 DatabaseStack(app, "DatabaseStack", env=env)
+
+
 app.synth()
