@@ -1,6 +1,6 @@
 #!/bin/bash
 unset DJANGO_ENV
+export DJANGO_SETTINGS_MODULE=core.settings.local
+export API_BASE_URL=http://localhost:8000
 
-
-API_BASE_URL=https://xy3r212g98.execute-api.us-east-1.amazonaws.com/dev
 python manage.py runserver
