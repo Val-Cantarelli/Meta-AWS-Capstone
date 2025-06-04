@@ -6,12 +6,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
 ALLOWED_HOSTS = ["127.0.0.1", "localhost"]
 SECRET_KEY = config("SECRET_KEY", default="unsafe-default-key") 
-API_BASE_URL = config("API_BASE_URL", default="https://xy3r212g98.execute-api.us-east-1.amazonaws.com/dev")
 
 STATIC_URL = '/static/'
 
 DEBUG = False 
-
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -65,6 +63,5 @@ LANGUAGE_CODE = 'en-us'
 TIME_ZONE = 'UTC'
 USE_I18N = True
 USE_TZ = True
-
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
