@@ -18,9 +18,7 @@ SECRET_KEY = get_parameter(os.environ["DJANGO_SECRET_PARAM"])
 if not SECRET_KEY:
     raise RuntimeError("SECRET_KEY not fetched from SSM")
 
-
 secrets = get_db_credentials()
-
 
 # Endpoint do RDS Proxy obtido via CDK 
 rds_proxy_endpoint = os.environ.get("RDS_PROXY_ENDPOINT", "databasestacklittlelemonrdsproxy33e1b918.proxy-cncggq6wib9a.us-east-1.rds.amazonaws.com")
