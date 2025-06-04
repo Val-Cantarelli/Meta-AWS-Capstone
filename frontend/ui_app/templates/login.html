@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<div class="auth-column">
+    <!-- Login Section -->
+    <h2>Login</h2>
+    <form method="post" action="{% url 'login' %}">
+        {% csrf_token %}
+        <input type="hidden" name="form_type" value="login" />
+        <label for="login-username">Username:</label>
+        <input type="text" id="login-username" name="username" required />
+
+        <label for="login-password">Password:</label>
+        <input type="password" id="login-password" name="password" required autocomplete="current-password" />
+
+        <button type="submit">Login</button>
+    </form>
+</div>
+
+{% endblock %}

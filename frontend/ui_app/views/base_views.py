@@ -1,19 +1,19 @@
 import os
 from django.conf import settings
 from django.shortcuts import render
+from django.shortcuts import redirect
+from django.contrib import messages
 
 def home(request):
-    print("STATICFILES_DIRS:", settings.STATICFILES_DIRS)
-    print("STATIC_URL:", settings.STATIC_URL)
-    print("SECRET_KEY:", os.getenv("SECRET_KEY"))
-
-    
     return render(request, 'index.html')
 
 def about(request):
     return render(request, 'about.html')
 
 def book(request):
+    if not request.session.get("access"):
+        messages.warning(request, "You must be logged in to book a table.")
+        return redirect('login')
     return render(request, 'book.html')
 
 
