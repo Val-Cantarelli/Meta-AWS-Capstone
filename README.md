@@ -64,4 +64,4 @@ Pull requests are welcome! For major changes, please open an issue first to disc
 
 ## Author
 
-- [Valdielen Casarin](www.linkedin.com/in/valdielen-casarin)
+- [Valdielen Casarin](https://www.linkedin.com/in/valdielen-casarin/)
