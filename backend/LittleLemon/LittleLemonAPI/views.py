@@ -1,4 +1,4 @@
-from rest_framework import viewsets
+from rest_framework import viewsets,permissions
 from .models import MenuItem, Category, Cart, Order, OrderItem
 from .serializers import MenuItemSerializer, CategorySerializer, UserSerializer, CartSerializer, OrderSerializer
 from rest_framework.permissions import IsAdminUser, BasePermission, IsAuthenticated
@@ -13,24 +13,15 @@ from rest_framework.filters import SearchFilter
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.throttling import UserRateThrottle, AnonRateThrottle
 from rest_framework.filters import OrderingFilter
-
 from django.http import JsonResponse
 
-def ping_view(request):
-    return JsonResponse({"message": "pong"})
 
 def health_check(request):
     return JsonResponse({"status": "ok"}, status=200)
 
-def debug_headers(request):
-    return JsonResponse(dict(request.headers))
-
-
-
-
 class IsDeliveryCrew(BasePermission):
-        def has_permission(self, request, view):
-            return request.user.groups.filter(name='delivery-crew').exists()
+    def has_permission(self, request, view):
+        return request.user.groups.filter(name='delivery-crew').exists()
      
 class IsManager(BasePermission):
     def has_permission(self, request, view):
@@ -50,9 +41,10 @@ class CategoryViewSet(viewsets.ModelViewSet):
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
     
+    ADMIN_ACTIONS = ['create', 'update', 'partial_update', 'destroy']
     
     def get_permissions(self):
-        if self.action in ['create', 'update', 'partial_update', 'destroy']:
+        if self.action in self.ADMIN_ACTIONS:
             return [IsAdminUser()]
         return [IsAuthenticated()] 
 
@@ -69,9 +61,15 @@ class MenuItemsViewSet(viewsets.ModelViewSet):
     
     def get_permissions(self):
         if self.action in ['list', 'retrieve']:
-            return [IsAuthenticated()]
+            return [permissions.AllowAny()]
+        elif self.action in ['create', 'destroy',]:
+            return [permissions.IsAdminUser()]
+        elif self.action in ['partial_update', 'update']:
+            return [IsManager()]
         else:
-            return [IsAdminOrManager()]
+            return [permissions.IsAuthenticated()]
+
+        
     
 class ManagerViewSet(viewsets.ViewSet):
     throttle_classes = [AnonRateThrottle, UserRateThrottle]
@@ -224,14 +222,12 @@ class OrdersViewSet(viewsets.ModelViewSet):
         order = self.get_object()
         delivery_user_id = request.data.get('delivery_crew')
 
-       
         if delivery_user_id:
             try:
                 user = User.objects.get(id=delivery_user_id)
                 delivery_crew_group = Group.objects.get(name='delivery-crew')
                 
                 if user not in delivery_crew_group.user_set.all():
-                    
                     raise ValidationError("The assigned user is not part of the 'delivery-crew' group.")
             except User.DoesNotExist:
                 raise ValidationError("User not found.")
