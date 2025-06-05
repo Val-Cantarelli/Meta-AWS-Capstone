@@ -16,6 +16,7 @@ from rest_framework.filters import OrderingFilter
 from django.http import JsonResponse
 
 
+
 def health_check(request):
     return JsonResponse({"status": "ok"}, status=200)
 
@@ -170,12 +171,31 @@ class CartViewSet(viewsets.ViewSet):
         serializer = CartSerializer(cart_item)
         return Response(serializer.data, status=status.HTTP_201_CREATED)
 
-    def destroy(self, request):
-        deleted_count, _ = Cart.objects.filter(user=request.user).delete()
-        if deleted_count > 0:
-            return Response({"message": "Item(s) deleted."}, status=status.HTTP_200_OK)
-        else:
-            return Response({"message": "No items to delete."}, status=status.HTTP_200_OK)
+    def destroy(self, request, pk=None):
+        try:
+            cart_item = Cart.objects.get(pk=pk, user=request.user)
+        except Cart.DoesNotExist:
+            return Response({"error": "Cart item not found."}, status=status.HTTP_404_NOT_FOUND)
+
+        cart_item.delete()
+        return Response({"message": "Item deleted."}, status=status.HTTP_200_OK)
+        
+    def partial_update(self, request, pk=None):
+        try:
+            cart_item = Cart.objects.get(pk=pk, user=request.user)
+        except Cart.DoesNotExist:
+            return Response({"error": "Cart item not found."}, status=status.HTTP_404_NOT_FOUND)
+
+        quantity = request.data.get('quantity')
+        if quantity is None:
+            return Response({"error": "Quantity is required."}, status=status.HTTP_400_BAD_REQUEST)
+
+        cart_item.quantity = int(quantity)
+        cart_item.price = cart_item.unit_price * cart_item.quantity
+        cart_item.save()
+
+        serializer = CartSerializer(cart_item)
+        return Response(serializer.data, status=status.HTTP_200_OK)    
     
 class OrdersViewSet(viewsets.ModelViewSet):
     throttle_classes = [AnonRateThrottle, UserRateThrottle]
