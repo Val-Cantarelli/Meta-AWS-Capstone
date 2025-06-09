@@ -8,11 +8,11 @@ from django.conf import settings
 def menu(request):
     page = request.GET.get('page')
     if page and page != "1":
+        previous_page = None
         api_url = f"{settings.API_BASE_URL}/api/menu-items?page={page}"
     else:
         api_url = f"{settings.API_BASE_URL}/api/menu-items"
 
-    # Não precisa mais de token nem headers para endpoint público
     response = requests.get(api_url)
     print("Status:", response.status_code)
     print("Content:", response.text)
@@ -39,6 +39,8 @@ def menu(request):
         parsed_prev = urlparse(data.get('previous'))
         query_prev = parse_qs(parsed_prev.query)
         previous_page = query_prev.get('page', [None])[0]
+        if previous_page is None:
+            previous_page = "1"
 
     context = {
         'items': items,

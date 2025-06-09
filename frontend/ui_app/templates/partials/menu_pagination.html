@@ -9,12 +9,15 @@
 </div>
 
 <div class="pagination">
-    {% if previous_page %}
-        <a href="?page={{ previous_page }}" class="btn">Previous</a>
+    {% if previous_page == "1" %}
+        <a href="{% url 'menu' %}" class="btn">Previous</a>
+    {% else %}
+        {% if previous_page %}
+            <a href="?page={{ previous_page }}" class="btn">Previous</a>
+        {% endif %}
     {% endif %}
 
     {% if next_page %}
         <a href="?page={{ next_page }}" class="btn">Next</a>
     {% endif %}
 </div>
-<!-- (verificar) As variáveis next_page e previous_page estão vindo como None ou não estão sendo passadas? -->
