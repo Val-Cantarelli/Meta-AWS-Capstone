@@ -106,22 +106,16 @@ class ManagerViewSet(viewsets.ViewSet):
         except Group.DoesNotExist:
             return Response({"error": "Group not found"}, status=status.HTTP_404_NOT_FOUND)
         
-    def destroy(self, request, *args, **kwargs):
-        user_id = kwargs.get('user_id')  
-        group_name = self.kwargs.get('group_name')
-
+    def destroy(self, request, group_name=None, pk=None):
         try:
-            user = User.objects.get(id=user_id)  
+            user = User.objects.get(id=pk)
             group = Group.objects.get(name=group_name)
-
             if not user.groups.filter(name=group_name).exists():
                 return Response({"message": f"User '{user.username}' is not in the '{group_name}' group."}, 
                                 status=status.HTTP_404_NOT_FOUND)
-
             user.groups.remove(group)
             return Response({"message": f"User '{user.username}' removed from group '{group_name}'."}, 
                             status=status.HTTP_200_OK)
-
         except User.DoesNotExist:
             return Response({"error": "User not found"}, status=status.HTTP_404_NOT_FOUND)
         except Group.DoesNotExist:
