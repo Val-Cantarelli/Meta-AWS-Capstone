@@ -37,20 +37,7 @@ class ComputeStack(Stack):
             vpc=my_vpc,
             description="SG for Lambda to access RDS Proxy",
             allow_all_outbound=True
-        )
-
-        proxy_sg = ec2.SecurityGroup.from_security_group_id(self, "ProxySG", "sg-037c88deadba79c4d")
-
-        proxy_sg.add_ingress_rule(
-            peer=lambda_sg,
-            connection=ec2.Port.tcp(3306),
-            description="Allow Lambda to access RDS Proxy"
-        )
-        lambda_sg.add_egress_rule(
-            peer=ec2.Peer.security_group_id(proxy_sg.security_group_id),
-            connection=ec2.Port.tcp(3306),
-            description="Allow Lambda access RDS Proxy"
-        )
+        )        
 
         self.lambda_function = PythonFunction(
             self, "LittleLemonLambda",
@@ -63,9 +50,9 @@ class ComputeStack(Stack):
             environment={
                 "DJANGO_ENV": "production",
                 "DJANGO_SECRET_PARAM": "/littlelemon/django/SECRET_KEY",
-                "DB_SECRET_NAME": "credentialsRDSprod",
+                "DB_SECRET_NAME": "rds!db-4b54e2c7-9bee-42a5-b037-a9fd9218ffcb",
                 "DB_NAME": "mysqlRDS_littlelemon",
-                "DB_HOST": "database-1.cncggq6wib9a.us-east-1.rds.amazonaws.com",
+                "DB_HOST": "proxydb2.proxy-cncggq6wib9a.us-east-1.rds.amazonaws.com",
                 "DB_PORT": "3306",
             },
             role=lambda_role,
@@ -102,7 +89,7 @@ class ComputeStack(Stack):
             source_arn=f"arn:aws:execute-api:{self.region}:{self.account}:{http_api.ref}/*/*/*"
         )
         
-        # Rota raiz
+
         CfnRoute(
             self, "RootRoute",
             api_id=http_api.ref,
@@ -110,7 +97,6 @@ class ComputeStack(Stack):
             target=f"integrations/{lambda_integration.ref}"
         )
 
-        # Rota genérica para tudo o que vem depois de /
         CfnRoute(
             self, "CatchAllRoute",
             api_id=http_api.ref,

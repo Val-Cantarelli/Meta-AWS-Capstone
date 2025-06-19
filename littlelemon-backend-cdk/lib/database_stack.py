@@ -22,13 +22,13 @@ class DatabaseStack(Stack):
 
 
         db_secret = secretsmanager.Secret.from_secret_name_v2(
-            self, "DBSecret", "credentialsRDSprod"
+            self, "DBSecret", "rds!db-4b54e2c7-9bee-42a5-b037-a9fd9218ffcb"
         )
 
         db_instance = rds.DatabaseInstance.from_database_instance_attributes(
             self, "RDSInstance",
-            instance_endpoint_address="database-1.cncggq6wib9a.us-east-1.rds.amazonaws.com",
-            instance_identifier="database-1",
+            instance_endpoint_address="database-2.cncggq6wib9a.us-east-1.rds.amazonaws.com",
+            instance_identifier="database-2",
             port=3306,
             engine=rds.DatabaseInstanceEngine.mysql(version=rds.MysqlEngineVersion.VER_8_0),
             security_groups=[
@@ -36,33 +36,3 @@ class DatabaseStack(Stack):
                 ec2.SecurityGroup.from_security_group_id(self, "SG2", "sg-040aebaff168e3f85")
             ]
         )
-    
-        proxy_role = IamRoles.create_rds_proxy_role(self)
-        
-        
-    '''    
-        # RDS Proxy
-    
-        self.rds_proxy = rds.DatabaseProxy(
-            self, "LittleLemonRDSProxy",
-            proxy_target=rds.ProxyTarget.from_instance(db_instance),
-            secrets=[db_secret],
-            vpc=my_vpc,
-            role=proxy_role,
-            require_tls=True,
-            iam_auth=False,
-            vpc_subnets=ec2.SubnetSelection(subnets=[private_subnet_1, private_subnet_2]),
-            security_groups=[
-                ec2.SecurityGroup.from_security_group_id(self, "ProxySG", "sg-037c88deadba79c4d")
-            ],
-            max_connections_percent=100,
-            idle_client_timeout=Duration.seconds(300)
-        )
-        # Export endpoint RDS Proxy
-        CfnOutput(self, "RdsProxyEndpoint",
-                  value=self.rds_proxy.endpoint,
-                  export_name="RdsProxyEndpoint",
-                  description="RDS Proxy Endpoint"
-        )
-       ''' 
-        
