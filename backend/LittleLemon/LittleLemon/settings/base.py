@@ -6,6 +6,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
 DEBUG = False 
 
+APPEND_SLASH = False
+
 ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
@@ -69,7 +71,7 @@ USE_TZ = True
 STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-APPEND_SLASH = False
+
 
 REST_FRAMEWORK = {
     'DEFAULT_RENDERER_CLASSES': [

@@ -9,6 +9,7 @@ router.register(r'groups/(?P<group_name>manager|delivery-crew)/users', ManagerVi
 router.register(r'orders', OrdersViewSet, basename='orders')
 router.register(r'cart', CartViewSet, basename='cart')
 
+'''
 urlpatterns = [
     # This route allows the 'deletion' of a user from a specific group by passing the group name and user ID in the URL.DefaultRouter() doesnt 
     #path('groups/<str:group_name>/users/<int:user_id>/', ManagerViewSet.as_view({'delete': 'destroy'}), name='group-user-detail'),
@@ -16,4 +17,7 @@ urlpatterns = [
     #path('cart/orders/', OrdersViewSet.as_view({'get': 'list', 'post': 'create', 'delete': 'destroy'}), name='cart-orders'),
 ]
 
-urlpatterns += router.urls
+'''
+
+
+urlpatterns = router.urls

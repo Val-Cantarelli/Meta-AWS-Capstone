@@ -28,6 +28,21 @@ The capstone project is a **restaurant website** built with Django. My work focu
 - **CI/CD pipeline:** * currently evaluating between AWS native tools and GitHub Actions for automation.*
 
 
+This project will evolve in **two major versions**:
+
+### Version 1 (Current)
+- **Frontend** deployed on ECS.
+- **Backend** hosted on AWS Lambda + API Gateway.
+- Purpose: to validate the front-end integration and API functionality in the cloud environment.
+
+### Version 2 (Planned)
+- **Backend** migrated from Lambda to ECS Fargate.
+- Purpose: to support ASGI, WebSockets, and future scalability needs, with better control over the runtime environment and network configurations.
+
+---
+
+
+
 ## Components
 
 1. **Backend:** 

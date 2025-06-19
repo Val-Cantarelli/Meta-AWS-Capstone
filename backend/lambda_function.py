@@ -26,9 +26,6 @@ except Exception as e:
 from LittleLemon.LittleLemon.asgi import application
 django.setup()
 
-
-#handler = Mangum(application, lifespan="off")
-
 def lambda_handler(event, context):
     mangum_handler = Mangum(application, lifespan="off", api_gateway_base_path="/v1")
     return mangum_handler(event, context)
@@ -56,8 +53,6 @@ try:
     db_secret = get_db_credentials(secret_name=os.environ['DB_SECRET_NAME'])
     os.environ["DB_USER"] = db_secret["username"]
     os.environ["DB_PASSWORD"] = db_secret["password"]
-    os.environ["DB_HOST"] = db_secret["host"]
-    os.environ["DB_PORT"] = str(db_secret["port"])  # Convertendo para string!
     logger.info("Database credentials set successfully.")
 except Exception as e:
     logger.error(f"Failed to set DB credentials: {e}")

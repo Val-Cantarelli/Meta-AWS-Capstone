@@ -14,23 +14,21 @@ def get_parameter(param_name: str) -> str:
     return response["Parameter"]["Value"]
 
 SECRET_KEY = get_parameter(os.environ["DJANGO_SECRET_PARAM"])
-
 if not SECRET_KEY:
     raise RuntimeError("SECRET_KEY not fetched from SSM")
 
 secrets = get_db_credentials()
 
-# Endpoint do RDS Proxy obtido via CDK 
-rds_proxy_endpoint = os.environ.get("RDS_PROXY_ENDPOINT", "databasestacklittlelemonrdsproxy33e1b918.proxy-cncggq6wib9a.us-east-1.rds.amazonaws.com")
-
+rds_proxy_endpoint = os.environ.get("DB_HOST")
+if not rds_proxy_endpoint:
+    raise RuntimeError("DB_HOST not set in environment variables")
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': os.environ["DB_NAME"],
         'USER': secrets["username"],
         'PASSWORD': secrets["password"],
-         #'HOST': rds_proxy_endpoint,
-        'HOST': "database-1.cncggq6wib9a.us-east-1.rds.amazonaws.com",
+        'HOST': rds_proxy_endpoint,
         'PORT': os.environ.get("DB_PORT", "3306"),
         'OPTIONS': {
             'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",

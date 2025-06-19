@@ -29,10 +29,10 @@ class IamRoles:
         lambda_role.add_to_policy(
             iam.PolicyStatement(
                 actions=["secretsmanager:GetSecretValue"],
-                resources=["arn:aws:secretsmanager:us-east-1:557690602441:secret:credentialsRDSprod-*"]
+                resources=["arn:aws:secretsmanager:us-east-1:557690602441:secret:rds!db-4b54e2c7-9bee-42a5-b037-a9fd9218ffcb-yYCkkK"]
             )
         )
-        # 
+        # EC2 Network Interfaces
         lambda_role.add_to_policy(
             iam.PolicyStatement(
                 actions=[
@@ -46,9 +46,9 @@ class IamRoles:
 
         return lambda_role
     
-    
+    '''
     @staticmethod
-    def create_rds_proxy_role(scope: Stack) -> iam.Role:
+    def create_rds_proxy_role(scope: Stack, db_secret_arn: str) -> iam.Role:
         proxy_role=iam.Role(
             scope,"RDSProxyRole",
             assumed_by=iam.ServicePrincipal("rds.amazonaws.com"),
@@ -64,14 +64,14 @@ class IamRoles:
                     "rds-db:connect"
                 ],
                 resources=[
-                    "arn:aws:secretsmanager:us-east-1:557690602441:secret:credentialsRDSprod-icEXUK",
-                    "arn:aws:rds:us-east-1:557690602441:db:database-1"
+                    db_secret_arn,
+                    "arn:aws:rds:us-east-1:557690602441:db:database-2"
                 ]
             )
         )
         
-        return proxy_role
-    
-    
+        return proxy_role 
+        
+    '''
     
     
