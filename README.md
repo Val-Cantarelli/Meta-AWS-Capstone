@@ -22,7 +22,7 @@ The capstone project is a **restaurant website** built with Django. My work focu
    - **AWS Lambda:** Serverless hosting for the back-end.
    - **Amazon API Gateway:** API exposure for the Django app.
    - **Amazon RDS:** Relational database service for storing data.
-   - **Amazon RDS Proxy:** Connection pooling and improved database performance for Lambda functions. (Planned feature, currently under evaluation)
+   - **Amazon RDS Proxy:** Connection pooling and improved database performance for Lambda functions.
    - **Amazon S3:** Storage for static and media files.
    - **Amazon CloudFront:** Content delivery network for faster static file loading.
 - **CI/CD pipeline:** * currently evaluating between AWS native tools and GitHub Actions for automation.*
@@ -33,7 +33,9 @@ This project will evolve in **two major versions**:
 ### Version 1 (Current)
 - **Frontend** deployed on ECS.
 - **Backend** hosted on AWS Lambda + API Gateway.
-- Purpose: to validate the front-end integration and API functionality in the cloud environment.
+- **Database connection:** Lambda connects to RDS **via RDS Proxy** to maintain a pool of open connections, minimizing issues with cold starts and improving connection management and security.
+
+- Purpose: to validate the front-end integration and API functionality in the cloud environment, and to ensure reliable database connectivity by mitigating cold start issues with Lambda.
 
 ### Version 2 (Planned)
 - **Backend** migrated from Lambda to ECS Fargate.
@@ -62,12 +64,26 @@ This project will evolve in **two major versions**:
 
 ## Running Locally
 
+
+
 1. Clone the repository.
 2. Create a virtual environment and install dependencies:
-python -m .venv source .venv/bin/activate pip install -r requirements.txt
-3. Configure environment variables in `.env`.
-4. Run migrations: python manage,py migrate
-5. Start the development server: python manage.py runserver
+```bash
+python -m .venv 
+source .venv/bin/activate 
+pip install -r requirements.txt
+```
+
+
+3. Configure environment variables in '.env'.
+4. Run migrations:
+```bash
+ python manage.py migrate
+ ```
+5. Start the development server: 
+```bash
+python manage.py runserver
+```
 
 ## Django Admin
 

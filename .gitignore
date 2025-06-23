@@ -40,3 +40,6 @@ frontend/**/*.json
 .cdk.staging
 cdk.out
 .env.deploy
+
+
+doc.md
