@@ -1,0 +1,21 @@
+{
+  "version": "41.0.0",
+  "files": {
+    "6074a51bd778af9de292bcc15c8f2101995efe59953734fd7f40b0a8fd66740c": {
+      "displayName": "NetworkStack Template",
+      "source": {
+        "path": "NetworkStack.template.json",
+        "packaging": "file"
+      },
+      "destinations": {
+        "557690602441-us-east-1": {
+          "bucketName": "cdk-hnb659fds-assets-557690602441-us-east-1",
+          "objectKey": "6074a51bd778af9de292bcc15c8f2101995efe59953734fd7f40b0a8fd66740c.json",
+          "region": "us-east-1",
+          "assumeRoleArn": "arn:${AWS::Partition}:iam::557690602441:role/cdk-hnb659fds-file-publishing-role-557690602441-us-east-1"
+        }
+      }
+    }
+  },
+  "dockerImages": {}
+}

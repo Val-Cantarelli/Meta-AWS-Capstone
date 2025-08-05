@@ -263,4 +263,3 @@ class OrdersViewSet(viewsets.ModelViewSet):
         "items": order_items,
         "detail": "Order created!"
     }, status=201)
-     

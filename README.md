@@ -38,8 +38,15 @@ The capstone project is a **restaurant website** built with Django. My work focu
    - Documentation: [Frontend README](./frontend/README.md)
 
 3. **DevOps:** AWS deployment and infrastructure as code.
-   - Path: `/devops/`
-   - Documentation: [DevOps README](./devops/README.md)
+   - Path: `/littlelemon-backend-cdk/`
+   - Documentation: [DevOps README](./littlelemon-backend-cdk/README.md)
+   
+    A[👤 IAM User: Valdielen] -->|MFA Login| B[🔑 Temporary Credentials (MFA)]
+    B -->|Assume Role| C[🛡️ IAM Role: cli-user-rds-role]
+    C -->|STS Temporary Credentials| D[🔑 Generate IAM Auth Token]
+    D -->|IAM Token as Password| E[(🗄️ RDS Database)]
+    E -->|IAM Plugin| F[👤 Database User: dbuser (AWSAuthenticationPlugin)]
+
 
 
 ## Repository Structure
