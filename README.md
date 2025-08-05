@@ -51,48 +51,21 @@ This project will evolve in **two major versions**:
    - A Django REST API for managing a restaurant's operations.
    - Link: (pending)
 
-2. **Frontend:** 
-   - Static templates and assets for the restaurant's website.
-   - Link: (pending)
+2. **Frontend:** Static templates and assets for the restaurant's website.
+   - Path: `/frontend/`
+   - Documentation: [Frontend README](./frontend/README.md)
 
-3. **DevOps(littlelemon-backend-cdk):** 
-   - AWS deployment and infrastructure as code.
-   - Link: (pending)
-
-4. **Documentation(littlelemon-documentation):** Comprehensive technical and business documentation detailing the AWS infrastructure, deployment processes, and operational best practices.
-
-
-## Running Locally
-
-
-
-1. Clone the repository.
-2. Create a virtual environment and install dependencies:
-```bash
-python -m .venv 
-source .venv/bin/activate 
-pip install -r requirements.txt
-```
+3. **DevOps:** AWS deployment and infrastructure as code.
+   - Path: `/littlelemon-backend-cdk/`
+   - Documentation: [DevOps README](./littlelemon-backend-cdk/README.md)
+   
+    A[👤 IAM User: Valdielen] -->|MFA Login| B[🔑 Temporary Credentials (MFA)]
+    B -->|Assume Role| C[🛡️ IAM Role: cli-user-rds-role]
+    C -->|STS Temporary Credentials| D[🔑 Generate IAM Auth Token]
+    D -->|IAM Token as Password| E[(🗄️ RDS Database)]
+    E -->|IAM Plugin| F[👤 Database User: dbuser (AWSAuthenticationPlugin)]
 
 
-3. Configure environment variables in '.env'.
-4. Run migrations:
-```bash
- python manage.py migrate
- ```
-5. Start the development server: 
-```bash
-python manage.py runserver
-```
 
-## Django Admin
+## Repository Structure
 
-- Link to doc: (pending)
-
-## Contributing
-
-Pull requests are welcome! For major changes, please open an issue first to discuss what you would like to change.
-
-## Author
-
-- [Valdielen Casarin](https://www.linkedin.com/in/valdielen-casarin/)

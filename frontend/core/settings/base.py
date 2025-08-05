@@ -4,11 +4,14 @@ from decouple import config
 
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
+<<<<<<< HEAD
 ALLOWED_HOSTS = ["127.0.0.1", "localhost"]
 SECRET_KEY = config("SECRET_KEY", default="unsafe-default-key") 
 
 STATIC_URL = '/static/'
 
+=======
+>>>>>>> deploy-frontend
 DEBUG = False 
 
 INSTALLED_APPS = [
@@ -19,6 +22,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'ui_app',
+    'storages'
 ]
 
 MIDDLEWARE = [
@@ -52,10 +56,8 @@ TEMPLATES = [
 WSGI_APPLICATION = 'core.wsgi.application'
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.dummy'
+    "default": {}
     }
-}
 
 SESSION_ENGINE = "django.contrib.sessions.backends.signed_cookies"
 

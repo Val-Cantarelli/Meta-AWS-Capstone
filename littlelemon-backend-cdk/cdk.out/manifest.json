@@ -1,0 +1,892 @@
+{
+  "version": "41.0.0",
+  "artifacts": {
+    "NetworkStack.assets": {
+      "type": "cdk:asset-manifest",
+      "properties": {
+        "file": "NetworkStack.assets.json",
+        "requiresBootstrapStackVersion": 6,
+        "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version"
+      }
+    },
+    "NetworkStack": {
+      "type": "aws:cloudformation:stack",
+      "environment": "aws://557690602441/us-east-1",
+      "properties": {
+        "templateFile": "NetworkStack.template.json",
+        "terminationProtection": false,
+        "validateOnSynth": false,
+        "assumeRoleArn": "arn:${AWS::Partition}:iam::557690602441:role/cdk-hnb659fds-deploy-role-557690602441-us-east-1",
+        "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::557690602441:role/cdk-hnb659fds-cfn-exec-role-557690602441-us-east-1",
+        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-557690602441-us-east-1/6074a51bd778af9de292bcc15c8f2101995efe59953734fd7f40b0a8fd66740c.json",
+        "requiresBootstrapStackVersion": 6,
+        "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version",
+        "additionalDependencies": [
+          "NetworkStack.assets"
+        ],
+        "lookupRole": {
+          "arn": "arn:${AWS::Partition}:iam::557690602441:role/cdk-hnb659fds-lookup-role-557690602441-us-east-1",
+          "requiresBootstrapStackVersion": 8,
+          "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version"
+        }
+      },
+      "dependencies": [
+        "NetworkStack.assets"
+      ],
+      "metadata": {
+        "/NetworkStack/MyExistingVPC": [
+          {
+            "type": "aws:cdk:analytics:construct",
+            "data": "*"
+          }
+        ],
+        "/NetworkStack/MyExistingVPC/PublicSubnet1": [
+          {
+            "type": "aws:cdk:analytics:construct",
+            "data": "*"
+          }
+        ],
+        "/NetworkStack/MyExistingVPC/PublicSubnet2": [
+          {
+            "type": "aws:cdk:analytics:construct",
+            "data": "*"
+          }
+        ],
+        "/NetworkStack/MyExistingVPC/PublicSubnet3": [
+          {
+            "type": "aws:cdk:analytics:construct",
+            "data": "*"
+          }
+        ],
+        "/NetworkStack/MyExistingVPC/PublicSubnet4": [
+          {
+            "type": "aws:cdk:analytics:construct",
+            "data": "*"
+          }
+        ],
+        "/NetworkStack/MyExistingVPC/PublicSubnet5": [
+          {
+            "type": "aws:cdk:analytics:construct",
+            "data": "*"
+          }
+        ],
+        "/NetworkStack/MyExistingVPC/PublicSubnet6": [
+          {
+            "type": "aws:cdk:analytics:construct",
+            "data": "*"
+          }
+        ],
+        "/NetworkStack/PrivateSubnet1": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "PrivateSubnet1"
+          }
+        ],
+        "/NetworkStack/PrivateSubnet2": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "PrivateSubnet2"
+          }
+        ],
+        "/NetworkStack/PrivateRouteTable": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "PrivateRouteTable"
+          }
+        ],
+        "/NetworkStack/PrivateSubnet1Association": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "PrivateSubnet1Association"
+          }
+        ],
+        "/NetworkStack/PrivateSubnet2Association": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "PrivateSubnet2Association"
+          }
+        ],
+        "/NetworkStack/SubnetRef1": [
+          {
+            "type": "aws:cdk:analytics:construct",
+            "data": "*"
+          },
+          {
+            "type": "aws:cdk:warning",
+            "data": "No routeTableId was provided to the subnet at 'NetworkStack/SubnetRef1'. Attempting to read its .routeTable.routeTableId will return null/undefined. (More info: https://github.com/aws/aws-cdk/pull/3171) [ack: @aws-cdk/aws-ec2:noSubnetRouteTableId]",
+            "trace": [
+              "Annotations.addMessage (/tmp/jsii-kernel-7yEJ1j/node_modules/aws-cdk-lib/core/lib/annotations.js:1:1608)",
+              "Annotations.addWarningV2 (/tmp/jsii-kernel-7yEJ1j/node_modules/aws-cdk-lib/core/lib/annotations.js:1:825)",
+              "new ImportedSubnet (/tmp/jsii-kernel-7yEJ1j/node_modules/aws-cdk-lib/aws-ec2/lib/vpc.js:1:38615)",
+              "new ImportedSubnet (/tmp/jsii-kernel-7yEJ1j/node_modules/aws-cdk-lib/core/lib/prop-injectable.js:1:488)",
+              "Subnet2.fromSubnetAttributes (/tmp/jsii-kernel-7yEJ1j/node_modules/aws-cdk-lib/aws-ec2/lib/vpc.js:1:24516)",
+              "Subnet2.fromSubnetId (/tmp/jsii-kernel-7yEJ1j/node_modules/aws-cdk-lib/aws-ec2/lib/vpc.js:1:24602)",
+              "/tmp/tmp3ft4x61l/lib/program.js:315:152",
+              "Kernel._Kernel_ensureSync (/tmp/tmp3ft4x61l/lib/program.js:916:24)",
+              "Kernel.sinvoke (/tmp/tmp3ft4x61l/lib/program.js:315:102)",
+              "KernelHost.processRequest (/tmp/tmp3ft4x61l/lib/program.js:15467:36)",
+              "KernelHost.run (/tmp/tmp3ft4x61l/lib/program.js:15427:22)",
+              "Immediate._onImmediate (/tmp/tmp3ft4x61l/lib/program.js:15428:46)",
+              "process.processImmediate (node:internal/timers:485:21)"
+            ]
+          }
+        ],
+        "/NetworkStack/SubnetRef2": [
+          {
+            "type": "aws:cdk:analytics:construct",
+            "data": "*"
+          },
+          {
+            "type": "aws:cdk:warning",
+            "data": "No routeTableId was provided to the subnet at 'NetworkStack/SubnetRef2'. Attempting to read its .routeTable.routeTableId will return null/undefined. (More info: https://github.com/aws/aws-cdk/pull/3171) [ack: @aws-cdk/aws-ec2:noSubnetRouteTableId]",
+            "trace": [
+              "Annotations.addMessage (/tmp/jsii-kernel-7yEJ1j/node_modules/aws-cdk-lib/core/lib/annotations.js:1:1608)",
+              "Annotations.addWarningV2 (/tmp/jsii-kernel-7yEJ1j/node_modules/aws-cdk-lib/core/lib/annotations.js:1:825)",
+              "new ImportedSubnet (/tmp/jsii-kernel-7yEJ1j/node_modules/aws-cdk-lib/aws-ec2/lib/vpc.js:1:38615)",
+              "new ImportedSubnet (/tmp/jsii-kernel-7yEJ1j/node_modules/aws-cdk-lib/core/lib/prop-injectable.js:1:488)",
+              "Subnet2.fromSubnetAttributes (/tmp/jsii-kernel-7yEJ1j/node_modules/aws-cdk-lib/aws-ec2/lib/vpc.js:1:24516)",
+              "Subnet2.fromSubnetId (/tmp/jsii-kernel-7yEJ1j/node_modules/aws-cdk-lib/aws-ec2/lib/vpc.js:1:24602)",
+              "/tmp/tmp3ft4x61l/lib/program.js:315:152",
+              "Kernel._Kernel_ensureSync (/tmp/tmp3ft4x61l/lib/program.js:916:24)",
+              "Kernel.sinvoke (/tmp/tmp3ft4x61l/lib/program.js:315:102)",
+              "KernelHost.processRequest (/tmp/tmp3ft4x61l/lib/program.js:15467:36)",
+              "KernelHost.run (/tmp/tmp3ft4x61l/lib/program.js:15427:22)",
+              "Immediate._onImmediate (/tmp/tmp3ft4x61l/lib/program.js:15428:46)",
+              "process.processImmediate (node:internal/timers:485:21)"
+            ]
+          }
+        ],
+        "/NetworkStack/SSMEndpoint": [
+          {
+            "type": "aws:cdk:analytics:construct",
+            "data": {
+              "service": {
+                "privateDnsDefault": false,
+                "name": "*",
+                "port": "*"
+              },
+              "subnets": {
+                "subnets": [
+                  "*",
+                  "*"
+                ]
+              },
+              "vpc": "*"
+            }
+          }
+        ],
+        "/NetworkStack/SSMEndpoint/SecurityGroup": [
+          {
+            "type": "aws:cdk:analytics:construct",
+            "data": {
+              "vpc": "*"
+            }
+          },
+          {
+            "type": "aws:cdk:analytics:method",
+            "data": {
+              "addIngressRule": [
+                {
+                  "canInlineRule": true,
+                  "connections": "*",
+                  "uniqueId": "*"
+                },
+                {},
+                "*",
+                false
+              ]
+            }
+          }
+        ],
+        "/NetworkStack/SSMEndpoint/SecurityGroup/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "SSMEndpointSecurityGroup3A3F1835"
+          }
+        ],
+        "/NetworkStack/SSMEndpoint/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "SSMEndpointE3B50236"
+          }
+        ],
+        "/NetworkStack/SecretsManagerEndpoint": [
+          {
+            "type": "aws:cdk:analytics:construct",
+            "data": {
+              "service": {
+                "privateDnsDefault": false,
+                "name": "*",
+                "port": "*"
+              },
+              "privateDnsEnabled": true,
+              "subnets": {
+                "subnets": [
+                  "*",
+                  "*"
+                ]
+              },
+              "vpc": "*"
+            }
+          }
+        ],
+        "/NetworkStack/SecretsManagerEndpoint/SecurityGroup": [
+          {
+            "type": "aws:cdk:analytics:construct",
+            "data": {
+              "vpc": "*"
+            }
+          },
+          {
+            "type": "aws:cdk:analytics:method",
+            "data": {
+              "addIngressRule": [
+                {
+                  "canInlineRule": true,
+                  "connections": "*",
+                  "uniqueId": "*"
+                },
+                {},
+                "*",
+                false
+              ]
+            }
+          }
+        ],
+        "/NetworkStack/SecretsManagerEndpoint/SecurityGroup/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "SecretsManagerEndpointSecurityGroupEA7D8B27"
+          }
+        ],
+        "/NetworkStack/SecretsManagerEndpoint/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "SecretsManagerEndpoint5E83C66B"
+          }
+        ],
+        "/NetworkStack/SSMEndpointId": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "SSMEndpointId"
+          }
+        ],
+        "/NetworkStack/SecretsManagerEndpointId": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "SecretsManagerEndpointId"
+          }
+        ],
+        "/NetworkStack/CDKMetadata/Default": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CDKMetadata"
+          }
+        ],
+        "/NetworkStack/BootstrapVersion": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "BootstrapVersion"
+          }
+        ],
+        "/NetworkStack/CheckBootstrapVersion": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CheckBootstrapVersion"
+          }
+        ]
+      },
+      "displayName": "NetworkStack"
+    },
+    "ComputeStack.assets": {
+      "type": "cdk:asset-manifest",
+      "properties": {
+        "file": "ComputeStack.assets.json",
+        "requiresBootstrapStackVersion": 6,
+        "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version"
+      }
+    },
+    "ComputeStack": {
+      "type": "aws:cloudformation:stack",
+      "environment": "aws://557690602441/us-east-1",
+      "properties": {
+        "templateFile": "ComputeStack.template.json",
+        "terminationProtection": false,
+        "validateOnSynth": false,
+        "assumeRoleArn": "arn:${AWS::Partition}:iam::557690602441:role/cdk-hnb659fds-deploy-role-557690602441-us-east-1",
+        "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::557690602441:role/cdk-hnb659fds-cfn-exec-role-557690602441-us-east-1",
+        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-557690602441-us-east-1/dda14173c9a6a5af3ca7ef63fb7c7d41639cfa9ec7938f5af87bf53ec3ddd467.json",
+        "requiresBootstrapStackVersion": 6,
+        "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version",
+        "additionalDependencies": [
+          "ComputeStack.assets"
+        ],
+        "lookupRole": {
+          "arn": "arn:${AWS::Partition}:iam::557690602441:role/cdk-hnb659fds-lookup-role-557690602441-us-east-1",
+          "requiresBootstrapStackVersion": 8,
+          "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version"
+        }
+      },
+      "dependencies": [
+        "ComputeStack.assets"
+      ],
+      "metadata": {
+        "/ComputeStack/MyVPC": [
+          {
+            "type": "aws:cdk:analytics:construct",
+            "data": "*"
+          }
+        ],
+        "/ComputeStack/MyVPC/PublicSubnet1": [
+          {
+            "type": "aws:cdk:analytics:construct",
+            "data": "*"
+          }
+        ],
+        "/ComputeStack/MyVPC/PublicSubnet2": [
+          {
+            "type": "aws:cdk:analytics:construct",
+            "data": "*"
+          }
+        ],
+        "/ComputeStack/MyVPC/PublicSubnet3": [
+          {
+            "type": "aws:cdk:analytics:construct",
+            "data": "*"
+          }
+        ],
+        "/ComputeStack/MyVPC/PublicSubnet4": [
+          {
+            "type": "aws:cdk:analytics:construct",
+            "data": "*"
+          }
+        ],
+        "/ComputeStack/MyVPC/PublicSubnet5": [
+          {
+            "type": "aws:cdk:analytics:construct",
+            "data": "*"
+          }
+        ],
+        "/ComputeStack/MyVPC/PublicSubnet6": [
+          {
+            "type": "aws:cdk:analytics:construct",
+            "data": "*"
+          }
+        ],
+        "/ComputeStack/ComputeSubnet200": [
+          {
+            "type": "aws:cdk:analytics:construct",
+            "data": "*"
+          },
+          {
+            "type": "aws:cdk:warning",
+            "data": "No routeTableId was provided to the subnet 'subnet-00c55983c320de3b1'. Attempting to read its .routeTable.routeTableId will return null/undefined. (More info: https://github.com/aws/aws-cdk/pull/3171) [ack: @aws-cdk/aws-ec2:noSubnetRouteTableId]",
+            "trace": [
+              "Annotations.addMessage (/tmp/jsii-kernel-7yEJ1j/node_modules/aws-cdk-lib/core/lib/annotations.js:1:1608)",
+              "Annotations.addWarningV2 (/tmp/jsii-kernel-7yEJ1j/node_modules/aws-cdk-lib/core/lib/annotations.js:1:825)",
+              "new ImportedSubnet (/tmp/jsii-kernel-7yEJ1j/node_modules/aws-cdk-lib/aws-ec2/lib/vpc.js:1:38615)",
+              "new ImportedSubnet (/tmp/jsii-kernel-7yEJ1j/node_modules/aws-cdk-lib/core/lib/prop-injectable.js:1:488)",
+              "Subnet2.fromSubnetAttributes (/tmp/jsii-kernel-7yEJ1j/node_modules/aws-cdk-lib/aws-ec2/lib/vpc.js:1:24516)",
+              "Subnet2.fromSubnetId (/tmp/jsii-kernel-7yEJ1j/node_modules/aws-cdk-lib/aws-ec2/lib/vpc.js:1:24602)",
+              "/tmp/tmp3ft4x61l/lib/program.js:315:152",
+              "Kernel._Kernel_ensureSync (/tmp/tmp3ft4x61l/lib/program.js:916:24)",
+              "Kernel.sinvoke (/tmp/tmp3ft4x61l/lib/program.js:315:102)",
+              "KernelHost.processRequest (/tmp/tmp3ft4x61l/lib/program.js:15467:36)",
+              "KernelHost.run (/tmp/tmp3ft4x61l/lib/program.js:15427:22)",
+              "Immediate._onImmediate (/tmp/tmp3ft4x61l/lib/program.js:15428:46)",
+              "process.processImmediate (node:internal/timers:485:21)"
+            ]
+          }
+        ],
+        "/ComputeStack/ComputeSubnet201": [
+          {
+            "type": "aws:cdk:analytics:construct",
+            "data": "*"
+          },
+          {
+            "type": "aws:cdk:warning",
+            "data": "No routeTableId was provided to the subnet 'subnet-085c0350455dfef4f'. Attempting to read its .routeTable.routeTableId will return null/undefined. (More info: https://github.com/aws/aws-cdk/pull/3171) [ack: @aws-cdk/aws-ec2:noSubnetRouteTableId]",
+            "trace": [
+              "Annotations.addMessage (/tmp/jsii-kernel-7yEJ1j/node_modules/aws-cdk-lib/core/lib/annotations.js:1:1608)",
+              "Annotations.addWarningV2 (/tmp/jsii-kernel-7yEJ1j/node_modules/aws-cdk-lib/core/lib/annotations.js:1:825)",
+              "new ImportedSubnet (/tmp/jsii-kernel-7yEJ1j/node_modules/aws-cdk-lib/aws-ec2/lib/vpc.js:1:38615)",
+              "new ImportedSubnet (/tmp/jsii-kernel-7yEJ1j/node_modules/aws-cdk-lib/core/lib/prop-injectable.js:1:488)",
+              "Subnet2.fromSubnetAttributes (/tmp/jsii-kernel-7yEJ1j/node_modules/aws-cdk-lib/aws-ec2/lib/vpc.js:1:24516)",
+              "Subnet2.fromSubnetId (/tmp/jsii-kernel-7yEJ1j/node_modules/aws-cdk-lib/aws-ec2/lib/vpc.js:1:24602)",
+              "/tmp/tmp3ft4x61l/lib/program.js:315:152",
+              "Kernel._Kernel_ensureSync (/tmp/tmp3ft4x61l/lib/program.js:916:24)",
+              "Kernel.sinvoke (/tmp/tmp3ft4x61l/lib/program.js:315:102)",
+              "KernelHost.processRequest (/tmp/tmp3ft4x61l/lib/program.js:15467:36)",
+              "KernelHost.run (/tmp/tmp3ft4x61l/lib/program.js:15427:22)",
+              "Immediate._onImmediate (/tmp/tmp3ft4x61l/lib/program.js:15428:46)",
+              "process.processImmediate (node:internal/timers:485:21)"
+            ]
+          }
+        ],
+        "/ComputeStack/LambdaExecutionRole": [
+          {
+            "type": "aws:cdk:analytics:construct",
+            "data": {
+              "assumedBy": {
+                "principalAccount": "*",
+                "assumeRoleAction": "*"
+              }
+            }
+          },
+          {
+            "type": "aws:cdk:analytics:method",
+            "data": {
+              "addManagedPolicy": [
+                {
+                  "managedPolicyArn": "*"
+                }
+              ]
+            }
+          },
+          {
+            "type": "aws:cdk:analytics:method",
+            "data": {
+              "addManagedPolicy": [
+                {
+                  "managedPolicyArn": "*"
+                }
+              ]
+            }
+          },
+          {
+            "type": "aws:cdk:analytics:method",
+            "data": {
+              "addToPolicy": [
+                {}
+              ]
+            }
+          },
+          {
+            "type": "aws:cdk:analytics:method",
+            "data": {
+              "addToPrincipalPolicy": [
+                {}
+              ]
+            }
+          },
+          {
+            "type": "aws:cdk:analytics:method",
+            "data": {
+              "attachInlinePolicy": [
+                "*"
+              ]
+            }
+          },
+          {
+            "type": "aws:cdk:analytics:method",
+            "data": {
+              "attachInlinePolicy": [
+                "*"
+              ]
+            }
+          },
+          {
+            "type": "aws:cdk:analytics:method",
+            "data": {
+              "addToPolicy": [
+                {}
+              ]
+            }
+          },
+          {
+            "type": "aws:cdk:analytics:method",
+            "data": {
+              "addToPrincipalPolicy": [
+                {}
+              ]
+            }
+          },
+          {
+            "type": "aws:cdk:analytics:method",
+            "data": {
+              "addToPolicy": [
+                {}
+              ]
+            }
+          },
+          {
+            "type": "aws:cdk:analytics:method",
+            "data": {
+              "addToPrincipalPolicy": [
+                {}
+              ]
+            }
+          },
+          {
+            "type": "aws:cdk:analytics:method",
+            "data": {
+              "addToPrincipalPolicy": [
+                {}
+              ]
+            }
+          }
+        ],
+        "/ComputeStack/LambdaExecutionRole/ImportLambdaExecutionRole": [
+          {
+            "type": "aws:cdk:analytics:construct",
+            "data": "*"
+          }
+        ],
+        "/ComputeStack/LambdaExecutionRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "LambdaExecutionRoleD5C26073"
+          }
+        ],
+        "/ComputeStack/LambdaExecutionRole/DefaultPolicy": [
+          {
+            "type": "aws:cdk:analytics:construct",
+            "data": "*"
+          },
+          {
+            "type": "aws:cdk:analytics:method",
+            "data": {
+              "attachToRole": [
+                "*"
+              ]
+            }
+          },
+          {
+            "type": "aws:cdk:analytics:method",
+            "data": {
+              "attachToRole": [
+                "*"
+              ]
+            }
+          },
+          {
+            "type": "aws:cdk:analytics:method",
+            "data": {
+              "addStatements": [
+                {}
+              ]
+            }
+          },
+          {
+            "type": "aws:cdk:analytics:method",
+            "data": {
+              "addStatements": [
+                {}
+              ]
+            }
+          },
+          {
+            "type": "aws:cdk:analytics:method",
+            "data": {
+              "addStatements": [
+                {}
+              ]
+            }
+          },
+          {
+            "type": "aws:cdk:analytics:method",
+            "data": {
+              "addStatements": [
+                {}
+              ]
+            }
+          }
+        ],
+        "/ComputeStack/LambdaExecutionRole/DefaultPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "LambdaExecutionRoleDefaultPolicy6D69732F"
+          }
+        ],
+        "/ComputeStack/LambdaSG": [
+          {
+            "type": "aws:cdk:analytics:construct",
+            "data": {
+              "vpc": "*",
+              "allowAllOutbound": true,
+              "description": "*"
+            }
+          }
+        ],
+        "/ComputeStack/LambdaSG/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "LambdaSG9DBFCFB7"
+          }
+        ],
+        "/ComputeStack/LittleLemonLambda": [
+          {
+            "type": "aws:cdk:analytics:construct",
+            "data": "*"
+          },
+          {
+            "type": "aws:cdk:analytics:method",
+            "data": "*"
+          },
+          {
+            "type": "aws:cdk:analytics:method",
+            "data": "*"
+          },
+          {
+            "type": "aws:cdk:analytics:method",
+            "data": "*"
+          },
+          {
+            "type": "aws:cdk:analytics:method",
+            "data": "*"
+          },
+          {
+            "type": "aws:cdk:analytics:method",
+            "data": "*"
+          },
+          {
+            "type": "aws:cdk:analytics:method",
+            "data": "*"
+          },
+          {
+            "type": "aws:cdk:analytics:construct",
+            "data": "*"
+          }
+        ],
+        "/ComputeStack/LittleLemonLambda/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "LittleLemonLambda4583B781"
+          }
+        ],
+        "/ComputeStack/LittleLemonLambda/ApiInvokePermission": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "LittleLemonLambdaApiInvokePermission11300807"
+          }
+        ],
+        "/ComputeStack/LittleLemonHttpApi": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "LittleLemonHttpApi"
+          }
+        ],
+        "/ComputeStack/LambdaIntegration": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "LambdaIntegration"
+          }
+        ],
+        "/ComputeStack/RootRoute": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RootRoute"
+          }
+        ],
+        "/ComputeStack/CatchAllRoute": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CatchAllRoute"
+          }
+        ],
+        "/ComputeStack/ApiLogs": [
+          {
+            "type": "aws:cdk:analytics:construct",
+            "data": "*"
+          }
+        ],
+        "/ComputeStack/ApiLogs/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ApiLogs3D05D88B"
+          }
+        ],
+        "/ComputeStack/ManualStage": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ManualStage"
+          }
+        ],
+        "/ComputeStack/ApiId": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ApiId"
+          }
+        ],
+        "/ComputeStack/ApiEndpoint": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ApiEndpoint"
+          }
+        ],
+        "/ComputeStack/CDKMetadata/Default": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CDKMetadata"
+          }
+        ],
+        "/ComputeStack/BootstrapVersion": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "BootstrapVersion"
+          }
+        ],
+        "/ComputeStack/CheckBootstrapVersion": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CheckBootstrapVersion"
+          }
+        ]
+      },
+      "displayName": "ComputeStack"
+    },
+    "DatabaseStack.assets": {
+      "type": "cdk:asset-manifest",
+      "properties": {
+        "file": "DatabaseStack.assets.json",
+        "requiresBootstrapStackVersion": 6,
+        "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version"
+      }
+    },
+    "DatabaseStack": {
+      "type": "aws:cloudformation:stack",
+      "environment": "aws://557690602441/us-east-1",
+      "properties": {
+        "templateFile": "DatabaseStack.template.json",
+        "terminationProtection": false,
+        "validateOnSynth": false,
+        "assumeRoleArn": "arn:${AWS::Partition}:iam::557690602441:role/cdk-hnb659fds-deploy-role-557690602441-us-east-1",
+        "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::557690602441:role/cdk-hnb659fds-cfn-exec-role-557690602441-us-east-1",
+        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-557690602441-us-east-1/0e488f09872ff25cd96c2fe8d90e6c1cbe8484861c9180dbc4a20748c83f67fa.json",
+        "requiresBootstrapStackVersion": 6,
+        "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version",
+        "additionalDependencies": [
+          "DatabaseStack.assets"
+        ],
+        "lookupRole": {
+          "arn": "arn:${AWS::Partition}:iam::557690602441:role/cdk-hnb659fds-lookup-role-557690602441-us-east-1",
+          "requiresBootstrapStackVersion": 8,
+          "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version"
+        }
+      },
+      "dependencies": [
+        "DatabaseStack.assets"
+      ],
+      "metadata": {
+        "/DatabaseStack/MyVPC": [
+          {
+            "type": "aws:cdk:analytics:construct",
+            "data": "*"
+          }
+        ],
+        "/DatabaseStack/MyVPC/PublicSubnet1": [
+          {
+            "type": "aws:cdk:analytics:construct",
+            "data": "*"
+          }
+        ],
+        "/DatabaseStack/MyVPC/PublicSubnet2": [
+          {
+            "type": "aws:cdk:analytics:construct",
+            "data": "*"
+          }
+        ],
+        "/DatabaseStack/MyVPC/PublicSubnet3": [
+          {
+            "type": "aws:cdk:analytics:construct",
+            "data": "*"
+          }
+        ],
+        "/DatabaseStack/MyVPC/PublicSubnet4": [
+          {
+            "type": "aws:cdk:analytics:construct",
+            "data": "*"
+          }
+        ],
+        "/DatabaseStack/MyVPC/PublicSubnet5": [
+          {
+            "type": "aws:cdk:analytics:construct",
+            "data": "*"
+          }
+        ],
+        "/DatabaseStack/MyVPC/PublicSubnet6": [
+          {
+            "type": "aws:cdk:analytics:construct",
+            "data": "*"
+          }
+        ],
+        "/DatabaseStack/DatabaseSubnet200": [
+          {
+            "type": "aws:cdk:analytics:construct",
+            "data": "*"
+          },
+          {
+            "type": "aws:cdk:warning",
+            "data": "No routeTableId was provided to the subnet 'subnet-00c55983c320de3b1'. Attempting to read its .routeTable.routeTableId will return null/undefined. (More info: https://github.com/aws/aws-cdk/pull/3171) [ack: @aws-cdk/aws-ec2:noSubnetRouteTableId]",
+            "trace": [
+              "Annotations.addMessage (/tmp/jsii-kernel-7yEJ1j/node_modules/aws-cdk-lib/core/lib/annotations.js:1:1608)",
+              "Annotations.addWarningV2 (/tmp/jsii-kernel-7yEJ1j/node_modules/aws-cdk-lib/core/lib/annotations.js:1:825)",
+              "new ImportedSubnet (/tmp/jsii-kernel-7yEJ1j/node_modules/aws-cdk-lib/aws-ec2/lib/vpc.js:1:38615)",
+              "new ImportedSubnet (/tmp/jsii-kernel-7yEJ1j/node_modules/aws-cdk-lib/core/lib/prop-injectable.js:1:488)",
+              "Subnet2.fromSubnetAttributes (/tmp/jsii-kernel-7yEJ1j/node_modules/aws-cdk-lib/aws-ec2/lib/vpc.js:1:24516)",
+              "Subnet2.fromSubnetId (/tmp/jsii-kernel-7yEJ1j/node_modules/aws-cdk-lib/aws-ec2/lib/vpc.js:1:24602)",
+              "/tmp/tmp3ft4x61l/lib/program.js:315:152",
+              "Kernel._Kernel_ensureSync (/tmp/tmp3ft4x61l/lib/program.js:916:24)",
+              "Kernel.sinvoke (/tmp/tmp3ft4x61l/lib/program.js:315:102)",
+              "KernelHost.processRequest (/tmp/tmp3ft4x61l/lib/program.js:15467:36)",
+              "KernelHost.run (/tmp/tmp3ft4x61l/lib/program.js:15427:22)",
+              "Immediate._onImmediate (/tmp/tmp3ft4x61l/lib/program.js:15428:46)",
+              "process.processImmediate (node:internal/timers:485:21)"
+            ]
+          }
+        ],
+        "/DatabaseStack/DatabaseSubnet201": [
+          {
+            "type": "aws:cdk:analytics:construct",
+            "data": "*"
+          },
+          {
+            "type": "aws:cdk:warning",
+            "data": "No routeTableId was provided to the subnet 'subnet-085c0350455dfef4f'. Attempting to read its .routeTable.routeTableId will return null/undefined. (More info: https://github.com/aws/aws-cdk/pull/3171) [ack: @aws-cdk/aws-ec2:noSubnetRouteTableId]",
+            "trace": [
+              "Annotations.addMessage (/tmp/jsii-kernel-7yEJ1j/node_modules/aws-cdk-lib/core/lib/annotations.js:1:1608)",
+              "Annotations.addWarningV2 (/tmp/jsii-kernel-7yEJ1j/node_modules/aws-cdk-lib/core/lib/annotations.js:1:825)",
+              "new ImportedSubnet (/tmp/jsii-kernel-7yEJ1j/node_modules/aws-cdk-lib/aws-ec2/lib/vpc.js:1:38615)",
+              "new ImportedSubnet (/tmp/jsii-kernel-7yEJ1j/node_modules/aws-cdk-lib/core/lib/prop-injectable.js:1:488)",
+              "Subnet2.fromSubnetAttributes (/tmp/jsii-kernel-7yEJ1j/node_modules/aws-cdk-lib/aws-ec2/lib/vpc.js:1:24516)",
+              "Subnet2.fromSubnetId (/tmp/jsii-kernel-7yEJ1j/node_modules/aws-cdk-lib/aws-ec2/lib/vpc.js:1:24602)",
+              "/tmp/tmp3ft4x61l/lib/program.js:315:152",
+              "Kernel._Kernel_ensureSync (/tmp/tmp3ft4x61l/lib/program.js:916:24)",
+              "Kernel.sinvoke (/tmp/tmp3ft4x61l/lib/program.js:315:102)",
+              "KernelHost.processRequest (/tmp/tmp3ft4x61l/lib/program.js:15467:36)",
+              "KernelHost.run (/tmp/tmp3ft4x61l/lib/program.js:15427:22)",
+              "Immediate._onImmediate (/tmp/tmp3ft4x61l/lib/program.js:15428:46)",
+              "process.processImmediate (node:internal/timers:485:21)"
+            ]
+          }
+        ],
+        "/DatabaseStack/CDKMetadata/Default": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CDKMetadata"
+          }
+        ],
+        "/DatabaseStack/BootstrapVersion": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "BootstrapVersion"
+          }
+        ],
+        "/DatabaseStack/CheckBootstrapVersion": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CheckBootstrapVersion"
+          }
+        ]
+      },
+      "displayName": "DatabaseStack"
+    },
+    "Tree": {
+      "type": "cdk:tree",
+      "properties": {
+        "file": "tree.json"
+      }
+    }
+  },
+  "minimumCliVersion": "2.1005.0"
+}
