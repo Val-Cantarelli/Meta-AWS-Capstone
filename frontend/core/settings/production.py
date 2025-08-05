@@ -18,13 +18,28 @@ AWS_S3_OBJECT_PARAMETERS = {
     'CacheControl': 'max-age=86400',
 }
 
+STORAGES = {
+    "default": {
+        "BACKEND": "storages.backends.s3boto3.S3Boto3Storage",
+        "OPTIONS": {
+            "bucket_name": AWS_STORAGE_BUCKET_NAME,
+            "region_name": AWS_S3_REGION_NAME,
+            "object_parameters": AWS_S3_OBJECT_PARAMETERS,
+            "location": "media",
+        },
+    },
+    "staticfiles": {
+        "BACKEND": "storages.backends.s3boto3.S3StaticStorage",
+        "OPTIONS": {
+            "bucket_name": AWS_STORAGE_BUCKET_NAME,
+            "region_name": AWS_S3_REGION_NAME,
+            "object_parameters": AWS_S3_OBJECT_PARAMETERS,
+            "location": "static",
+        },
+    },
+}
 
-STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 AWS_STATIC_LOCATION = 'static'
 AWS_S3_CUSTOM_DOMAIN = f"{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com"
 STATIC_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{AWS_STATIC_LOCATION}/'
-MEDIA_URL = f"https://{AWS_S3_CUSTOM_DOMAIN}/media/"
-DEFAULT_FILE_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
-
-    
-STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles") 
+MEDIA_URL = f"https://{AWS_S3_CUSTOM_DOMAIN}/media/" 
