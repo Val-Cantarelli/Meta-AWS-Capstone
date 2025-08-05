@@ -9,4 +9,5 @@ urlpatterns = [
     path('menu-items/', menu, name='menu'),
     path('book/', book, name='book'),
     path('auth/', auth_page, name='auth_page'),
+    
 ]

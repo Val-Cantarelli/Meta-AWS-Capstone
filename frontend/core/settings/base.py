@@ -4,12 +4,6 @@ from decouple import config
 
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
-ALLOWED_HOSTS = ["127.0.0.1", "localhost"]
-SECRET_KEY = config("SECRET_KEY", default="unsafe-default-key") 
-API_BASE_URL = config("API_BASE_URL", default="https://xy3r212g98.execute-api.us-east-1.amazonaws.com/dev")
-
-STATIC_URL = '/static/'
-
 DEBUG = False 
 
 
@@ -21,6 +15,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'ui_app',
+    'storages'
 ]
 
 MIDDLEWARE = [
@@ -54,10 +49,8 @@ TEMPLATES = [
 WSGI_APPLICATION = 'core.wsgi.application'
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.dummy'
+    "default": {}
     }
-}
 
 SESSION_ENGINE = "django.contrib.sessions.backends.signed_cookies"
 
