@@ -30,11 +30,24 @@ backend/backup.sql
 **/settings/local.py
 
 # Frontend
+<<<<<<< HEAD
 frontend/**/migrations/
 frontend/**/static/
 frontend/tokens.json
 frontend/**/*.txt
 frontend/**/*.json
+=======
+frontend/comands.txt
+
+!frontend/ui_app/static/
+!frontend/ui_app/static/**/*
+frontend/ui_app/migrations/
+frontend/tokens.json
+frontend/ui_app/views.txt
+frontend/ui_app/api/api_client.py
+frontend/.env
+frontend/staticfiles
+>>>>>>> deploy-frontend
 
 # CDK / DevOps
 .cdk.staging

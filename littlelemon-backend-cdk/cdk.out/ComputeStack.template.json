@@ -1,0 +1,363 @@
+{
+ "Resources": {
+  "LambdaExecutionRoleD5C26073": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "lambda.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "ManagedPolicyArns": [
+     {
+      "Fn::Join": [
+       "",
+       [
+        "arn:",
+        {
+         "Ref": "AWS::Partition"
+        },
+        ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+       ]
+      ]
+     },
+     {
+      "Fn::Join": [
+       "",
+       [
+        "arn:",
+        {
+         "Ref": "AWS::Partition"
+        },
+        ":iam::aws:policy/AmazonRDSFullAccess"
+       ]
+      ]
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "ComputeStack/LambdaExecutionRole/Resource"
+   }
+  },
+  "LambdaExecutionRoleDefaultPolicy6D69732F": {
+   "Type": "AWS::IAM::Policy",
+   "Properties": {
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": "ssm:GetParameter",
+       "Effect": "Allow",
+       "Resource": "arn:aws:ssm:us-east-1:557690602441:parameter/littlelemon/django/SECRET_KEY"
+      },
+      {
+       "Action": "secretsmanager:GetSecretValue",
+       "Effect": "Allow",
+       "Resource": "arn:aws:secretsmanager:us-east-1:557690602441:secret:rds!db-4b54e2c7-9bee-42a5-b037-a9fd9218ffcb-yYCkkK"
+      },
+      {
+       "Action": [
+        "ec2:CreateNetworkInterface",
+        "ec2:DeleteNetworkInterface",
+        "ec2:DescribeNetworkInterfaces"
+       ],
+       "Effect": "Allow",
+       "Resource": "*"
+      },
+      {
+       "Action": [
+        "logs:CreateLogStream",
+        "logs:PutLogEvents"
+       ],
+       "Effect": "Allow",
+       "Resource": {
+        "Fn::GetAtt": [
+         "ApiLogs3D05D88B",
+         "Arn"
+        ]
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "PolicyName": "LambdaExecutionRoleDefaultPolicy6D69732F",
+    "Roles": [
+     {
+      "Ref": "LambdaExecutionRoleD5C26073"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "ComputeStack/LambdaExecutionRole/DefaultPolicy/Resource"
+   }
+  },
+  "LambdaSG9DBFCFB7": {
+   "Type": "AWS::EC2::SecurityGroup",
+   "Properties": {
+    "GroupDescription": "SG for Lambda to access RDS Proxy",
+    "SecurityGroupEgress": [
+     {
+      "CidrIp": "0.0.0.0/0",
+      "Description": "Allow all outbound traffic by default",
+      "IpProtocol": "-1"
+     }
+    ],
+    "VpcId": "vpc-076af69e3bd55b0ee"
+   },
+   "Metadata": {
+    "aws:cdk:path": "ComputeStack/LambdaSG/Resource"
+   }
+  },
+  "LittleLemonLambda4583B781": {
+   "Type": "AWS::Lambda::Function",
+   "Properties": {
+    "Code": {
+     "S3Bucket": "cdk-hnb659fds-assets-557690602441-us-east-1",
+     "S3Key": "d4deb54ac8e85192f03c8d16f93c6dcfb2e502553a9d1d91c1fcc8733722754d.zip"
+    },
+    "Environment": {
+     "Variables": {
+      "DJANGO_ENV": "production",
+      "DJANGO_SECRET_PARAM": "/littlelemon/django/SECRET_KEY",
+      "DB_SECRET_NAME": "rds!db-4b54e2c7-9bee-42a5-b037-a9fd9218ffcb",
+      "DB_NAME": "mysqlRDS_littlelemon",
+      "DB_HOST": "proxydb2.proxy-cncggq6wib9a.us-east-1.rds.amazonaws.com",
+      "DB_PORT": "3306"
+     }
+    },
+    "Handler": "lambda_function.lambda_handler",
+    "MemorySize": 512,
+    "Role": {
+     "Fn::GetAtt": [
+      "LambdaExecutionRoleD5C26073",
+      "Arn"
+     ]
+    },
+    "Runtime": "python3.11",
+    "Timeout": 180,
+    "VpcConfig": {
+     "SecurityGroupIds": [
+      {
+       "Fn::GetAtt": [
+        "LambdaSG9DBFCFB7",
+        "GroupId"
+       ]
+      }
+     ],
+     "SubnetIds": [
+      "subnet-00c55983c320de3b1",
+      "subnet-085c0350455dfef4f"
+     ]
+    }
+   },
+   "DependsOn": [
+    "LambdaExecutionRoleDefaultPolicy6D69732F",
+    "LambdaExecutionRoleD5C26073"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "ComputeStack/LittleLemonLambda/Resource",
+    "aws:asset:path": "asset.d4deb54ac8e85192f03c8d16f93c6dcfb2e502553a9d1d91c1fcc8733722754d",
+    "aws:asset:is-bundled": true,
+    "aws:asset:property": "Code"
+   }
+  },
+  "LittleLemonLambdaApiInvokePermission11300807": {
+   "Type": "AWS::Lambda::Permission",
+   "Properties": {
+    "Action": "lambda:InvokeFunction",
+    "FunctionName": {
+     "Fn::GetAtt": [
+      "LittleLemonLambda4583B781",
+      "Arn"
+     ]
+    },
+    "Principal": "apigateway.amazonaws.com",
+    "SourceArn": {
+     "Fn::Join": [
+      "",
+      [
+       "arn:aws:execute-api:us-east-1:557690602441:",
+       {
+        "Ref": "LittleLemonHttpApi"
+       },
+       "/*/*/*"
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "ComputeStack/LittleLemonLambda/ApiInvokePermission"
+   }
+  },
+  "LittleLemonHttpApi": {
+   "Type": "AWS::ApiGatewayV2::Api",
+   "Properties": {
+    "Name": "LittleLemonApi",
+    "ProtocolType": "HTTP"
+   },
+   "Metadata": {
+    "aws:cdk:path": "ComputeStack/LittleLemonHttpApi"
+   }
+  },
+  "LambdaIntegration": {
+   "Type": "AWS::ApiGatewayV2::Integration",
+   "Properties": {
+    "ApiId": {
+     "Ref": "LittleLemonHttpApi"
+    },
+    "IntegrationMethod": "POST",
+    "IntegrationType": "AWS_PROXY",
+    "IntegrationUri": {
+     "Fn::GetAtt": [
+      "LittleLemonLambda4583B781",
+      "Arn"
+     ]
+    },
+    "PayloadFormatVersion": "2.0"
+   },
+   "Metadata": {
+    "aws:cdk:path": "ComputeStack/LambdaIntegration"
+   }
+  },
+  "RootRoute": {
+   "Type": "AWS::ApiGatewayV2::Route",
+   "Properties": {
+    "ApiId": {
+     "Ref": "LittleLemonHttpApi"
+    },
+    "RouteKey": "ANY /",
+    "Target": {
+     "Fn::Join": [
+      "",
+      [
+       "integrations/",
+       {
+        "Ref": "LambdaIntegration"
+       }
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "ComputeStack/RootRoute"
+   }
+  },
+  "CatchAllRoute": {
+   "Type": "AWS::ApiGatewayV2::Route",
+   "Properties": {
+    "ApiId": {
+     "Ref": "LittleLemonHttpApi"
+    },
+    "RouteKey": "ANY /{proxy+}",
+    "Target": {
+     "Fn::Join": [
+      "",
+      [
+       "integrations/",
+       {
+        "Ref": "LambdaIntegration"
+       }
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "ComputeStack/CatchAllRoute"
+   }
+  },
+  "ApiLogs3D05D88B": {
+   "Type": "AWS::Logs::LogGroup",
+   "Properties": {
+    "RetentionInDays": 731
+   },
+   "UpdateReplacePolicy": "Retain",
+   "DeletionPolicy": "Retain",
+   "Metadata": {
+    "aws:cdk:path": "ComputeStack/ApiLogs/Resource"
+   }
+  },
+  "ManualStage": {
+   "Type": "AWS::ApiGatewayV2::Stage",
+   "Properties": {
+    "ApiId": {
+     "Ref": "LittleLemonHttpApi"
+    },
+    "AutoDeploy": true,
+    "StageName": "v1"
+   },
+   "Metadata": {
+    "aws:cdk:path": "ComputeStack/ManualStage"
+   }
+  },
+  "CDKMetadata": {
+   "Type": "AWS::CDK::Metadata",
+   "Properties": {
+    "Analytics": "v2:deflate64:H4sIAAAAAAAA/6VT32vbMBD+W6LHIatp8rLlaU5gpbDRkvQtmHKRL44aWTLSqcEI/+/Dcry2ZNCRPZjD3w/pO/tuJm6/fRVxOoGTz2R5zLTaibghkEe+Rm+Dk7hlXxj/h6fgcPLPUUEt4tpq3EYG3ocay2XLFpE1ThmpGtC5lDYYYotkHDS9IZekrElw1/HIoCx/gYEKy0erlWzZYhtZ/R7J3VleXKl/sm/S9+AY9YIlAnm4N1oZ/MP1vX9OXnHZtZa/sgVf7U3/mfkAp986hn6yPXPRyyVclhsCwhoN+Q/X/iec0g3BOo5yJuIGZXCK2jtnQ7ON7LWR48RobU+51g+BdjaYki3IBeSsRC+dat6GKB364ZyO+/kzeI/kRd4X7udiGeQRaQketwXXUO9KEHG1Nz+CSROZoqGrlffKmo5DoyogPEH7OkvCvFG95t4QVg5Gy9oGwpSAoMKOa1t5EX/aaugobcxqb0ag63hK1KuVqXrqIVATqOPTDHRzADGdfD/v6U1fh6hZ09LBmrPkMb2MyT9b3aLjg+FmLm5nYj558UplLhhSNYr1UH8D39+csiQEAAA="
+   },
+   "Metadata": {
+    "aws:cdk:path": "ComputeStack/CDKMetadata/Default"
+   }
+  }
+ },
+ "Outputs": {
+  "ApiId": {
+   "Value": {
+    "Ref": "LittleLemonHttpApi"
+   }
+  },
+  "ApiEndpoint": {
+   "Value": {
+    "Fn::Join": [
+     "",
+     [
+      "https://",
+      {
+       "Ref": "LittleLemonHttpApi"
+      },
+      ".execute-api.us-east-1.amazonaws.com/v1"
+     ]
+    ]
+   }
+  }
+ },
+ "Parameters": {
+  "BootstrapVersion": {
+   "Type": "AWS::SSM::Parameter::Value<String>",
+   "Default": "/cdk-bootstrap/hnb659fds/version",
+   "Description": "Version of the CDK Bootstrap resources in this environment, automatically retrieved from SSM Parameter Store. [cdk:skip]"
+  }
+ },
+ "Rules": {
+  "CheckBootstrapVersion": {
+   "Assertions": [
+    {
+     "Assert": {
+      "Fn::Not": [
+       {
+        "Fn::Contains": [
+         [
+          "1",
+          "2",
+          "3",
+          "4",
+          "5"
+         ],
+         {
+          "Ref": "BootstrapVersion"
+         }
+        ]
+       }
+      ]
+     },
+     "AssertDescription": "CDK bootstrap stack version 6 required. Please run 'cdk bootstrap' with a recent version of the CDK CLI."
+    }
+   ]
+  }
+ }
+}

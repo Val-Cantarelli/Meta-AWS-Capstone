@@ -1,0 +1,185 @@
+{
+ "Resources": {
+  "TestApi": {
+   "Type": "AWS::ApiGatewayV2::Api",
+   "Properties": {
+    "Name": "TestApi",
+    "ProtocolType": "HTTP",
+    "Policy": {
+     "Version": "2012-10-17",
+     "Statement": [
+      {
+       "Effect": "Allow",
+       "Principal": "*",
+       "Action": "execute-api:Invoke",
+       "Resource": "arn:aws:execute-api:us-east-1:557690602441:3kb7ko4lk5/*",
+       "Condition": {
+        "StringEquals": {
+         "aws:SourceVpce": "vpce-0bb9c7fd4b4270bb9"
+        }
+       }
+      }
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "ApiGatewayStack/TestApi"
+   }
+  },
+  "HelloIntegration": {
+   "Type": "AWS::ApiGatewayV2::Integration",
+   "Properties": {
+    "ApiId": {
+     "Ref": "TestApi"
+    },
+    "IntegrationMethod": "POST",
+    "IntegrationType": "AWS_PROXY",
+    "IntegrationUri": {
+     "Fn::ImportValue": "LambdaFunctionArn"
+    },
+    "PayloadFormatVersion": "2.0"
+   },
+   "Metadata": {
+    "aws:cdk:path": "ApiGatewayStack/HelloIntegration"
+   }
+  },
+  "DefaultRoute": {
+   "Type": "AWS::ApiGatewayV2::Route",
+   "Properties": {
+    "ApiId": {
+     "Ref": "TestApi"
+    },
+    "RouteKey": "$default",
+    "Target": {
+     "Fn::Join": [
+      "",
+      [
+       "integrations/",
+       {
+        "Fn::GetAtt": [
+         "HelloIntegration",
+         "IntegrationId"
+        ]
+       }
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "ApiGatewayStack/DefaultRoute"
+   }
+  },
+  "Deployment": {
+   "Type": "AWS::ApiGatewayV2::Deployment",
+   "Properties": {
+    "ApiId": {
+     "Ref": "TestApi"
+    }
+   },
+   "DependsOn": [
+    "DefaultRoute"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "ApiGatewayStack/Deployment"
+   }
+  },
+  "DefaultStage": {
+   "Type": "AWS::ApiGatewayV2::Stage",
+   "Properties": {
+    "ApiId": {
+     "Ref": "TestApi"
+    },
+    "AutoDeploy": true,
+    "DeploymentId": {
+     "Ref": "Deployment"
+    },
+    "StageName": "$default"
+   },
+   "Metadata": {
+    "aws:cdk:path": "ApiGatewayStack/DefaultStage"
+   }
+  },
+  "ApiPermission": {
+   "Type": "AWS::Lambda::Permission",
+   "Properties": {
+    "Action": "lambda:InvokeFunction",
+    "FunctionName": {
+     "Fn::ImportValue": "LambdaFunctionArn"
+    },
+    "Principal": "apigateway.amazonaws.com",
+    "SourceArn": "arn:aws:execute-api:us-east-1:557690602441:*/*/*/*"
+   },
+   "Metadata": {
+    "aws:cdk:path": "ApiGatewayStack/ApiPermission"
+   }
+  },
+  "CDKMetadata": {
+   "Type": "AWS::CDK::Metadata",
+   "Properties": {
+    "Analytics": "v2:deflate64:H4sIAAAAAAAA/yWJQQ6CMBAA38K9rAIXPRq8eJLAA8wCBVfotqFbCSH83TSeZiaTQ3a9wDnB1addP6UztbA3gt2kcPWvHR2NKHrF7ZvDXg58c6TKgR8selxQyHLM2gbRUe7azXYzmiVWIzjqQ81o2h6hHLjSiyHvyfIR/zOIC3KoapO35VMBWQ5F8vFE6RJYyGio//wBUXs4oagAAAA="
+   },
+   "Metadata": {
+    "aws:cdk:path": "ApiGatewayStack/CDKMetadata/Default"
+   }
+  }
+ },
+ "Outputs": {
+  "HttpApiId": {
+   "Value": {
+    "Ref": "TestApi"
+   },
+   "Export": {
+    "Name": "HttpApiId"
+   }
+  },
+  "VpcOnlyApi": {
+   "Description": "Private API URL",
+   "Value": {
+    "Fn::Join": [
+     "",
+     [
+      "https://",
+      {
+       "Ref": "TestApi"
+      },
+      ".execute-api.us-east-1.amazonaws.com"
+     ]
+    ]
+   }
+  }
+ },
+ "Parameters": {
+  "BootstrapVersion": {
+   "Type": "AWS::SSM::Parameter::Value<String>",
+   "Default": "/cdk-bootstrap/hnb659fds/version",
+   "Description": "Version of the CDK Bootstrap resources in this environment, automatically retrieved from SSM Parameter Store. [cdk:skip]"
+  }
+ },
+ "Rules": {
+  "CheckBootstrapVersion": {
+   "Assertions": [
+    {
+     "Assert": {
+      "Fn::Not": [
+       {
+        "Fn::Contains": [
+         [
+          "1",
+          "2",
+          "3",
+          "4",
+          "5"
+         ],
+         {
+          "Ref": "BootstrapVersion"
+         }
+        ]
+       }
+      ]
+     },
+     "AssertDescription": "CDK bootstrap stack version 6 required. Please run 'cdk bootstrap' with a recent version of the CDK CLI."
+    }
+   ]
+  }
+ }
+}

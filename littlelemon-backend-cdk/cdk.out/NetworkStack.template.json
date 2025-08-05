@@ -1,0 +1,254 @@
+{
+ "Resources": {
+  "PrivateSubnet1": {
+   "Type": "AWS::EC2::Subnet",
+   "Properties": {
+    "AvailabilityZone": "us-east-1a",
+    "CidrBlock": "172.31.200.0/24",
+    "MapPublicIpOnLaunch": false,
+    "Tags": [
+     {
+      "Key": "aws-cdk:subnet-name",
+      "Value": "PrivateSubnet200"
+     },
+     {
+      "Key": "aws-cdk:subnet-type",
+      "Value": "Isolated"
+     }
+    ],
+    "VpcId": "vpc-076af69e3bd55b0ee"
+   },
+   "Metadata": {
+    "aws:cdk:path": "NetworkStack/PrivateSubnet1"
+   }
+  },
+  "PrivateSubnet2": {
+   "Type": "AWS::EC2::Subnet",
+   "Properties": {
+    "AvailabilityZone": "us-east-1b",
+    "CidrBlock": "172.31.201.0/24",
+    "MapPublicIpOnLaunch": false,
+    "Tags": [
+     {
+      "Key": "aws-cdk:subnet-name",
+      "Value": "PrivateSubnet201"
+     },
+     {
+      "Key": "aws-cdk:subnet-type",
+      "Value": "Isolated"
+     }
+    ],
+    "VpcId": "vpc-076af69e3bd55b0ee"
+   },
+   "Metadata": {
+    "aws:cdk:path": "NetworkStack/PrivateSubnet2"
+   }
+  },
+  "PrivateRouteTable": {
+   "Type": "AWS::EC2::RouteTable",
+   "Properties": {
+    "VpcId": "vpc-076af69e3bd55b0ee"
+   },
+   "Metadata": {
+    "aws:cdk:path": "NetworkStack/PrivateRouteTable"
+   }
+  },
+  "PrivateSubnet1Association": {
+   "Type": "AWS::EC2::SubnetRouteTableAssociation",
+   "Properties": {
+    "RouteTableId": {
+     "Ref": "PrivateRouteTable"
+    },
+    "SubnetId": {
+     "Ref": "PrivateSubnet1"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "NetworkStack/PrivateSubnet1Association"
+   }
+  },
+  "PrivateSubnet2Association": {
+   "Type": "AWS::EC2::SubnetRouteTableAssociation",
+   "Properties": {
+    "RouteTableId": {
+     "Ref": "PrivateRouteTable"
+    },
+    "SubnetId": {
+     "Ref": "PrivateSubnet2"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "NetworkStack/PrivateSubnet2Association"
+   }
+  },
+  "SSMEndpointSecurityGroup3A3F1835": {
+   "Type": "AWS::EC2::SecurityGroup",
+   "Properties": {
+    "GroupDescription": "NetworkStack/SSMEndpoint/SecurityGroup",
+    "SecurityGroupEgress": [
+     {
+      "CidrIp": "0.0.0.0/0",
+      "Description": "Allow all outbound traffic by default",
+      "IpProtocol": "-1"
+     }
+    ],
+    "SecurityGroupIngress": [
+     {
+      "CidrIp": "172.31.0.0/16",
+      "Description": "from 172.31.0.0/16:443",
+      "FromPort": 443,
+      "IpProtocol": "tcp",
+      "ToPort": 443
+     }
+    ],
+    "VpcId": "vpc-076af69e3bd55b0ee"
+   },
+   "Metadata": {
+    "aws:cdk:path": "NetworkStack/SSMEndpoint/SecurityGroup/Resource"
+   }
+  },
+  "SSMEndpointE3B50236": {
+   "Type": "AWS::EC2::VPCEndpoint",
+   "Properties": {
+    "PrivateDnsEnabled": false,
+    "SecurityGroupIds": [
+     {
+      "Fn::GetAtt": [
+       "SSMEndpointSecurityGroup3A3F1835",
+       "GroupId"
+      ]
+     }
+    ],
+    "ServiceName": "com.amazonaws.us-east-1.ssm",
+    "SubnetIds": [
+     {
+      "Ref": "PrivateSubnet1"
+     },
+     {
+      "Ref": "PrivateSubnet2"
+     }
+    ],
+    "VpcEndpointType": "Interface",
+    "VpcId": "vpc-076af69e3bd55b0ee"
+   },
+   "Metadata": {
+    "aws:cdk:path": "NetworkStack/SSMEndpoint/Resource"
+   }
+  },
+  "SecretsManagerEndpointSecurityGroupEA7D8B27": {
+   "Type": "AWS::EC2::SecurityGroup",
+   "Properties": {
+    "GroupDescription": "NetworkStack/SecretsManagerEndpoint/SecurityGroup",
+    "SecurityGroupEgress": [
+     {
+      "CidrIp": "0.0.0.0/0",
+      "Description": "Allow all outbound traffic by default",
+      "IpProtocol": "-1"
+     }
+    ],
+    "SecurityGroupIngress": [
+     {
+      "CidrIp": "172.31.0.0/16",
+      "Description": "from 172.31.0.0/16:443",
+      "FromPort": 443,
+      "IpProtocol": "tcp",
+      "ToPort": 443
+     }
+    ],
+    "VpcId": "vpc-076af69e3bd55b0ee"
+   },
+   "Metadata": {
+    "aws:cdk:path": "NetworkStack/SecretsManagerEndpoint/SecurityGroup/Resource"
+   }
+  },
+  "SecretsManagerEndpoint5E83C66B": {
+   "Type": "AWS::EC2::VPCEndpoint",
+   "Properties": {
+    "PrivateDnsEnabled": true,
+    "SecurityGroupIds": [
+     {
+      "Fn::GetAtt": [
+       "SecretsManagerEndpointSecurityGroupEA7D8B27",
+       "GroupId"
+      ]
+     }
+    ],
+    "ServiceName": "com.amazonaws.us-east-1.secretsmanager",
+    "SubnetIds": [
+     {
+      "Ref": "PrivateSubnet1"
+     },
+     {
+      "Ref": "PrivateSubnet2"
+     }
+    ],
+    "VpcEndpointType": "Interface",
+    "VpcId": "vpc-076af69e3bd55b0ee"
+   },
+   "Metadata": {
+    "aws:cdk:path": "NetworkStack/SecretsManagerEndpoint/Resource"
+   }
+  },
+  "CDKMetadata": {
+   "Type": "AWS::CDK::Metadata",
+   "Properties": {
+    "Analytics": "v2:deflate64:H4sIAAAAAAAA/71Ry07DMBD8lvqIXEPbC+SGSoVyokpRL1GEXGcDpunaeNetqij/jpK+4IQQEgfLuyPvzoxnrEZ3t+pmoHc0NOV6WNuVahaszVpmQC4GA7m4EvKHU0i9oxcwY9VMK1zEFQLLaYWZiwzPelWDPOMX7J7IGavZOpQpMoRKG1h6M8PSO4ucN4IgbK0BkTTCB7vVDA9ID1DpWLNIKl0TSIF6AyLppXgXuC9bKaino272XJ7MFK0UW2+OT//GcxmYYWerFAmHCL8QUMgFmBgs7x+Diz5vvmnTZZniawCiLNYgkrwRRmOKtUU4IAc64xDBdL9JR5UR7UeEtDytavu8ejdFt/kfWIo++K/uOmA5n55Cbrv+KbKP3Mr5nt8cXk/UaKwmg3eydhgist2Ayg73J5xu5ymxAgAA"
+   },
+   "Metadata": {
+    "aws:cdk:path": "NetworkStack/CDKMetadata/Default"
+   }
+  }
+ },
+ "Outputs": {
+  "SSMEndpointId": {
+   "Value": {
+    "Ref": "SSMEndpointE3B50236"
+   },
+   "Export": {
+    "Name": "SSMVPCEndpointId"
+   }
+  },
+  "SecretsManagerEndpointId": {
+   "Value": {
+    "Ref": "SecretsManagerEndpoint5E83C66B"
+   },
+   "Export": {
+    "Name": "SecretsManagerVPCEndpointId"
+   }
+  }
+ },
+ "Parameters": {
+  "BootstrapVersion": {
+   "Type": "AWS::SSM::Parameter::Value<String>",
+   "Default": "/cdk-bootstrap/hnb659fds/version",
+   "Description": "Version of the CDK Bootstrap resources in this environment, automatically retrieved from SSM Parameter Store. [cdk:skip]"
+  }
+ },
+ "Rules": {
+  "CheckBootstrapVersion": {
+   "Assertions": [
+    {
+     "Assert": {
+      "Fn::Not": [
+       {
+        "Fn::Contains": [
+         [
+          "1",
+          "2",
+          "3",
+          "4",
+          "5"
+         ],
+         {
+          "Ref": "BootstrapVersion"
+         }
+        ]
+       }
+      ]
+     },
+     "AssertDescription": "CDK bootstrap stack version 6 required. Please run 'cdk bootstrap' with a recent version of the CDK CLI."
+    }
+   ]
+  }
+ }
+}

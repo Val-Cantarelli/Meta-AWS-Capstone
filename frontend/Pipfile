@@ -5,10 +5,12 @@ name = "pypi"
 
 [packages]
 django = "*"
-decouple = "*"
+boto3 = "*"
+django-storages = "*"
 python-decouple = "*"
 
 [dev-packages]
+awsebcli = "*"
 
 [requires]
 python_version = "3.12"
