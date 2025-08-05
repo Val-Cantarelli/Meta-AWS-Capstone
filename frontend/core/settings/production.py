@@ -1,14 +1,30 @@
 from .base import *
+import os
 
-print("Hello prod")
 DEBUG = False
-ALLOWED_HOSTS = ["127.0.0.1", "localhost"]  
-# create and add domain
-API_BASE_URL = os.getenv("API_BASE_URL", "https://xy3r212g98.execute-api.us-east-1.amazonaws.com/dev")
 
-STATIC_URL = "/static/"
-STATIC_ROOT = BASE_DIR / "staticfiles"
+ALLOWED_HOSTS = ["127.0.0.1", "localhost", "littlelemon-env.eba-gpgijkvt.us-east-1.elasticbeanstalk.com",".elasticbeanstalk.com"]  
+
+API_BASE_URL = os.environ.get("API_BASE_URL")
+SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY")
 
 SESSION_COOKIE_SECURE = True
 CSRF_COOKIE_SECURE = True
 #(optional)SESSION_EXPIRE_AT_BROWSER_CLOSE = True 
+
+AWS_STORAGE_BUCKET_NAME = os.environ.get("AWS_STORAGE_BUCKET_NAME")
+AWS_S3_REGION_NAME = os.environ.get("AWS_S3_REGION_NAME", "us-east-1")
+AWS_S3_OBJECT_PARAMETERS = {
+    'CacheControl': 'max-age=86400',
+}
+
+
+STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+AWS_STATIC_LOCATION = 'static'
+AWS_S3_CUSTOM_DOMAIN = f"{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com"
+STATIC_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{AWS_STATIC_LOCATION}/'
+MEDIA_URL = f"https://{AWS_S3_CUSTOM_DOMAIN}/media/"
+DEFAULT_FILE_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
+
+    
+STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles") 
