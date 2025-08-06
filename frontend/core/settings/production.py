@@ -1,15 +1,9 @@
 from .base import *
 import os
+from dotenv import load_dotenv
+load_dotenv()
 
-<<<<<<< HEAD
-print("Environment: Production")
-DEBUG = True
-ALLOWED_HOSTS = ["127.0.0.1", "localhost"]
-# create and add domain
-API_BASE_URL = os.getenv("API_BASE_URL", "https://6qpkzrhv4c.execute-api.us-east-1.amazonaws.com/v1")
-=======
 DEBUG = False
->>>>>>> deploy-frontend
 
 ALLOWED_HOSTS = ["127.0.0.1", "localhost", "littlelemon-env.eba-gpgijkvt.us-east-1.elasticbeanstalk.com",".elasticbeanstalk.com"]  
 
@@ -18,9 +12,6 @@ SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY")
 
 SESSION_COOKIE_SECURE = True
 CSRF_COOKIE_SECURE = True
-<<<<<<< HEAD
-#(optional)SESSION_EXPIRE_AT_BROWSER_CLOSE = True
-=======
 #(optional)SESSION_EXPIRE_AT_BROWSER_CLOSE = True 
 
 AWS_STORAGE_BUCKET_NAME = os.environ.get("AWS_STORAGE_BUCKET_NAME")
@@ -53,5 +44,5 @@ STORAGES = {
 AWS_STATIC_LOCATION = 'static'
 AWS_S3_CUSTOM_DOMAIN = f"{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com"
 STATIC_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{AWS_STATIC_LOCATION}/'
-MEDIA_URL = f"https://{AWS_S3_CUSTOM_DOMAIN}/media/" 
->>>>>>> deploy-frontend
+MEDIA_URL = f"https://{AWS_S3_CUSTOM_DOMAIN}/media/"
+
