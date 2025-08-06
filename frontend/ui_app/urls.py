@@ -8,11 +8,6 @@ urlpatterns = [
     path('about/', about, name='about'),
     path('menu-items/', menu, name='menu'),
     path('book/', book, name='book'),
-<<<<<<< HEAD
     path('login/', login_view, name='login'),
     path('signup/', signup_view, name='signup'),
-=======
-    path('auth/', auth_page, name='auth_page'),
-    
->>>>>>> deploy-frontend
 ]
