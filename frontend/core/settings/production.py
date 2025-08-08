@@ -5,7 +5,7 @@ load_dotenv()
 
 DEBUG = False
 
-ALLOWED_HOSTS = ["127.0.0.1", "localhost", "littlelemon-env.eba-gpgijkvt.us-east-1.elasticbeanstalk.com",".elasticbeanstalk.com"]  
+ALLOWED_HOSTS = ["127.0.0.1", "localhost", "littlelemon-env.eba-gpgijkvt.us-east-1.elasticbeanstalk.com",".elasticbeanstalk.com", "vahltech.com", "www.vahltech.com"]  
 
 API_BASE_URL = os.environ.get("API_BASE_URL")
 SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY")
