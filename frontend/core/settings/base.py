@@ -7,6 +7,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent.parent
 ALLOWED_HOSTS = ["127.0.0.1", "localhost"]
 SECRET_KEY = config("SECRET_KEY", default="unsafe-default-key") 
 
+API_BASE_URL = config("API_BASE_URL", default="")
+
 STATIC_URL = '/static/'
 
 DEBUG = False 

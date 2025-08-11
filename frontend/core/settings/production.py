@@ -4,10 +4,11 @@ import os
 
 DEBUG = False
 
-ALLOWED_HOSTS = ["127.0.0.1", "localhost", "littlelemon-env.eba-gpgijkvt.us-east-1.elasticbeanstalk.com",".elasticbeanstalk.com", "vahltech.com", "www.vahltech.com"]  
+ALLOWED_HOSTS = ["127.0.0.1", "localhost",".elasticbeanstalk.com", "vahltech.com", "www.vahltech.com"]  
 
 API_BASE_URL = os.environ.get("API_BASE_URL")
-SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY")
+# Support both DJANGO_SECRET_KEY and SECRET_KEY env vars
+SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY") or os.environ.get("SECRET_KEY")
 
 SESSION_COOKIE_SECURE = True
 CSRF_COOKIE_SECURE = True
