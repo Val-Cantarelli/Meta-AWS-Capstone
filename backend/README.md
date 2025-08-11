@@ -138,7 +138,7 @@ Notes:
 - API Gateway (optional): if using stage `/v1`, tweak pagination to rewrite links (commented in `production.py`).
 
 ## Frontend Coverage and Manual Testing
-Some API capabilities are not exposed in the web UI. Use Postman or curl to exercise them directly:
+Some API capabilities are not exposed in the web UI. Use Insomnia or curl to exercise them directly:
 
 - Categories: POST/PUT/PATCH/DELETE (admin only)
 - Groups: `/api/groups/(manager|delivery-crew)/users` to list, add by `username`, and remove by `userId` (admin or manager)
@@ -165,8 +165,3 @@ Examples (requires JWT in Authorization header):
   - Health check `/health`
   - AWS integration: SSM for SECRET_KEY, Secrets Manager for DB, RDS Proxy, `ALLOWED_HOSTS` adjustments
   - DRF rate limiting
-
-## License
-Educational/demo use. Adjust to your project needs.
-
-
