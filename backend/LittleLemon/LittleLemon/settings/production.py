@@ -24,7 +24,7 @@ if not rds_proxy_endpoint:
     raise RuntimeError("DB_HOST not set in environment variables")
 
 '''
-Na paginacao sobrescrever o get_next_link e get_previous_link para que a URL seja /v1/api/ em vez de /api/
+Na paginacao sobrescrever o get_next_link e get_previous_link parpraa que a URL seja /v1/api/ em vez de /api/
 from rest_framework.pagination import PageNumberPagination
 
 class APIGatewayPageNumberPagination(PageNumberPagination):
