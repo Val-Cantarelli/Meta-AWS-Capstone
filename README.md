@@ -59,15 +59,13 @@ flowchart LR
 
 Purpose: Although the backend already runs ASGI on Lambda via Mangum, executions are still ephemeral and there is no native support for WebSockets or long‑lived connections. If the application evolves to require real‑time features or continuous workloads and the budget increases, the plan is to migrate to ECS Fargate to run a native ASGI server with persistent workers, improving latency predictability and networking control.
 
-```
-
-mermaid
+```mermaid
 flowchart LR
   Client --> ALB[Application Load Balancer]
-  ALB --> EB[Elastic Beanstalk (Django ASGI)]
+  ALB --> EB[Elastic Beanstalk - Django ASGI]
   EB --> S3[(Amazon S3: static/media)]
-  EB --> ALB_API[Application Load Balancer (API)]
-  ALB_API --> ECS[ECS Fargate (Django ASGI)]
+  EB --> ALB_API[Application Load Balancer API]
+  ALB_API --> ECS[ECS Fargate]
   ECS --> RDS[(Amazon RDS)]
 
 ```
