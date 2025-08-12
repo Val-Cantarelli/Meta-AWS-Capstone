@@ -43,9 +43,7 @@ This repository focuses on:
 
 Purpose: validate frontend integration and API functionality in the cloud with reliable database connectivity, keeping operational costs around USD 100/month while leaving room for future real-time features without major re-architecture.
 
-```
-
-mermaid
+```mermaid
 flowchart LR
   Client --> ALB[Application Load Balancer]
   ALB --> EB[Elastic Beanstalk (Django)]
