@@ -17,12 +17,23 @@ Key paths:
 - Models/Views/Serializers: in `LittleLemon/LittleLemonAPI/`
 - Settings: `LittleLemon/LittleLemon/settings/` (`base.py`, `production.py`)
 
+## Architecture and Design Rationale
+This API is designed around DRF viewsets exposing clear resources (menu, categories, cart, orders) with stateless JWT authentication. Role-based access control uses Django Groups to keep authorization simple and auditable: managers curate the menu and orchestrate orders; delivery crew handle fulfillment; customers place orders. Pagination, filtering, and throttling are enabled by default to protect the API, bound query costs, and provide a consistent client experience.
+
+In production, configuration and secrets are externalized (SSM Parameter Store for SECRET_KEY, Secrets Manager for DB credentials). RDS Proxy smooths connection spikes and improves resilience for serverless or autoscaled runtimes. The service can run behind API Gateway + Lambda (with a lightweight ASGI/WSGI adapter) or on Elastic Beanstalk behind an ALB. Health checks are explicit to keep infrastructure feedback loops reliable.
+
 ## Data Models
 - Category: slug, title
 - MenuItem: title, price, featured, availability, category (FK)
 - Cart: user, menuitem, quantity, unit_price, price (unique per user+item)
 - Order: user, delivery_crew (User), status (bool), total, date
 - OrderItem: order, menuitem, quantity, unit_price, price (unique per order+item)
+
+## How the main flows work
+- Browse menu: anonymous users can list and search menu items using indexed fields (title, category, price) with pagination to minimize payloads.
+- Sign up and log in: Djoser issues JWTs; the client includes the access token on subsequent requests. Refresh tokens extend sessions without re-authenticating.
+- Cart to order: a customer adds items to the cart; creating an order snapshots prices/quantities into OrderItem and clears the cart to avoid accidental reorders.
+- Order orchestration: a manager assigns a delivery crew member and updates status; delivery crew can update status during fulfillment. Access to orders is restricted by role (own, assigned, or all for managers).
 
 ## Authentication
 - JWT via Djoser + SimpleJWT
@@ -122,6 +133,13 @@ Notes:
 - `manage.py` uses `DJANGO_ENV` (default: `local`) to select settings: `LittleLemon.LittleLemon.settings.{ENV}`
 - To override, export: `export DJANGO_ENV=base` or use script `manage_local.sh`
 
+## Django Admin
+- URL: `/admin`
+- Create superuser: `python manage.py createsuperuser`
+- Models available: Category, MenuItem, Cart, Order (register OrderItem if you want to administer items per order)
+- Groups: create `manager` and `delivery-crew` and assign users accordingly
+- Production hygiene: restrict access, use strong passwords/2FA, consider changing the admin path and applying IP allowlists
+
 ## Production (AWS)
 - Settings: `LittleLemon/LittleLemon/settings/production.py`
 - Required environment variables:
@@ -136,6 +154,13 @@ Notes:
   - MySQL via `pymysql`
 - ALLOWED_HOSTS: include your API Gateway/EB host. Example present: `6qpkzrhv4c.execute-api.us-east-1.amazonaws.com`
 - API Gateway (optional): if using stage `/v1`, tweak pagination to rewrite links (commented in `production.py`).
+
+## Operations and Observability
+- Health checks: `/health` endpoint responds 200 for load balancers
+- Logging: rely on platform logs (EB/ALB or API Gateway/Lambda + CloudWatch) for request tracing and error diagnostics
+- Migrations: run `python manage.py migrate` on deploys that change the schema
+- Rate limits: DRF throttling protects against bursts; tune per environment
+- Secrets and config: never hardcode; use environment and managed secret stores
 
 ## Frontend Coverage and Manual Testing
 Some API capabilities are not exposed in the web UI. Use Insomnia or curl to exercise them directly:
@@ -156,6 +181,13 @@ Examples (requires JWT in Authorization header):
 - Login: `curl -X POST /auth/jwt/create -d '{"username":"admin","password":"..."}' -H 'Content-Type: application/json'`
 - Public menu: `curl /api/menu-items`
 - Cart (with JWT): `curl -H 'Authorization: Bearer <token>' /api/cart`
+
+## Future Work
+- Admin UX: register `OrderItem` and add list filters/search to ease operations
+- Observability: add request IDs, structured logging, and basic metrics (latency, error rate)
+- Performance: add selective prefetching and caching for hot endpoints
+- Security: add permission tests and audit logs for group changes
+- Product: align booking workflow with backend API once finalized
 
 ## Credits and Customizations
 - Based on Meta Backend (Little Lemon) coursework. Adaptations:
