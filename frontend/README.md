@@ -58,6 +58,41 @@ All pages are rendered server-side using Django templates. This guarantees fast 
 - CSRF/auth issues: check trusted origins and API_BASE_URL.
 - Static/media: confirm S3 bucket and permissions.
 
+
+
+## Open Issues and Next Steps 
+
+1) Signup returns 500
+- Repro: Visit `/signup`, submit form → server returns 500.
+- Suspects: Incorrect Djoser payload (username, password, re_password, email), missing CSRF/session headers, misconfigured `API_BASE_URL`, backend validation error not handled.
+- Actions:
+  - Inspect browser Network tab and EB/CloudWatch logs for the failing request.
+  - Align payload with Djoser requirements; validate fields client-side.
+  - Ensure CSRF/Session handling is correct for POST.
+  - Handle non-2xx responses with user-friendly messages.
+- Acceptance: Signup succeeds or shows clear validation errors; no 500.
+
+2) Booking page missing form
+- Actions:
+  - Implement booking form UI (template + view + URL).
+  - Add client-side validation and success/empty/error states.
+  - Connect to API (if available) or add a placeholder handler until backend is ready.
+- Acceptance: User can submit a booking and see confirmation or errors.
+
+3) Auth UX polish
+- Add loading states and inline error messages to login/signup.
+- Verify `CSRF_TRUSTED_ORIGINS` and `API_BASE_URL` alignment between frontend and backend.
+- Keep tokens server-side only; maintain session-cookie-based requests.
+
+4) QA and Accessibility
+- Add basic unit/integration tests for auth flow.
+- Improve a11y: form labels, aria attributes, focus management, keyboard navigation.
+
+5) Ops and Configuration
+- Monitor EB/CloudWatch logs for signup errors and 4xx/5xx spikes.
+- Recheck EB env vars: `API_BASE_URL`, `DJANGO_SETTINGS_MODULE`, secrets.
+- Confirm Nginx health checks and redirects remain green after changes.
+
 ## Project credits and customizations
 
 The core frontend (templates, static files, base views) was provided by the Meta course.
@@ -72,5 +107,4 @@ Additional changes: adjusted environment variables, health checks, and security 
 ## References
 - [Django Documentation](https://docs.djangoproject.com/ )
 - [AWS Elastic Beanstalk](https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/Welcome.html)
-- [API Gateway](https://docs.aws.amazon.com/apigateway/)
 
