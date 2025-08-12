@@ -43,6 +43,7 @@ This repository focuses on:
 
 Purpose: validate frontend integration and API functionality in the cloud with reliable database connectivity, keeping operational costs around USD 100/month while leaving room for future real-time features without major re-architecture.
 
+```mermaid
 flowchart LR
   Client --> ALB[Application Load Balancer]
   ALB --> EB[(Elastic Beanstalk Django)]
@@ -51,7 +52,7 @@ flowchart LR
   APIGW --> L[Lambda]
   L --> RDSProxy[RDS Proxy] --> RDS[(Amazon RDS)]
 
-
+```
 
 ### Version 2 (Planned)
 - Backend migrated from Lambda to ECS Fargate
