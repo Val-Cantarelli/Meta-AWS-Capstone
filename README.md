@@ -95,5 +95,5 @@ flowchart LR
 ## Repository Structure
 - `backend/` – Django REST API
 - `frontend/` – Django UI app
-- `littlelemon-backend-cdk/` – Infrastructure experiments
+- `littlelemon-backend-cdk/` – Infrastructure
 - `littlelemon-documentation/` – Architecture docs and diagrams
