@@ -43,16 +43,13 @@ This repository focuses on:
 
 Purpose: validate frontend integration and API functionality in the cloud with reliable database connectivity, keeping operational costs around USD 100/month while leaving room for future real-time features without major re-architecture.
 
-```mermaid
 flowchart LR
   Client --> ALB[Application Load Balancer]
-  ALB --> EB[Elastic Beanstalk (Django)]
+  ALB --> EB[(Elastic Beanstalk Django)]
   EB --> S3[(Amazon S3: static/media)]
   EB --> APIGW[API Gateway]
   APIGW --> L[Lambda]
   L --> RDSProxy[RDS Proxy] --> RDS[(Amazon RDS)]
-
-```
 
 
 
