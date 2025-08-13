@@ -5,7 +5,6 @@ import os
 DEBUG = False
 
 ALLOWED_HOSTS = ["127.0.0.1", "localhost",".elasticbeanstalk.com", "vahltech.com", "www.vahltech.com"]  
-
 API_BASE_URL = os.environ.get("API_BASE_URL")
 # Support both DJANGO_SECRET_KEY and SECRET_KEY env vars
 SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY") or os.environ.get("SECRET_KEY")

@@ -83,8 +83,8 @@ def login_view(request):
             }, headers=headers)
             response.raise_for_status()
         except Exception as e:
-            print("Erro ao fazer login:", e)
-            print("Resposta:", response.text)
+            print("Login error:", e)
+            print("Response:", response.text)
             messages.error(request, f"Login error: {e}")
             return render(request, 'login.html')
 
@@ -106,9 +106,6 @@ def login_view(request):
             return redirect('menu')
 
     return render(request, 'login.html')
-
-
-
 
 def refresh_access_token(request):
     refresh_token = request.session.get("refresh")
