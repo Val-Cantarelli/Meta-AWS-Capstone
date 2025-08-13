@@ -1,0 +1,11 @@
+-r requirements.txt
+
+# Pacotes só de desenvolvimento:
+django-extensions>=3.2
+uvicorn>=0.30
+ipython>=8.26
+pytest>=8.3
+pytest-django>=4.8
+black>=24
+ruff>=0.5
+mypy>=1.10
