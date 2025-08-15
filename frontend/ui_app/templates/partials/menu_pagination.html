@@ -1,20 +1,33 @@
 {% load static %}
+
+
 <div id="menu-items-content">
+  <div class="menu-grid">
     {% for item in items %}
-        <div class="menu-item">
-            <a href="#">{{ item.title }}</a>
-            <span class="menu-price">$ {{ item.price }}</span>
+      <article class="menu-card">
+        {% if item.featured %}
+          <span class="badge-featured">Today's special!</span>
+        {% endif %}
+
+        <h3 class="menu-card-title">{{ item.title }}</h3>
+        <div class="menu-card-footer">
+          <span class="menu-card-price">$ {{ item.price }}</span>
         </div>
+      </article>
+    {% empty %}
+      <p class="muted">No items available.</p>
     {% endfor %}
+  </div>
 </div>
 
 <div class="pagination">
-    {% if previous_page %}
-        <a href="?page={{ previous_page }}" class="btn">Previous</a>
-    {% endif %}
+  <a class="btn{% if not previous_page %} disabled{% endif %}"
+     {% if previous_page %}href="?page={{ previous_page }}"{% else %}aria-disabled="true" tabindex="-1"{% endif %}>
+     Previous
+  </a>
 
-    {% if next_page %}
-        <a href="?page={{ next_page }}" class="btn">Next</a>
-    {% endif %}
+  <a class="btn{% if not next_page %} disabled{% endif %}"
+     {% if next_page %}href="?page={{ next_page }}"{% else %}aria-disabled="true" tabindex="-1"{% endif %}>
+     Next
+  </a>
 </div>
-<!-- (verificar) As variáveis next_page e previous_page estão vindo como None ou não estão sendo passadas? -->

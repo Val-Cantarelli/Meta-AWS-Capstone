@@ -1,6 +1,6 @@
 branch-defaults:
   default:
-    environment: littlelemon-env
+    environment: webui
     group_suffix: null
 global:
   application_name: frontend-deploy
