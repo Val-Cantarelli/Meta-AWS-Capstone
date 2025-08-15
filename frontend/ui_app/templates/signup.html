@@ -1,34 +1,36 @@
 {% extends 'base.html' %}
-{% load static %}
+{% block body_class %}auth-page{% endblock %}
 {% block content %}
-    <!-- Sign Up Section -->
-    <div class="auth-column">
-        <h2>Sign Up</h2>
-        <form method="post" action="{% url 'signup' %}">
-            {% csrf_token %}
-            <label for="signup-username">Username:</label>
-            <input type="text" id="signup-username" name="username" required />
+<div class="auth-center" style="min-height:100vh; display:flex; align-items:center; justify-content:center; width:100%;">
+  <div class="auth-column" style="max-width:480px; width:100%;">
+    <h2>Create account</h2>
 
-            <label for="signup-email">Email:</label>
-            <input type="email" id="signup-email" name="email" required />
-
-            <label for="signup-password">Password:</label>
-            <input type="password" id="signup-password" name="password" required autocomplete="new-password" />
-
-            <label for="signup-re_password">Re-type the password:</label>
-            <input type="password" id="signup-re_password" name="re_password" required autocomplete="new-password" />
-
-            <button type="submit">Sign Up</button>
-        </form>
-    </div>
-    
-    <!-- Display flash messages if any exist -->
     {% if messages %}
-        <ul class="messages">
-            {% for message in messages %}
-                <li {% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li>
-            {% endfor %}
-        </ul>
+      <ul class="messages">
+        {% for message in messages %}
+          <li{% if message.tags %} class="{{ message.tags|default:'' }}"{% endif %}>{{ message }}</li>
+        {% endfor %}
+      </ul>
     {% endif %}
+
+    <form method="post" action="{% url 'signup' %}" novalidate>
+      {% csrf_token %}
+      {{ form.non_field_errors }}
+
+      <label for="{{ form.username.id_for_label }}">{{ form.username.label }}</label>
+      {{ form.username }} {{ form.username.errors }}
+
+      <label for="{{ form.email.id_for_label }}">{{ form.email.label }}</label>
+      {{ form.email }} {{ form.email.errors }}
+
+      <label for="{{ form.password.id_for_label }}">{{ form.password.label }}</label>
+      {{ form.password }} {{ form.password.errors }}
+
+      <label for="{{ form.re_password.id_for_label }}">{{ form.re_password.label }}</label>
+      {{ form.re_password }} {{ form.re_password.errors }}
+
+      <button type="submit">Create account</button>
+    </form>
+  </div>
 </div>
 {% endblock %}

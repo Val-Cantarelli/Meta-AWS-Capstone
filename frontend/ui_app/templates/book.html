@@ -11,8 +11,22 @@
       <div class="column">
         <form action="" method="post">
           {% csrf_token %}
-          {{form.as_p}}
-          <input type="submit" id="button">
+
+          {{ form.non_field_errors }}
+
+          <label for="{{ form.date.id_for_label }}">{{ form.date.label }}</label>
+          {{ form.date }} {{ form.date.errors }}
+
+          <label for="{{ form.time.id_for_label }}">{{ form.time.label }}</label>
+          {{ form.time }} {{ form.time.errors }}
+
+          <label for="{{ form.guests.id_for_label }}">{{ form.guests.label }}</label>
+          {{ form.guests }} {{ form.guests.errors }}
+
+          <label for="{{ form.notes.id_for_label }}">{{ form.notes.label }}</label>
+          {{ form.notes }} {{ form.notes.errors }}
+
+          <input type="submit" id="button" value="Book now">
         </form>
       </div>
       <!--End col-->
@@ -29,10 +43,6 @@
       <!--End col-->
     </div>
     <!--End row-->
-
-
-
-
   </article>
 </section>
 {% endblock %}

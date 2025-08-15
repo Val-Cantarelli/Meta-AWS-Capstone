@@ -5,40 +5,68 @@ from django.shortcuts import render
 from urllib.parse import urlparse, parse_qs
 from django.conf import settings
 
+
+def _extract_page_param(url: str, key: str = "page"):
+    try:
+        parsed = urlparse(url)
+        query = parse_qs(parsed.query)
+        return query.get(key, [None])[0]
+    except Exception:
+        return None
+
+
 def menu(request):
     page = request.GET.get('page')
-    if page and page != "1":
-        api_url = f"{settings.API_BASE_URL}/api/menu-items?page={page}"
-    else:
-        api_url = f"{settings.API_BASE_URL}/api/menu-items"
 
-    # Não precisa mais de token nem headers para endpoint público
-    response = requests.get(api_url)
-    print("Status:", response.status_code)
-    print("Content:", response.text)
+    api_base = settings.API_BASE_URL.rstrip('/')
+    endpoint = f"{api_base}/api/menu-items"  # no trailing slash to match APPEND_SLASH=False
+
+    params = {}
+    if page and page != "1":
+        params['page'] = page
 
     try:
-        data = response.json()
-    except Exception as e:
-        print("Error decoding JSON:", e)
-        print("Raw response:", response.text)
+        response = requests.get(
+            endpoint,
+            params=params,
+            headers={"Accept": "application/json"},
+            timeout=12,
+        )
+    except requests.RequestException:
         messages.error(request, "Error retrieving the items")
         return render(request, 'menu.html', {'items': [], 'next_page': None, 'previous_page': None})
 
-    items = data.get('results', [])
+    try:
+        data = response.json()
+    except ValueError:
+        messages.error(request, "Error decoding server response")
+        return render(request, 'menu.html', {'items': [], 'next_page': None, 'previous_page': None})
 
+    items = []
     next_page = None
     previous_page = None
 
-    if data.get('next'):
-        parsed_next = urlparse(data.get('next'))
-        query_next = parse_qs(parsed_next.query)
-        next_page = query_next.get('page', [None])[0]
+    # Support both paginated (DRF PageNumberPagination) and plain list responses
+    if isinstance(data, list):
+        items = data
+    else:
+        items = data.get('results') or data.get('items') or []
 
-    if data.get('previous'):
-        parsed_prev = urlparse(data.get('previous'))
-        query_prev = parse_qs(parsed_prev.query)
-        previous_page = query_prev.get('page', [None])[0]
+        next_url = data.get('next')
+        prev_url = data.get('previous')
+
+        next_page = _extract_page_param(next_url) if next_url else None
+        previous_page = _extract_page_param(prev_url) if prev_url else None
+
+        # Fallback if the API uses offset pagination
+        if not next_page and next_url:
+            next_page = _extract_page_param(next_url, key='offset')
+        if not previous_page and prev_url:
+            previous_page = _extract_page_param(prev_url, key='offset')
+
+    # Extra fallback: if API didn’t send `previous` but URL has page>1, compute previous
+    if (not previous_page) and page and page.isdigit() and int(page) > 1:
+        previous_page = str(int(page) - 1)
 
     context = {
         'items': items,
