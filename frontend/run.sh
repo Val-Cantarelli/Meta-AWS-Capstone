@@ -1,16 +1,5 @@
 #!/usr/bin/env bash
 
-# New terminal, RUN this script to start the frontend server.
-# run.sh — execution profiles for dev/prod with local HTTPS by default.
-#python -m venv .venv
-#source .venv/bin/activate
-#pip install pip-tools
-#pip-sync requirements-dev.txt
-#./run.sh
-
-# If added somenthing to in requirements-dev.in, run:
-#pip-compile -o requirements-dev.txt requirements-dev.in
-#pip-sync requirements-dev.txt
 
 
 
