@@ -4,6 +4,8 @@
 !.elasticbeanstalk/*.cfg.yml
 !.elasticbeanstalk/*.global.yml
 
+instructions.txt
+
 
 .venv/
 .env
