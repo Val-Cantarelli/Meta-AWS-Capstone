@@ -83,3 +83,4 @@ htmlcov/
 
 # Misc
 doc.md.venvlittlelemon-backend-cdk/node_modules/
+littlelemon-backend-cdk/cdk.context.json
