@@ -82,4 +82,4 @@ backend/build/rust/
 htmlcov/
 
 # Misc
-doc.md.venv
+doc.md.venvlittlelemon-backend-cdk/node_modules/
