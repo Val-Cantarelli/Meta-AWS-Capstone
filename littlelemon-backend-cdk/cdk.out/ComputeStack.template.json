@@ -119,7 +119,7 @@
    "Properties": {
     "Code": {
      "S3Bucket": "cdk-hnb659fds-assets-557690602441-us-east-1",
-     "S3Key": "527539778f713bfb12690a73359c07b231c8f5759e4458259e01eef5acf46832.zip"
+     "S3Key": "37708fb8554f6146980797340d82c9067bf9b3d64ea714ab57ccddb55a9dc1c9.zip"
     },
     "Environment": {
      "Variables": {
@@ -162,7 +162,7 @@
    ],
    "Metadata": {
     "aws:cdk:path": "ComputeStack/LittleLemonLambda/Resource",
-    "aws:asset:path": "asset.527539778f713bfb12690a73359c07b231c8f5759e4458259e01eef5acf46832",
+    "aws:asset:path": "asset.37708fb8554f6146980797340d82c9067bf9b3d64ea714ab57ccddb55a9dc1c9",
     "aws:asset:is-bundled": true,
     "aws:asset:property": "Code"
    }

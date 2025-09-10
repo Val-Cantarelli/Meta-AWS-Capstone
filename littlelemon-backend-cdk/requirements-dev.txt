@@ -1,4 +1,4 @@
 pytest==6.2.5
-aws-cdk.aws-lambda-python-alpha
-aws-cdk-lib
-constructs
+aws-cdk.aws-lambda-python-alpha==2.214.0a0
+aws-cdk-lib==2.214.0
+constructs==10.4.2
