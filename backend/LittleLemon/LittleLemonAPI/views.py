@@ -68,9 +68,7 @@ class MenuItemsViewSet(viewsets.ModelViewSet):
         elif self.action in ['partial_update', 'update']:
             return [IsManager()]
         else:
-            return [permissions.IsAuthenticated()]
-
-        
+            return [permissions.IsAuthenticated()]     
     
 class ManagerViewSet(viewsets.ViewSet):
     throttle_classes = [AnonRateThrottle, UserRateThrottle]

@@ -1,6 +1,15 @@
 # Backend — Django REST API 
 
+improvementds: Create some narrative!
+
+
+
+
 REST API for a restaurant management system with JWT authentication, group-based access control (manager, delivery-crew, customer), cart, and orders. Ready for local development and AWS deployment (API Gateway + Lambda or Elastic Beanstalk + RDS).
+
+ 
+
+
 
 ## Stack
 - Python 3.11
