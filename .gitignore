@@ -37,6 +37,7 @@ backend/media/
 backend/staticfiles/
 backend/backup.sql
 backend/build/
+backend/build/rust/
 
 # Frontend
 frontend/**/migrations/
@@ -63,6 +64,10 @@ cdk.context.json
 .aws-sam/
 .serverless/
 .terraform/
+littlelemon-backend-cdk/node_modules/
+littlelemon-backend-cdk/cdk.out/
+littlelemon-backend-cdk/cdk.context.json
+doc.md.venvlittlelemon-backend-cdk/node_modules/
 
 # Packaging / build artifacts
 build/
@@ -74,13 +79,6 @@ dist/
 local_settings.py
 instance/
 
-# Rust/python native build dirs (used by cryptography, etc.)
-backend/build/rust/
-
 # Logs / coverage / test artifacts
 .coverage
 htmlcov/
-
-# Misc
-doc.md.venvlittlelemon-backend-cdk/node_modules/
-littlelemon-backend-cdk/cdk.context.json
