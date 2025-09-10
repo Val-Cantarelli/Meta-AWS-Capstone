@@ -46,6 +46,30 @@
             "routeTableId": "rtb-0e48d9f16016fc863"
           }
         ]
+      },
+      {
+        "name": "PrivateSubnet201",
+        "type": "Isolated",
+        "subnets": [
+          {
+            "subnetId": "subnet-085c0350455dfef4f",
+            "cidr": "172.31.201.0/24",
+            "availabilityZone": "us-east-1b",
+            "routeTableId": "rtb-073c6b536685eed6c"
+          }
+        ]
+      },
+      {
+        "name": "PrivateSubnet200",
+        "type": "Isolated",
+        "subnets": [
+          {
+            "subnetId": "subnet-00c55983c320de3b1",
+            "cidr": "172.31.200.0/24",
+            "availabilityZone": "us-east-1a",
+            "routeTableId": "rtb-073c6b536685eed6c"
+          }
+        ]
       }
     ]
   }

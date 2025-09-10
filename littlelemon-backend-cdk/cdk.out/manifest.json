@@ -18,7 +18,7 @@
         "validateOnSynth": false,
         "assumeRoleArn": "arn:${AWS::Partition}:iam::557690602441:role/cdk-hnb659fds-deploy-role-557690602441-us-east-1",
         "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::557690602441:role/cdk-hnb659fds-cfn-exec-role-557690602441-us-east-1",
-        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-557690602441-us-east-1/832b14043a79725a2ec6b8c8f746714db8a56cd318258636c9c5f9d72406a915.json",
+        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-557690602441-us-east-1/f3147ca74218c2824d4711ffe105d184878fea4e073a3911d50ce41a0f325a9f.json",
         "requiresBootstrapStackVersion": 6,
         "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version",
         "additionalDependencies": [
@@ -76,6 +76,18 @@
             "data": "*"
           }
         ],
+        "/NetworkStack/MyExistingVPC/PrivateSubnet201Subnet1": [
+          {
+            "type": "aws:cdk:analytics:construct",
+            "data": "*"
+          }
+        ],
+        "/NetworkStack/MyExistingVPC/PrivateSubnet200Subnet1": [
+          {
+            "type": "aws:cdk:analytics:construct",
+            "data": "*"
+          }
+        ],
         "/NetworkStack/PrivateSubnet1": [
           {
             "type": "aws:cdk:logicalId",
@@ -115,18 +127,18 @@
             "type": "aws:cdk:warning",
             "data": "No routeTableId was provided to the subnet at 'NetworkStack/SubnetRef1'. Attempting to read its .routeTable.routeTableId will return null/undefined. (More info: https://github.com/aws/aws-cdk/pull/3171) [ack: @aws-cdk/aws-ec2:noSubnetRouteTableId]",
             "trace": [
-              "Annotations.addMessage (/var/folders/jm/w_wnd7w969dd0q006gyl5r900000gn/T/jsii-kernel-Sp9YNR/node_modules/aws-cdk-lib/core/lib/annotations.js:1:1978)",
-              "Annotations.addWarningV2 (/var/folders/jm/w_wnd7w969dd0q006gyl5r900000gn/T/jsii-kernel-Sp9YNR/node_modules/aws-cdk-lib/core/lib/annotations.js:1:896)",
-              "new ImportedSubnet (/var/folders/jm/w_wnd7w969dd0q006gyl5r900000gn/T/jsii-kernel-Sp9YNR/node_modules/aws-cdk-lib/aws-ec2/lib/vpc.js:1:38615)",
-              "new ImportedSubnet (/var/folders/jm/w_wnd7w969dd0q006gyl5r900000gn/T/jsii-kernel-Sp9YNR/node_modules/aws-cdk-lib/core/lib/prop-injectable.js:1:488)",
-              "Subnet2.fromSubnetAttributes (/var/folders/jm/w_wnd7w969dd0q006gyl5r900000gn/T/jsii-kernel-Sp9YNR/node_modules/aws-cdk-lib/aws-ec2/lib/vpc.js:1:24516)",
-              "Subnet2.fromSubnetId (/var/folders/jm/w_wnd7w969dd0q006gyl5r900000gn/T/jsii-kernel-Sp9YNR/node_modules/aws-cdk-lib/aws-ec2/lib/vpc.js:1:24602)",
-              "/private/var/folders/jm/w_wnd7w969dd0q006gyl5r900000gn/T/tmp3cwasc2_/lib/program.js:315:151",
-              "Kernel._Kernel_ensureSync (/private/var/folders/jm/w_wnd7w969dd0q006gyl5r900000gn/T/tmp3cwasc2_/lib/program.js:916:24)",
-              "Kernel.sinvoke (/private/var/folders/jm/w_wnd7w969dd0q006gyl5r900000gn/T/tmp3cwasc2_/lib/program.js:315:102)",
-              "KernelHost.processRequest (/private/var/folders/jm/w_wnd7w969dd0q006gyl5r900000gn/T/tmp3cwasc2_/lib/program.js:15479:36)",
-              "KernelHost.run (/private/var/folders/jm/w_wnd7w969dd0q006gyl5r900000gn/T/tmp3cwasc2_/lib/program.js:15439:22)",
-              "Immediate._onImmediate (/private/var/folders/jm/w_wnd7w969dd0q006gyl5r900000gn/T/tmp3cwasc2_/lib/program.js:15440:45)",
+              "Annotations.addMessage (/var/folders/jm/w_wnd7w969dd0q006gyl5r900000gn/T/jsii-kernel-bfVmJy/node_modules/aws-cdk-lib/core/lib/annotations.js:1:1978)",
+              "Annotations.addWarningV2 (/var/folders/jm/w_wnd7w969dd0q006gyl5r900000gn/T/jsii-kernel-bfVmJy/node_modules/aws-cdk-lib/core/lib/annotations.js:1:896)",
+              "new ImportedSubnet (/var/folders/jm/w_wnd7w969dd0q006gyl5r900000gn/T/jsii-kernel-bfVmJy/node_modules/aws-cdk-lib/aws-ec2/lib/vpc.js:1:38615)",
+              "new ImportedSubnet (/var/folders/jm/w_wnd7w969dd0q006gyl5r900000gn/T/jsii-kernel-bfVmJy/node_modules/aws-cdk-lib/core/lib/prop-injectable.js:1:488)",
+              "Subnet2.fromSubnetAttributes (/var/folders/jm/w_wnd7w969dd0q006gyl5r900000gn/T/jsii-kernel-bfVmJy/node_modules/aws-cdk-lib/aws-ec2/lib/vpc.js:1:24516)",
+              "Subnet2.fromSubnetId (/var/folders/jm/w_wnd7w969dd0q006gyl5r900000gn/T/jsii-kernel-bfVmJy/node_modules/aws-cdk-lib/aws-ec2/lib/vpc.js:1:24602)",
+              "/private/var/folders/jm/w_wnd7w969dd0q006gyl5r900000gn/T/tmp1ymj0s1i/lib/program.js:315:151",
+              "Kernel._Kernel_ensureSync (/private/var/folders/jm/w_wnd7w969dd0q006gyl5r900000gn/T/tmp1ymj0s1i/lib/program.js:916:24)",
+              "Kernel.sinvoke (/private/var/folders/jm/w_wnd7w969dd0q006gyl5r900000gn/T/tmp1ymj0s1i/lib/program.js:315:102)",
+              "KernelHost.processRequest (/private/var/folders/jm/w_wnd7w969dd0q006gyl5r900000gn/T/tmp1ymj0s1i/lib/program.js:15479:36)",
+              "KernelHost.run (/private/var/folders/jm/w_wnd7w969dd0q006gyl5r900000gn/T/tmp1ymj0s1i/lib/program.js:15439:22)",
+              "Immediate._onImmediate (/private/var/folders/jm/w_wnd7w969dd0q006gyl5r900000gn/T/tmp1ymj0s1i/lib/program.js:15440:45)",
               "process.processImmediate (node:internal/timers:505:21)"
             ]
           }
@@ -140,18 +152,18 @@
             "type": "aws:cdk:warning",
             "data": "No routeTableId was provided to the subnet at 'NetworkStack/SubnetRef2'. Attempting to read its .routeTable.routeTableId will return null/undefined. (More info: https://github.com/aws/aws-cdk/pull/3171) [ack: @aws-cdk/aws-ec2:noSubnetRouteTableId]",
             "trace": [
-              "Annotations.addMessage (/var/folders/jm/w_wnd7w969dd0q006gyl5r900000gn/T/jsii-kernel-Sp9YNR/node_modules/aws-cdk-lib/core/lib/annotations.js:1:1978)",
-              "Annotations.addWarningV2 (/var/folders/jm/w_wnd7w969dd0q006gyl5r900000gn/T/jsii-kernel-Sp9YNR/node_modules/aws-cdk-lib/core/lib/annotations.js:1:896)",
-              "new ImportedSubnet (/var/folders/jm/w_wnd7w969dd0q006gyl5r900000gn/T/jsii-kernel-Sp9YNR/node_modules/aws-cdk-lib/aws-ec2/lib/vpc.js:1:38615)",
-              "new ImportedSubnet (/var/folders/jm/w_wnd7w969dd0q006gyl5r900000gn/T/jsii-kernel-Sp9YNR/node_modules/aws-cdk-lib/core/lib/prop-injectable.js:1:488)",
-              "Subnet2.fromSubnetAttributes (/var/folders/jm/w_wnd7w969dd0q006gyl5r900000gn/T/jsii-kernel-Sp9YNR/node_modules/aws-cdk-lib/aws-ec2/lib/vpc.js:1:24516)",
-              "Subnet2.fromSubnetId (/var/folders/jm/w_wnd7w969dd0q006gyl5r900000gn/T/jsii-kernel-Sp9YNR/node_modules/aws-cdk-lib/aws-ec2/lib/vpc.js:1:24602)",
-              "/private/var/folders/jm/w_wnd7w969dd0q006gyl5r900000gn/T/tmp3cwasc2_/lib/program.js:315:151",
-              "Kernel._Kernel_ensureSync (/private/var/folders/jm/w_wnd7w969dd0q006gyl5r900000gn/T/tmp3cwasc2_/lib/program.js:916:24)",
-              "Kernel.sinvoke (/private/var/folders/jm/w_wnd7w969dd0q006gyl5r900000gn/T/tmp3cwasc2_/lib/program.js:315:102)",
-              "KernelHost.processRequest (/private/var/folders/jm/w_wnd7w969dd0q006gyl5r900000gn/T/tmp3cwasc2_/lib/program.js:15479:36)",
-              "KernelHost.run (/private/var/folders/jm/w_wnd7w969dd0q006gyl5r900000gn/T/tmp3cwasc2_/lib/program.js:15439:22)",
-              "Immediate._onImmediate (/private/var/folders/jm/w_wnd7w969dd0q006gyl5r900000gn/T/tmp3cwasc2_/lib/program.js:15440:45)",
+              "Annotations.addMessage (/var/folders/jm/w_wnd7w969dd0q006gyl5r900000gn/T/jsii-kernel-bfVmJy/node_modules/aws-cdk-lib/core/lib/annotations.js:1:1978)",
+              "Annotations.addWarningV2 (/var/folders/jm/w_wnd7w969dd0q006gyl5r900000gn/T/jsii-kernel-bfVmJy/node_modules/aws-cdk-lib/core/lib/annotations.js:1:896)",
+              "new ImportedSubnet (/var/folders/jm/w_wnd7w969dd0q006gyl5r900000gn/T/jsii-kernel-bfVmJy/node_modules/aws-cdk-lib/aws-ec2/lib/vpc.js:1:38615)",
+              "new ImportedSubnet (/var/folders/jm/w_wnd7w969dd0q006gyl5r900000gn/T/jsii-kernel-bfVmJy/node_modules/aws-cdk-lib/core/lib/prop-injectable.js:1:488)",
+              "Subnet2.fromSubnetAttributes (/var/folders/jm/w_wnd7w969dd0q006gyl5r900000gn/T/jsii-kernel-bfVmJy/node_modules/aws-cdk-lib/aws-ec2/lib/vpc.js:1:24516)",
+              "Subnet2.fromSubnetId (/var/folders/jm/w_wnd7w969dd0q006gyl5r900000gn/T/jsii-kernel-bfVmJy/node_modules/aws-cdk-lib/aws-ec2/lib/vpc.js:1:24602)",
+              "/private/var/folders/jm/w_wnd7w969dd0q006gyl5r900000gn/T/tmp1ymj0s1i/lib/program.js:315:151",
+              "Kernel._Kernel_ensureSync (/private/var/folders/jm/w_wnd7w969dd0q006gyl5r900000gn/T/tmp1ymj0s1i/lib/program.js:916:24)",
+              "Kernel.sinvoke (/private/var/folders/jm/w_wnd7w969dd0q006gyl5r900000gn/T/tmp1ymj0s1i/lib/program.js:315:102)",
+              "KernelHost.processRequest (/private/var/folders/jm/w_wnd7w969dd0q006gyl5r900000gn/T/tmp1ymj0s1i/lib/program.js:15479:36)",
+              "KernelHost.run (/private/var/folders/jm/w_wnd7w969dd0q006gyl5r900000gn/T/tmp1ymj0s1i/lib/program.js:15439:22)",
+              "Immediate._onImmediate (/private/var/folders/jm/w_wnd7w969dd0q006gyl5r900000gn/T/tmp1ymj0s1i/lib/program.js:15440:45)",
               "process.processImmediate (node:internal/timers:505:21)"
             ]
           }
@@ -315,7 +327,7 @@
         "validateOnSynth": false,
         "assumeRoleArn": "arn:${AWS::Partition}:iam::557690602441:role/cdk-hnb659fds-deploy-role-557690602441-us-east-1",
         "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::557690602441:role/cdk-hnb659fds-cfn-exec-role-557690602441-us-east-1",
-        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-557690602441-us-east-1/65245e97c713ab24cd5a40d3280604fc4c0dc5e5db770d61590396ee2900fcbb.json",
+        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-557690602441-us-east-1/0c4b98c29c85f3fbed0a7ce5117355903e3c75907c86bd8dc597574ac0374905.json",
         "requiresBootstrapStackVersion": 6,
         "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version",
         "additionalDependencies": [
@@ -373,6 +385,18 @@
             "data": "*"
           }
         ],
+        "/ComputeStack/MyVPC/PrivateSubnet201Subnet1": [
+          {
+            "type": "aws:cdk:analytics:construct",
+            "data": "*"
+          }
+        ],
+        "/ComputeStack/MyVPC/PrivateSubnet200Subnet1": [
+          {
+            "type": "aws:cdk:analytics:construct",
+            "data": "*"
+          }
+        ],
         "/ComputeStack/ComputeSubnet200": [
           {
             "type": "aws:cdk:analytics:construct",
@@ -382,18 +406,18 @@
             "type": "aws:cdk:warning",
             "data": "No routeTableId was provided to the subnet 'subnet-00c55983c320de3b1'. Attempting to read its .routeTable.routeTableId will return null/undefined. (More info: https://github.com/aws/aws-cdk/pull/3171) [ack: @aws-cdk/aws-ec2:noSubnetRouteTableId]",
             "trace": [
-              "Annotations.addMessage (/var/folders/jm/w_wnd7w969dd0q006gyl5r900000gn/T/jsii-kernel-Sp9YNR/node_modules/aws-cdk-lib/core/lib/annotations.js:1:1978)",
-              "Annotations.addWarningV2 (/var/folders/jm/w_wnd7w969dd0q006gyl5r900000gn/T/jsii-kernel-Sp9YNR/node_modules/aws-cdk-lib/core/lib/annotations.js:1:896)",
-              "new ImportedSubnet (/var/folders/jm/w_wnd7w969dd0q006gyl5r900000gn/T/jsii-kernel-Sp9YNR/node_modules/aws-cdk-lib/aws-ec2/lib/vpc.js:1:38615)",
-              "new ImportedSubnet (/var/folders/jm/w_wnd7w969dd0q006gyl5r900000gn/T/jsii-kernel-Sp9YNR/node_modules/aws-cdk-lib/core/lib/prop-injectable.js:1:488)",
-              "Subnet2.fromSubnetAttributes (/var/folders/jm/w_wnd7w969dd0q006gyl5r900000gn/T/jsii-kernel-Sp9YNR/node_modules/aws-cdk-lib/aws-ec2/lib/vpc.js:1:24516)",
-              "Subnet2.fromSubnetId (/var/folders/jm/w_wnd7w969dd0q006gyl5r900000gn/T/jsii-kernel-Sp9YNR/node_modules/aws-cdk-lib/aws-ec2/lib/vpc.js:1:24602)",
-              "/private/var/folders/jm/w_wnd7w969dd0q006gyl5r900000gn/T/tmp3cwasc2_/lib/program.js:315:151",
-              "Kernel._Kernel_ensureSync (/private/var/folders/jm/w_wnd7w969dd0q006gyl5r900000gn/T/tmp3cwasc2_/lib/program.js:916:24)",
-              "Kernel.sinvoke (/private/var/folders/jm/w_wnd7w969dd0q006gyl5r900000gn/T/tmp3cwasc2_/lib/program.js:315:102)",
-              "KernelHost.processRequest (/private/var/folders/jm/w_wnd7w969dd0q006gyl5r900000gn/T/tmp3cwasc2_/lib/program.js:15479:36)",
-              "KernelHost.run (/private/var/folders/jm/w_wnd7w969dd0q006gyl5r900000gn/T/tmp3cwasc2_/lib/program.js:15439:22)",
-              "Immediate._onImmediate (/private/var/folders/jm/w_wnd7w969dd0q006gyl5r900000gn/T/tmp3cwasc2_/lib/program.js:15440:45)",
+              "Annotations.addMessage (/var/folders/jm/w_wnd7w969dd0q006gyl5r900000gn/T/jsii-kernel-bfVmJy/node_modules/aws-cdk-lib/core/lib/annotations.js:1:1978)",
+              "Annotations.addWarningV2 (/var/folders/jm/w_wnd7w969dd0q006gyl5r900000gn/T/jsii-kernel-bfVmJy/node_modules/aws-cdk-lib/core/lib/annotations.js:1:896)",
+              "new ImportedSubnet (/var/folders/jm/w_wnd7w969dd0q006gyl5r900000gn/T/jsii-kernel-bfVmJy/node_modules/aws-cdk-lib/aws-ec2/lib/vpc.js:1:38615)",
+              "new ImportedSubnet (/var/folders/jm/w_wnd7w969dd0q006gyl5r900000gn/T/jsii-kernel-bfVmJy/node_modules/aws-cdk-lib/core/lib/prop-injectable.js:1:488)",
+              "Subnet2.fromSubnetAttributes (/var/folders/jm/w_wnd7w969dd0q006gyl5r900000gn/T/jsii-kernel-bfVmJy/node_modules/aws-cdk-lib/aws-ec2/lib/vpc.js:1:24516)",
+              "Subnet2.fromSubnetId (/var/folders/jm/w_wnd7w969dd0q006gyl5r900000gn/T/jsii-kernel-bfVmJy/node_modules/aws-cdk-lib/aws-ec2/lib/vpc.js:1:24602)",
+              "/private/var/folders/jm/w_wnd7w969dd0q006gyl5r900000gn/T/tmp1ymj0s1i/lib/program.js:315:151",
+              "Kernel._Kernel_ensureSync (/private/var/folders/jm/w_wnd7w969dd0q006gyl5r900000gn/T/tmp1ymj0s1i/lib/program.js:916:24)",
+              "Kernel.sinvoke (/private/var/folders/jm/w_wnd7w969dd0q006gyl5r900000gn/T/tmp1ymj0s1i/lib/program.js:315:102)",
+              "KernelHost.processRequest (/private/var/folders/jm/w_wnd7w969dd0q006gyl5r900000gn/T/tmp1ymj0s1i/lib/program.js:15479:36)",
+              "KernelHost.run (/private/var/folders/jm/w_wnd7w969dd0q006gyl5r900000gn/T/tmp1ymj0s1i/lib/program.js:15439:22)",
+              "Immediate._onImmediate (/private/var/folders/jm/w_wnd7w969dd0q006gyl5r900000gn/T/tmp1ymj0s1i/lib/program.js:15440:45)",
               "process.processImmediate (node:internal/timers:505:21)"
             ]
           }
@@ -407,18 +431,18 @@
             "type": "aws:cdk:warning",
             "data": "No routeTableId was provided to the subnet 'subnet-085c0350455dfef4f'. Attempting to read its .routeTable.routeTableId will return null/undefined. (More info: https://github.com/aws/aws-cdk/pull/3171) [ack: @aws-cdk/aws-ec2:noSubnetRouteTableId]",
             "trace": [
-              "Annotations.addMessage (/var/folders/jm/w_wnd7w969dd0q006gyl5r900000gn/T/jsii-kernel-Sp9YNR/node_modules/aws-cdk-lib/core/lib/annotations.js:1:1978)",
-              "Annotations.addWarningV2 (/var/folders/jm/w_wnd7w969dd0q006gyl5r900000gn/T/jsii-kernel-Sp9YNR/node_modules/aws-cdk-lib/core/lib/annotations.js:1:896)",
-              "new ImportedSubnet (/var/folders/jm/w_wnd7w969dd0q006gyl5r900000gn/T/jsii-kernel-Sp9YNR/node_modules/aws-cdk-lib/aws-ec2/lib/vpc.js:1:38615)",
-              "new ImportedSubnet (/var/folders/jm/w_wnd7w969dd0q006gyl5r900000gn/T/jsii-kernel-Sp9YNR/node_modules/aws-cdk-lib/core/lib/prop-injectable.js:1:488)",
-              "Subnet2.fromSubnetAttributes (/var/folders/jm/w_wnd7w969dd0q006gyl5r900000gn/T/jsii-kernel-Sp9YNR/node_modules/aws-cdk-lib/aws-ec2/lib/vpc.js:1:24516)",
-              "Subnet2.fromSubnetId (/var/folders/jm/w_wnd7w969dd0q006gyl5r900000gn/T/jsii-kernel-Sp9YNR/node_modules/aws-cdk-lib/aws-ec2/lib/vpc.js:1:24602)",
-              "/private/var/folders/jm/w_wnd7w969dd0q006gyl5r900000gn/T/tmp3cwasc2_/lib/program.js:315:151",
-              "Kernel._Kernel_ensureSync (/private/var/folders/jm/w_wnd7w969dd0q006gyl5r900000gn/T/tmp3cwasc2_/lib/program.js:916:24)",
-              "Kernel.sinvoke (/private/var/folders/jm/w_wnd7w969dd0q006gyl5r900000gn/T/tmp3cwasc2_/lib/program.js:315:102)",
-              "KernelHost.processRequest (/private/var/folders/jm/w_wnd7w969dd0q006gyl5r900000gn/T/tmp3cwasc2_/lib/program.js:15479:36)",
-              "KernelHost.run (/private/var/folders/jm/w_wnd7w969dd0q006gyl5r900000gn/T/tmp3cwasc2_/lib/program.js:15439:22)",
-              "Immediate._onImmediate (/private/var/folders/jm/w_wnd7w969dd0q006gyl5r900000gn/T/tmp3cwasc2_/lib/program.js:15440:45)",
+              "Annotations.addMessage (/var/folders/jm/w_wnd7w969dd0q006gyl5r900000gn/T/jsii-kernel-bfVmJy/node_modules/aws-cdk-lib/core/lib/annotations.js:1:1978)",
+              "Annotations.addWarningV2 (/var/folders/jm/w_wnd7w969dd0q006gyl5r900000gn/T/jsii-kernel-bfVmJy/node_modules/aws-cdk-lib/core/lib/annotations.js:1:896)",
+              "new ImportedSubnet (/var/folders/jm/w_wnd7w969dd0q006gyl5r900000gn/T/jsii-kernel-bfVmJy/node_modules/aws-cdk-lib/aws-ec2/lib/vpc.js:1:38615)",
+              "new ImportedSubnet (/var/folders/jm/w_wnd7w969dd0q006gyl5r900000gn/T/jsii-kernel-bfVmJy/node_modules/aws-cdk-lib/core/lib/prop-injectable.js:1:488)",
+              "Subnet2.fromSubnetAttributes (/var/folders/jm/w_wnd7w969dd0q006gyl5r900000gn/T/jsii-kernel-bfVmJy/node_modules/aws-cdk-lib/aws-ec2/lib/vpc.js:1:24516)",
+              "Subnet2.fromSubnetId (/var/folders/jm/w_wnd7w969dd0q006gyl5r900000gn/T/jsii-kernel-bfVmJy/node_modules/aws-cdk-lib/aws-ec2/lib/vpc.js:1:24602)",
+              "/private/var/folders/jm/w_wnd7w969dd0q006gyl5r900000gn/T/tmp1ymj0s1i/lib/program.js:315:151",
+              "Kernel._Kernel_ensureSync (/private/var/folders/jm/w_wnd7w969dd0q006gyl5r900000gn/T/tmp1ymj0s1i/lib/program.js:916:24)",
+              "Kernel.sinvoke (/private/var/folders/jm/w_wnd7w969dd0q006gyl5r900000gn/T/tmp1ymj0s1i/lib/program.js:315:102)",
+              "KernelHost.processRequest (/private/var/folders/jm/w_wnd7w969dd0q006gyl5r900000gn/T/tmp1ymj0s1i/lib/program.js:15479:36)",
+              "KernelHost.run (/private/var/folders/jm/w_wnd7w969dd0q006gyl5r900000gn/T/tmp1ymj0s1i/lib/program.js:15439:22)",
+              "Immediate._onImmediate (/private/var/folders/jm/w_wnd7w969dd0q006gyl5r900000gn/T/tmp1ymj0s1i/lib/program.js:15440:45)",
               "process.processImmediate (node:internal/timers:505:21)"
             ]
           }
@@ -752,7 +776,7 @@
         "validateOnSynth": false,
         "assumeRoleArn": "arn:${AWS::Partition}:iam::557690602441:role/cdk-hnb659fds-deploy-role-557690602441-us-east-1",
         "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::557690602441:role/cdk-hnb659fds-cfn-exec-role-557690602441-us-east-1",
-        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-557690602441-us-east-1/1177228517350c7b097eef79c4b53f4c885eba483e007fb57cb9822161fd266c.json",
+        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-557690602441-us-east-1/707bc2b5ad3ef757232f4b6653d542bce2fd656bcad9da65f4d8c3a4bffcf1fd.json",
         "requiresBootstrapStackVersion": 6,
         "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version",
         "additionalDependencies": [
@@ -810,6 +834,18 @@
             "data": "*"
           }
         ],
+        "/DatabaseStack/MyVPC/PrivateSubnet201Subnet1": [
+          {
+            "type": "aws:cdk:analytics:construct",
+            "data": "*"
+          }
+        ],
+        "/DatabaseStack/MyVPC/PrivateSubnet200Subnet1": [
+          {
+            "type": "aws:cdk:analytics:construct",
+            "data": "*"
+          }
+        ],
         "/DatabaseStack/DatabaseSubnet200": [
           {
             "type": "aws:cdk:analytics:construct",
@@ -819,18 +855,18 @@
             "type": "aws:cdk:warning",
             "data": "No routeTableId was provided to the subnet 'subnet-00c55983c320de3b1'. Attempting to read its .routeTable.routeTableId will return null/undefined. (More info: https://github.com/aws/aws-cdk/pull/3171) [ack: @aws-cdk/aws-ec2:noSubnetRouteTableId]",
             "trace": [
-              "Annotations.addMessage (/var/folders/jm/w_wnd7w969dd0q006gyl5r900000gn/T/jsii-kernel-Sp9YNR/node_modules/aws-cdk-lib/core/lib/annotations.js:1:1978)",
-              "Annotations.addWarningV2 (/var/folders/jm/w_wnd7w969dd0q006gyl5r900000gn/T/jsii-kernel-Sp9YNR/node_modules/aws-cdk-lib/core/lib/annotations.js:1:896)",
-              "new ImportedSubnet (/var/folders/jm/w_wnd7w969dd0q006gyl5r900000gn/T/jsii-kernel-Sp9YNR/node_modules/aws-cdk-lib/aws-ec2/lib/vpc.js:1:38615)",
-              "new ImportedSubnet (/var/folders/jm/w_wnd7w969dd0q006gyl5r900000gn/T/jsii-kernel-Sp9YNR/node_modules/aws-cdk-lib/core/lib/prop-injectable.js:1:488)",
-              "Subnet2.fromSubnetAttributes (/var/folders/jm/w_wnd7w969dd0q006gyl5r900000gn/T/jsii-kernel-Sp9YNR/node_modules/aws-cdk-lib/aws-ec2/lib/vpc.js:1:24516)",
-              "Subnet2.fromSubnetId (/var/folders/jm/w_wnd7w969dd0q006gyl5r900000gn/T/jsii-kernel-Sp9YNR/node_modules/aws-cdk-lib/aws-ec2/lib/vpc.js:1:24602)",
-              "/private/var/folders/jm/w_wnd7w969dd0q006gyl5r900000gn/T/tmp3cwasc2_/lib/program.js:315:151",
-              "Kernel._Kernel_ensureSync (/private/var/folders/jm/w_wnd7w969dd0q006gyl5r900000gn/T/tmp3cwasc2_/lib/program.js:916:24)",
-              "Kernel.sinvoke (/private/var/folders/jm/w_wnd7w969dd0q006gyl5r900000gn/T/tmp3cwasc2_/lib/program.js:315:102)",
-              "KernelHost.processRequest (/private/var/folders/jm/w_wnd7w969dd0q006gyl5r900000gn/T/tmp3cwasc2_/lib/program.js:15479:36)",
-              "KernelHost.run (/private/var/folders/jm/w_wnd7w969dd0q006gyl5r900000gn/T/tmp3cwasc2_/lib/program.js:15439:22)",
-              "Immediate._onImmediate (/private/var/folders/jm/w_wnd7w969dd0q006gyl5r900000gn/T/tmp3cwasc2_/lib/program.js:15440:45)",
+              "Annotations.addMessage (/var/folders/jm/w_wnd7w969dd0q006gyl5r900000gn/T/jsii-kernel-bfVmJy/node_modules/aws-cdk-lib/core/lib/annotations.js:1:1978)",
+              "Annotations.addWarningV2 (/var/folders/jm/w_wnd7w969dd0q006gyl5r900000gn/T/jsii-kernel-bfVmJy/node_modules/aws-cdk-lib/core/lib/annotations.js:1:896)",
+              "new ImportedSubnet (/var/folders/jm/w_wnd7w969dd0q006gyl5r900000gn/T/jsii-kernel-bfVmJy/node_modules/aws-cdk-lib/aws-ec2/lib/vpc.js:1:38615)",
+              "new ImportedSubnet (/var/folders/jm/w_wnd7w969dd0q006gyl5r900000gn/T/jsii-kernel-bfVmJy/node_modules/aws-cdk-lib/core/lib/prop-injectable.js:1:488)",
+              "Subnet2.fromSubnetAttributes (/var/folders/jm/w_wnd7w969dd0q006gyl5r900000gn/T/jsii-kernel-bfVmJy/node_modules/aws-cdk-lib/aws-ec2/lib/vpc.js:1:24516)",
+              "Subnet2.fromSubnetId (/var/folders/jm/w_wnd7w969dd0q006gyl5r900000gn/T/jsii-kernel-bfVmJy/node_modules/aws-cdk-lib/aws-ec2/lib/vpc.js:1:24602)",
+              "/private/var/folders/jm/w_wnd7w969dd0q006gyl5r900000gn/T/tmp1ymj0s1i/lib/program.js:315:151",
+              "Kernel._Kernel_ensureSync (/private/var/folders/jm/w_wnd7w969dd0q006gyl5r900000gn/T/tmp1ymj0s1i/lib/program.js:916:24)",
+              "Kernel.sinvoke (/private/var/folders/jm/w_wnd7w969dd0q006gyl5r900000gn/T/tmp1ymj0s1i/lib/program.js:315:102)",
+              "KernelHost.processRequest (/private/var/folders/jm/w_wnd7w969dd0q006gyl5r900000gn/T/tmp1ymj0s1i/lib/program.js:15479:36)",
+              "KernelHost.run (/private/var/folders/jm/w_wnd7w969dd0q006gyl5r900000gn/T/tmp1ymj0s1i/lib/program.js:15439:22)",
+              "Immediate._onImmediate (/private/var/folders/jm/w_wnd7w969dd0q006gyl5r900000gn/T/tmp1ymj0s1i/lib/program.js:15440:45)",
               "process.processImmediate (node:internal/timers:505:21)"
             ]
           }
@@ -844,18 +880,18 @@
             "type": "aws:cdk:warning",
             "data": "No routeTableId was provided to the subnet 'subnet-085c0350455dfef4f'. Attempting to read its .routeTable.routeTableId will return null/undefined. (More info: https://github.com/aws/aws-cdk/pull/3171) [ack: @aws-cdk/aws-ec2:noSubnetRouteTableId]",
             "trace": [
-              "Annotations.addMessage (/var/folders/jm/w_wnd7w969dd0q006gyl5r900000gn/T/jsii-kernel-Sp9YNR/node_modules/aws-cdk-lib/core/lib/annotations.js:1:1978)",
-              "Annotations.addWarningV2 (/var/folders/jm/w_wnd7w969dd0q006gyl5r900000gn/T/jsii-kernel-Sp9YNR/node_modules/aws-cdk-lib/core/lib/annotations.js:1:896)",
-              "new ImportedSubnet (/var/folders/jm/w_wnd7w969dd0q006gyl5r900000gn/T/jsii-kernel-Sp9YNR/node_modules/aws-cdk-lib/aws-ec2/lib/vpc.js:1:38615)",
-              "new ImportedSubnet (/var/folders/jm/w_wnd7w969dd0q006gyl5r900000gn/T/jsii-kernel-Sp9YNR/node_modules/aws-cdk-lib/core/lib/prop-injectable.js:1:488)",
-              "Subnet2.fromSubnetAttributes (/var/folders/jm/w_wnd7w969dd0q006gyl5r900000gn/T/jsii-kernel-Sp9YNR/node_modules/aws-cdk-lib/aws-ec2/lib/vpc.js:1:24516)",
-              "Subnet2.fromSubnetId (/var/folders/jm/w_wnd7w969dd0q006gyl5r900000gn/T/jsii-kernel-Sp9YNR/node_modules/aws-cdk-lib/aws-ec2/lib/vpc.js:1:24602)",
-              "/private/var/folders/jm/w_wnd7w969dd0q006gyl5r900000gn/T/tmp3cwasc2_/lib/program.js:315:151",
-              "Kernel._Kernel_ensureSync (/private/var/folders/jm/w_wnd7w969dd0q006gyl5r900000gn/T/tmp3cwasc2_/lib/program.js:916:24)",
-              "Kernel.sinvoke (/private/var/folders/jm/w_wnd7w969dd0q006gyl5r900000gn/T/tmp3cwasc2_/lib/program.js:315:102)",
-              "KernelHost.processRequest (/private/var/folders/jm/w_wnd7w969dd0q006gyl5r900000gn/T/tmp3cwasc2_/lib/program.js:15479:36)",
-              "KernelHost.run (/private/var/folders/jm/w_wnd7w969dd0q006gyl5r900000gn/T/tmp3cwasc2_/lib/program.js:15439:22)",
-              "Immediate._onImmediate (/private/var/folders/jm/w_wnd7w969dd0q006gyl5r900000gn/T/tmp3cwasc2_/lib/program.js:15440:45)",
+              "Annotations.addMessage (/var/folders/jm/w_wnd7w969dd0q006gyl5r900000gn/T/jsii-kernel-bfVmJy/node_modules/aws-cdk-lib/core/lib/annotations.js:1:1978)",
+              "Annotations.addWarningV2 (/var/folders/jm/w_wnd7w969dd0q006gyl5r900000gn/T/jsii-kernel-bfVmJy/node_modules/aws-cdk-lib/core/lib/annotations.js:1:896)",
+              "new ImportedSubnet (/var/folders/jm/w_wnd7w969dd0q006gyl5r900000gn/T/jsii-kernel-bfVmJy/node_modules/aws-cdk-lib/aws-ec2/lib/vpc.js:1:38615)",
+              "new ImportedSubnet (/var/folders/jm/w_wnd7w969dd0q006gyl5r900000gn/T/jsii-kernel-bfVmJy/node_modules/aws-cdk-lib/core/lib/prop-injectable.js:1:488)",
+              "Subnet2.fromSubnetAttributes (/var/folders/jm/w_wnd7w969dd0q006gyl5r900000gn/T/jsii-kernel-bfVmJy/node_modules/aws-cdk-lib/aws-ec2/lib/vpc.js:1:24516)",
+              "Subnet2.fromSubnetId (/var/folders/jm/w_wnd7w969dd0q006gyl5r900000gn/T/jsii-kernel-bfVmJy/node_modules/aws-cdk-lib/aws-ec2/lib/vpc.js:1:24602)",
+              "/private/var/folders/jm/w_wnd7w969dd0q006gyl5r900000gn/T/tmp1ymj0s1i/lib/program.js:315:151",
+              "Kernel._Kernel_ensureSync (/private/var/folders/jm/w_wnd7w969dd0q006gyl5r900000gn/T/tmp1ymj0s1i/lib/program.js:916:24)",
+              "Kernel.sinvoke (/private/var/folders/jm/w_wnd7w969dd0q006gyl5r900000gn/T/tmp1ymj0s1i/lib/program.js:315:102)",
+              "KernelHost.processRequest (/private/var/folders/jm/w_wnd7w969dd0q006gyl5r900000gn/T/tmp1ymj0s1i/lib/program.js:15479:36)",
+              "KernelHost.run (/private/var/folders/jm/w_wnd7w969dd0q006gyl5r900000gn/T/tmp1ymj0s1i/lib/program.js:15439:22)",
+              "Immediate._onImmediate (/private/var/folders/jm/w_wnd7w969dd0q006gyl5r900000gn/T/tmp1ymj0s1i/lib/program.js:15440:45)",
               "process.processImmediate (node:internal/timers:505:21)"
             ]
           }

@@ -11,23 +11,32 @@ __pycache__/
 
 # IDEs and Editor folders
 .vscode/
+.idea/
+*.sublime-*
+
+# OS
+.DS_Store
+Thumbs.db
 
 # Env and Secrets
 *.env
+.env
 *.pem
 *.key
 
 # Virtual Environments
 .venv/
+venv/
+env/
 backend/.venv/
-frontend/.env/
+littlelemon-backend-cdk/.venv/
 
 # Backend
 backend/db.sqlite3
 backend/media/
 backend/staticfiles/
 backend/backup.sql
-**/settings/local.py
+backend/build/
 
 # Frontend
 frontend/**/migrations/
@@ -37,20 +46,40 @@ frontend/**/*.txt
 frontend/**/*.json
 frontend/comands.txt
 
+# keep these static exceptions if required by app
 !frontend/ui_app/static/
 !frontend/ui_app/static/**/*
 frontend/ui_app/migrations/
-frontend/tokens.json
 frontend/ui_app/views.txt
 frontend/ui_app/api/api_client.py
 frontend/.env
 frontend/staticfiles
 
-# CDK / DevOps
+# CDK / DevOps / IaC
 .cdk.staging
-cdk.out
+cdk.out/
+cdk.context.json
 .env.deploy
+.aws-sam/
+.serverless/
+.terraform/
 
+# Packaging / build artifacts
+build/
+dist/
+*.egg-info/
+.eggs/
 
+# Django / app
+local_settings.py
+instance/
+
+# Rust/python native build dirs (used by cryptography, etc.)
+backend/build/rust/
+
+# Logs / coverage / test artifacts
+.coverage
+htmlcov/
+
+# Misc
 doc.md.venv
-littlelemon-backend-cdk/.venv
