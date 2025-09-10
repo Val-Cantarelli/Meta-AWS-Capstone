@@ -1,4 +1,4 @@
-#!/home/vahls/WorkSpace/Meta-AWS-Capstone/littlelemon-backend-cdk/.venv/bin/python3.11
+#!/Users/vahl/Workspace/Projects/Meta-AWS-Capstone/littlelemon-backend-cdk/.venv/bin/python
 # -*- coding: utf-8 -*-
 import re
 import sys
