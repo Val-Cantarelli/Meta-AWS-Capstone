@@ -4,7 +4,7 @@ This repository showcases my work in deploying a Django-based capstone project t
 The [APIRest](https://github.com/Val-Cantarelli/MetaDeveloperProfessionalCertificate) was developed as part of the **Meta Professional Certificate**, and this repository focuses on the DevOps and cloud migration aspects.
 
 [![Meta Certificate](https://img.shields.io/badge/Meta-Back--End%20Developer%20Certificate-0668E1?style=for-the-badge&logo=meta&logoColor=white)](https://www.coursera.org/professional-certificates/meta-back-end-developer)
-[![Original Course Project](https://img.shields.io/badge/View-Original%20Course%20Project-28a745?style=for-the-badge&logo=github&logoColor=white)](https://github.com/Val-Cantarelli/LINK-DO-SEU-REPO-DA-CERTIFICACAO)
+[![Original Course Project](https://img.shields.io/badge/View-Original%20Course%20Project-28a745?style=for-the-badge&logo=github&logoColor=white)](https://github.com/Val-Cantarelli/MetaDeveloperProfessionalCertificate)
 
 
 
