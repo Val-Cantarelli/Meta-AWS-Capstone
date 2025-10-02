@@ -2,6 +2,7 @@
 
 > Meta AWS Capstone Project - Complete restaurant management system with Django REST API and AWS infrastructure.
 
+
 ## Documentation Index
 
 ### API Documentation
