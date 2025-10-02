@@ -1,7 +1,11 @@
 # Meta AWS Capstone Project
 
 This repository showcases my work in deploying a Django-based capstone project to AWS.  
-The [APIRest](https://github.com/Val-Cantarelli/MetaDeveloperProfessionalCertificate) was developed as part of the [Meta Professional Certificate](https://www.coursera.org/professional-certificates/meta-back-end-developer), and this repository focuses on the DevOps and cloud migration aspects.
+The [APIRest](https://github.com/Val-Cantarelli/MetaDeveloperProfessionalCertificate) was developed as part of the **Meta Professional Certificate**, and this repository focuses on the DevOps and cloud migration aspects.
+
+[![Meta Certificate](https://img.shields.io/badge/Meta-Back--End%20Developer%20Certificate-0668E1?style=for-the-badge&logo=meta&logoColor=white)](https://www.coursera.org/professional-certificates/meta-back-end-developer)
+[![Original Course Project](https://img.shields.io/badge/View-Original%20Course%20Project-28a745?style=for-the-badge&logo=github&logoColor=white)](https://github.com/Val-Cantarelli/LINK-DO-SEU-REPO-DA-CERTIFICACAO)
+
 
 
 ## Live
@@ -11,7 +15,7 @@ The [APIRest](https://github.com/Val-Cantarelli/MetaDeveloperProfessionalCertifi
 ## Overview
 
 
-The project offers a fully cloud-based solution for small and medium-sized entrepreneurs in the food service sector, with an estimated monthly maintenance cost capped at USD 100.00. The system is designed to be generic enough for different types of restaurants. It is also flexible enough to meet the needs of the three main business actors: managers, employees, and end customers (as well as the admin who holds all the privileges).
+The project offers a fully cloud-based solution for small and medium-sized entrepreneurs in the food service sector, with an estimated monthly maintenance cost capped at USD 150.00. The system is designed to be generic enough for different types of restaurants. It is also flexible enough to meet the needs of the three main business actors: managers, employees, and end customers (as well as the admin who holds all the privileges).
 
 The goal is to enable restaurants to implement, at low cost and with high availability, a complete online ordering flow — from the digital menu to delivery — by leveraging AWS managed services to reduce operational effort and increase scalability.
 
