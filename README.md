@@ -86,6 +86,10 @@ flowchart LR
    - Path: `/littlelemon-backend-cdk/`  
    - Documentation: [`littlelemon-backend-cdk/README.md`](./littlelemon-backend-cdk/README.md)
 
+4. Documenetation  
+   - Path: `/littlelemon-documentation/`  
+   - Documentation: [`littlelemon-documentation/README.md`](./littlelemon-documentation/README.md)
+
 ## Repository Structure
 - `backend/` – Django REST API
 - `frontend/` – Django UI app
