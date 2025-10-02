@@ -1,46 +1,50 @@
-## API Permissions & Access Rules
+# Little Lemon Restaurant API Documentation
 
-There is four actors: admin, manager, delivery-crew and customer
+> Meta AWS Capstone Project - Complete restaurant management system with Django REST API and AWS infrastructure.
 
-### Menu Items (`/api/menu-items`)
-- **GET:** Public
-- **POST/PUT/DELETE:** Only admin users
-- **PATCH:** Manager (especificaly at fields "featured(prato do dia) and availability")
+## Documentation Index
+
+### API Documentation
+- **[Endpoints](./api/endpoints.md)** - Complete documentation of all endpoints
+- **[Authentication](./api/authentication.md)** - JWT, tokens and authentication
+- **[Permissions](./api/permissions.md)** - Access rules and user groups
+- **[Examples](./api/examples.md)** - Practical examples of requests and responses
+
+### Architecture
+- **[AWS Infrastructure](./architecture/aws-infrastructure.md)** - AWS architecture and components
+- **[Database Schema](./architecture/database-schema.md)** - Models and relationships
+- **[Deployment](./architecture/deployment.md)** - Deployment process and CI/CD
+
+### Development
+- **[Setup Guide](./development/setup.md)** - How to set up local environment
+- **[Testing](./development/testing.md)** - Automated and manual testing
+- **[Contributing](./development/contributing.md)** - Guide for contributors
+
+## Project Overview
+
+Little Lemon is a complete restaurant management system that includes:
+
+- **Backend API**: Django REST Framework with JWT authentication
+- **Frontend**: Responsive web interface using Django templates
+- **Infrastructure**: AWS (Lambda, RDS, S3, CloudFront)
+- **Database**: MySQL initially and RDS in the cloud
+
+### System Actors
+
+| Actor | Description | Main Permissions |
+|-------|-------------|------------------|
+| **Admin** | System administrator | Full access, user management |
+| **Manager** | Restaurant manager | Order management, menu, staff |
+| **Delivery Crew** | Delivery team | View and update assigned order status |
+| **Customer** | End customer | Browse menu, place orders, booking tables |
+
+### Quick Links
+
+- [AWS Architecture](./assets/aws_architecture_-_little_lemon_project.png)
+- [API Base URL](https://api.littlelemon.com) (Production)
+- [Repository](https://github.com/Val-Cantarelli/Meta-AWS-Capstone)
+
 ---
 
-### Cart (`/api/cart/menu-items`)
-- **GET/POST/DELETE (Manager):** Can view and manage all carts
-- **GET/POST/DELETE (User):** Can view and manage only their own cart
----
-
-### Orders (`/api/orders`)
-- **GET/PATCH/POST/DELETE (Manager):** any order
-- **GET (Delivery crew):** Can view only orders assigned to them
-- **GET (Regular user):** Can view only their own orders
-- **PATCH (Delivery crew):** Can update status of orders assigned to them
-- **POST (Regular user):** Creates order from their own cart
----
-
-### Manager Group (`/api/groups/manager/users`)
-- **GET:** Admin or manager 
-- **POST/DELETE:** Only admin can add/remove users from the manager group
----
-
-### Delivery Crew Group (`/api/groups/delivery-crew/users`)
-- **GET/POST/DELETE:** Admin or manager can add/remove users from the delivery crew group
-
----
-
-## Notes
-
-- **Authentication:** JWT required for protected endpoints.
-- **Custom permissions:** Implemented via classes such as `IsAdminOrManager`, `IsCustomer`, etc.
-- **Pagination:** Enabled on listing endpoints (e.g., menu-items, orders).
-
-
-
-
-## Business Rules
-
-- Only admin can create new menu items to ensure menu integrity and security.
-- This may be revised in the future to allow manager proposals with admin approval.
+**Last updated:** October 2025  
+**API Version:** v1.0
