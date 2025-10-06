@@ -5,19 +5,22 @@ from rest_framework.routers import DefaultRouter
 router = DefaultRouter(trailing_slash=False)
 router.register(r'menu-items', MenuItemsViewSet)
 router.register(r'categories', CategoryViewSet)
-router.register(r'groups/(?P<group_name>manager|delivery-crew)/users', ManagerViewSet, basename='group-users')
-router.register(r'orders', OrdersViewSet, basename='orders')
-router.register(r'cart', CartViewSet, basename='cart')
 
-'''
-urlpatterns = [
-    # This route allows the 'deletion' of a user from a specific group by passing the group name and user ID in the URL.DefaultRouter() doesnt 
-    #path('groups/<str:group_name>/users/<int:user_id>/', ManagerViewSet.as_view({'delete': 'destroy'}), name='group-user-detail'),
-    #path('cart/menu-items/', CartViewSet.as_view({'get': 'list', 'post': 'create', 'delete': 'destroy'}), name='cart-menu-items'),
-    #path('cart/orders/', OrdersViewSet.as_view({'get': 'list', 'post': 'create', 'delete': 'destroy'}), name='cart-orders'),
+# Custom URLs with proper type hints for better OpenAPI documentation
+from django.urls import path, include
+
+custom_patterns = [
+    # Group management with integer user IDs (no trailing slash)
+    path('groups/<str:group_name>/users', ManagerViewSet.as_view({'get': 'list', 'post': 'create'}), name='group-users-list'),
+    path('groups/<str:group_name>/users/<int:pk>', ManagerViewSet.as_view({'delete': 'destroy'}), name='group-users-detail'),
+    
+    # Orders with integer IDs (no trailing slash)
+    path('orders', OrdersViewSet.as_view({'get': 'list', 'post': 'create'}), name='orders-list'),
+    path('orders/<int:pk>', OrdersViewSet.as_view({'get': 'retrieve', 'patch': 'partial_update', 'delete': 'destroy'}), name='orders-detail'),
+    
+    # Cart with integer IDs (no trailing slash)
+    path('cart', CartViewSet.as_view({'get': 'list', 'post': 'create'}), name='cart-list'),
+    path('cart/<int:pk>', CartViewSet.as_view({'patch': 'partial_update', 'delete': 'destroy'}), name='cart-detail'),
 ]
 
-'''
-
-
-urlpatterns = router.urls
+urlpatterns = list(router.urls) + custom_patterns

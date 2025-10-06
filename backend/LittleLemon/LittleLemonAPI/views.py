@@ -73,6 +73,7 @@ class MenuItemsViewSet(viewsets.ModelViewSet):
 class ManagerViewSet(viewsets.ViewSet):
     throttle_classes = [AnonRateThrottle, UserRateThrottle]
     permission_classes = [IsAuthenticated,IsAdminOrManager]
+    serializer_class = UserSerializer  # For OpenAPI documentation
            
     def get_queryset(self):
         group_name = self.kwargs.get('group_name')  
