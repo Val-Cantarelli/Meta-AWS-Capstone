@@ -17,7 +17,7 @@ The [APIRest](https://github.com/Val-Cantarelli/MetaDeveloperProfessionalCertifi
 
 The project offers a fully cloud-based solution for small and medium-sized entrepreneurs in the food service sector, with an estimated monthly maintenance cost capped at USD 150.00. The system is designed to be generic enough for different types of restaurants. It is also flexible enough to meet the needs of the three main business actors: managers, employees, and end customers (as well as the admin who holds all the privileges).
 
-The goal is to enable restaurants to implement, at low cost and with high availability, a complete online ordering flow — from the digital menu to delivery — by leveraging AWS managed services to reduce operational effort and increase scalability.
+The goal is to enable restaurants to implement, at low cost and with high availability, a complete online ordering and reservation system — from the digital menu and table bookings to delivery — by leveraging AWS managed services to reduce operational effort and increase scalability.
 
 This repository focuses on:
 
@@ -30,8 +30,8 @@ This repository focuses on:
 
 ## Architecture
 
-- **Frontend:** Django app on AWS Elastic Beanstalk;
-- **API:** AWS Lambda behind Amazon API Gateway HTTP API (v2);
+- **Frontend:** Django app on AWS Elastic Beanstalk (basic customer interface with limited functionality);
+- **API:** AWS Lambda behind Amazon API Gateway HTTP API (v2) - fully featured REST API;
 - **Database:** Amazon RDS, accessed by Lambda via Amazon RDS Proxy;
 - **Assets:** Amazon S3 for static/media.
 
@@ -40,12 +40,31 @@ This repository focuses on:
 
 ### Version 1 (Current)
 
-- Frontend on Elastic Beanstalk (ASGI – Gunicorn + Uvicorn): the frontend serves Django templates and handles all API calls server-side (no ORM), maintaining SSR and session control in Django;
-- Backend on AWS Lambda + HTTP API Gateway: chosen for cost efficiency, scalability, and native JWT authorizer support in HTTP API Gateway v2. This avoids the header manipulation issues found in REST API Gateway v1 (which required mapping templates and could strip Authorization/JWT headers), simplifying the authentication flow and reducing cost/latency. The backend is built with Django REST Framework and deployed with AWS CDK for flexibility and maintainability.
-- Database connectivity via RDS Proxy: Lambda’s ephemeral execution model can cause “connection storms” to RDS. RDS Proxy was added to pool and reuse connections, reducing cold-start DB failures and improving scalability under variable load.
-- Static/media on S3; 
+## Technical Details
+
+- Frontend on Elastic Beanstalk (ASGI – Gunicorn + Uvicorn): provides basic customer interface with Django templates (menu browsing, user authentication, table booking). Ordering system, cart management, order tracking, and role-based access are API-only;
+- Backend on Lambda (Mangum ASGI): complete REST API with JWT authentication, role-based permissions (manager/delivery-crew/customer), shopping cart, order management, menu administration, and comprehensive filtering/pagination;
+- Stateless across environments: frontend makes HTTP calls to the API Gateway, enabling independent scaling and clear separation of concerns. 
 
 Purpose: validate frontend integration and API functionality in the cloud with reliable database connectivity, keeping operational costs around USD 100/month while leaving room for future real-time features without major re-architecture.
+
+## Current Implementation Status
+
+**Backend (REST API)**: Complete
+- Full CRUD operations for menu items, categories, cart, orders
+- JWT authentication with Djoser integration
+- Role-based permissions (Admin, Manager, Delivery Crew, Customer)
+- Comprehensive filtering, pagination, and search
+- Rate limiting and security features
+- OpenAPI 3.0 documentation
+
+**Frontend (Customer Interface)**: ⚠️ **Limited Implementation**
+- Menu browsing and visualization
+- User authentication (login/signup)
+- Table booking functionality (when logged in)
+- Missing: ordering system, cart management, order tracking, user profiles, role-based interfaces
+- All restaurant management and ordering features are API-only
+- Suitable for demonstration but not production-ready for full restaurant operations
 
 ```mermaid
 flowchart LR
@@ -78,13 +97,15 @@ flowchart LR
 
 ## Components
 
-1. Backend  
+1. Backend (REST API)  
    - Path: `/backend/`  
    - Documentation: [`backend/README.md`](./backend/README.md)
+   - Status: **Complete** - Full-featured REST API with authentication, authorization, cart, orders, menu management
 
-2. Frontend  
+2. Frontend (Customer Interface)  
    - Path: `/frontend/`  
    - Documentation: [`frontend/README.md`](./frontend/README.md)
+   - Status: **Limited** - Menu browsing, authentication, and table booking only. No ordering system implemented
 
 3. DevOps / IaC  
    - Path: `/littlelemon-backend-cdk/`  
