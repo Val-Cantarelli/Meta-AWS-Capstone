@@ -1,13 +1,15 @@
 # Backend — Django REST API 
 
-improvementds: Create some narrative!
+Production-ready REST API for a restaurant management system, designed as the core of an API-first architecture. Features JWT authentication, role-based access control, comprehensive cart and order management, and cloud-native AWS deployment capabilities.
 
+This document provides an overview of the backend architecture, setup, and key features. For detailed API documentation, see the [`littlelemon-documentation/api/`](../littlelemon-documentation/api/) directory.
 
+##  API Documentation
 
-
-REST API for a restaurant management system with JWT authentication, group-based access control (manager, delivery-crew, customer), cart, and orders. Ready for local development and AWS deployment (API Gateway + Lambda or Elastic Beanstalk + RDS).
-
- 
+- **[Complete Endpoints Reference](../littlelemon-documentation/api/endpoints.md)** - All endpoints, parameters, and examples
+- **[Authentication Guide](../littlelemon-documentation/api/authentication.md)** - JWT setup, tokens, and auth workflows  
+- **[Permissions Matrix](../littlelemon-documentation/api/permissions.md)** - Role-based access control details
+- **[Usage Examples](../littlelemon-documentation/api/examples.md)** - Common workflows and request/response examples
 
 
 
@@ -16,9 +18,10 @@ REST API for a restaurant management system with JWT authentication, group-based
 - Django (project core)
 - Django REST Framework (DRF)
 - Djoser + SimpleJWT (JWT auth)
+- drf-spectacular (OpenAPI 3.0 documentation)
 - django-filter (filters)
 - Additional renderers: XML, CSV, YAML
-- Database: MySQL (production via RDS + RDS Proxy)
+- Database: SQLite (local), MySQL (production via RDS + RDS Proxy)
 
 Key paths:
 - App: `LittleLemon/LittleLemonAPI`
@@ -44,87 +47,60 @@ In production, configuration and secrets are externalized (SSM Parameter Store f
 - Cart to order: a customer adds items to the cart; creating an order snapshots prices/quantities into OrderItem and clears the cart to avoid accidental reorders.
 - Order orchestration: a manager assigns a delivery crew member and updates status; delivery crew can update status during fulfillment. Access to orders is restricted by role (own, assigned, or all for managers).
 
-## Authentication
-- JWT via Djoser + SimpleJWT
-- Djoser endpoints under `/auth/`:
-  - POST `/auth/jwt/create` (username, password)
-  - POST `/auth/jwt/refresh`
-  - POST `/auth/jwt/verify`
-  - POST `/auth/users/` (user registration)
-- Config: `REST_FRAMEWORK.DEFAULT_AUTHENTICATION_CLASSES = JWTAuthentication`
+## Authentication & Authorization
 
-## Groups and Permissions
-- manager: can manage menu, categories, and assign delivery crew to orders
-- delivery-crew: can view assigned orders and update their status
-- customer (authenticated user not in manager or delivery-crew): can use cart and create orders
+The API uses JWT authentication via Djoser with role-based access control through Django Groups:
 
-Per resource:
-- Categories (`/api/categories`):
-  - GET: authenticated
-  - POST/PUT/PATCH/DELETE: admin
-- Menu (`/api/menu-items`):
-  - GET/GET {id}: public
-  - POST/DELETE: admin
-  - PUT/PATCH: manager
-- Groups (`/api/groups/(manager|delivery-crew)/users`): admin or manager
-  - GET list, POST add `username`
-  - DELETE `/api/groups/{group}/users/{id}` remove user from group
-- Cart (`/api/cart`): authenticated + customer
-  - GET: current user items
-  - POST: add item `{menuitem, quantity}`
-  - PATCH `/api/cart/{id}`: update quantity
-  - DELETE `/api/cart/{id}`: remove item
-- Orders (`/api/orders`): authenticated
-  - manager: sees all
-  - delivery-crew: sees assigned
-  - customer: sees own
-  - GET list/detail; POST creates from cart; PATCH updates (manager can set `delivery_crew` and `status`; delivery-crew can change `status`)
+- **JWT Authentication**: Stateless token-based auth with access/refresh tokens
+- **Role-based Access**: Manager, Delivery Crew, and Customer roles
+- **Group Management**: Admin and Manager can assign users to groups
 
-Health Check:
-- GET `/health` → `{ "status": "ok" }`
+**Quick Overview:**
+- `POST /auth/jwt/create` - Login (get access token)
+- `POST /auth/jwt/refresh` - Refresh access token  
+- `POST /auth/users/` - User registration
 
-## Main Endpoints
-Base: `/api/`
+> **Detailed Documentation:** See [`api/authentication.md`](../littlelemon-documentation/api/authentication.md) for complete JWT configuration, endpoints, and examples.
 
-- Menu Items
-  - GET `/api/menu-items?category={slug}&price={num}&search={q}&ordering=price|-price&page=N`
-  - POST `/api/menu-items`
-  - GET `/api/menu-items/{id}`
-  - PATCH/PUT/DELETE `/api/menu-items/{id}`
-- Categories
-  - GET `/api/categories`
-  - POST `/api/categories`
-  - GET `/api/categories/{id}`
-  - PATCH/PUT/DELETE `/api/categories/{id}`
-- Groups (Managers / Delivery Crew)
-  - GET `/api/groups/manager/users`
-  - POST `/api/groups/manager/users` body: `{ "username": "john" }`
-  - DELETE `/api/groups/manager/users/{userId}`
-  - (same for `delivery-crew`)
-- Cart
-  - GET `/api/cart`
-  - POST `/api/cart` body: `{ "menuitem": 1, "quantity": 2 }`
-  - PATCH `/api/cart/{id}` body: `{ "quantity": 3 }`
-  - DELETE `/api/cart/{id}`
-- Orders
-  - GET `/api/orders`
-  - GET `/api/orders/{id}`
-  - POST `/api/orders`
-  - PATCH `/api/orders/{id}` body (manager): `{ "delivery_crew": 5, "status": true }`
+## API Endpoints & Permissions
 
-## Filtering, Search, Ordering, Pagination
-- On `/api/menu-items`:
-  - Filters: `category` (slug, iexact), `price` (exact)
-  - Search: `search=title|category__slug|id`
-  - Ordering: `ordering=price` or `ordering=-price`
-- Pagination: PageNumber, `PAGE_SIZE=3` → use `?page=2`
+**Core Resources:**
+- **Menu Items** - Public browsing, admin/manager management
+- **Categories** - Public listing, admin management  
+- **Cart** - Customer cart management (add, update, remove items)
+- **Orders** - Role-based order workflow (create, assign, fulfill)
+- **User Groups** - Manager/admin user role management
 
-## Supported Renderers
-- JSON (default), Browsable API, XML, CSV, YAML
-- Content negotiation via `Accept` header (e.g., `Accept: application/xml`)
+**Permission Summary:**
+- **Managers**: Full menu management, order orchestration, user group assignment
+- **Delivery Crew**: View assigned orders, update delivery status
+- **Customers**: Browse menu, manage cart, create and view own orders
+- **Anonymous**: Browse menu items and categories
 
-## Throttling
-- Anon and User: 10/min (`DEFAULT_THROTTLE_RATES`)
+> **Complete API Reference:** See [`api/endpoints.md`](../littlelemon-documentation/api/endpoints.md) for all endpoints, parameters, examples, and [`api/permissions.md`](../littlelemon-documentation/api/permissions.md) for detailed permission matrix.
+
+## API Features
+
+**Search & Filtering:**
+- Menu items: filter by category, price; search by title; ordering by price
+- Pagination: 3 items per page (configurable)
+
+**Content Negotiation:**
+- Multiple formats: JSON (default), XML, CSV, YAML
+- Request via `Accept` header (e.g., `Accept: application/xml`)
+
+**Rate Limiting:**
+- Anonymous users: 20 requests/minute  
+- Authenticated users: 100 requests/minute
+
+**Health Check:**
+- `GET /health` → `{ "status": "ok" }` (for load balancer health checks)
+
+**OpenAPI Documentation:**
+- Auto-generated schema via drf-spectacular
+- Interactive docs available at `/api/schema/swagger-ui/`
+
+> **Usage Examples:** See [`api/examples.md`](../littlelemon-documentation/api/examples.md) for complete request/response examples and common workflows.
 
 ## Local Development
 Prereqs: Python 3.11 and Pipenv.
@@ -171,38 +147,19 @@ Notes:
 - Rate limits: DRF throttling protects against bursts; tune per environment
 - Secrets and config: never hardcode; use environment and managed secret stores
 
-## Frontend Coverage and Manual Testing
-Some API capabilities are not exposed in the web UI. Use Insomnia or curl to exercise them directly:
-
-- Categories: POST/PUT/PATCH/DELETE (admin only)
-- Groups: `/api/groups/(manager|delivery-crew)/users` to list, add by `username`, and remove by `userId` (admin or manager)
-- Orders: `PATCH /api/orders/{id}` to assign `delivery_crew` or change `status` (manager/delivery-crew)
-- Cart: `PATCH` and `DELETE /api/cart/{id}` to update/remove specific items
-- Menu Items: admin-only create/delete
-
-Examples (requires JWT in Authorization header):
-- Assign delivery crew to an order (manager):
-  `curl -X PATCH /api/orders/123 -H "Authorization: Bearer <token>" -H "Content-Type: application/json" -d '{"delivery_crew": 5, "status": true}'`
-- Add user to manager group (manager/admin):
-  `curl -X POST /api/groups/manager/users -H "Authorization: Bearer <token>" -H "Content-Type: application/json" -d '{"username":"john"}'`
-
-## Quick Tests (curl)
-- Login: `curl -X POST /auth/jwt/create -d '{"username":"admin","password":"..."}' -H 'Content-Type: application/json'`
-- Public menu: `curl /api/menu-items`
-- Cart (with JWT): `curl -H 'Authorization: Bearer <token>' /api/cart`
-
 ## Future Work
-- Admin UX: register `OrderItem` and add list filters/search to ease operations
-- Observability: add request IDs, structured logging, and basic metrics (latency, error rate)
-- Performance: add selective prefetching and caching for hot endpoints
-- Security: add permission tests and audit logs for group changes
-- Product: align booking workflow with backend API once finalized
+- **Role-based frontend interfaces**: Implement dedicated views for Manager, Delivery Crew, and Admin roles with tailored dashboards and workflows
+- **Observability**: Structured logging, request IDs, and performance metrics
+- **Performance optimization**: Selective prefetching and caching for high-traffic endpoints
+- **Enhanced security**: Comprehensive permission testing and audit logging
+- **API versioning**: Implement versioning strategy for backward compatibility
 
 ## Credits and Customizations
-- Based on Meta Backend (Little Lemon) coursework. Adaptations:
-  - JWT auth with Djoser and group-based permissions
-  - Filters/search/ordering on Menu Items; standardized pagination
-  - Extra renderers (XML/CSV/YAML)
-  - Health check `/health`
-  - AWS integration: SSM for SECRET_KEY, Secrets Manager for DB, RDS Proxy, `ALLOWED_HOSTS` adjustments
-  - DRF rate limiting
+- Based on Meta Backend (Little Lemon) coursework. Major adaptations:
+  - **Architecture**: Migrated from function-based views to DRF ViewSets for better organization and functionality
+  - **Authentication**: JWT auth with Djoser and group-based permissions (replacing session auth)
+  - **API Features**: Filters/search/ordering on Menu Items; standardized pagination
+  - **Content Types**: Extra renderers (XML/CSV/YAML) beyond JSON
+  - **Monitoring**: Health check `/health` endpoint
+  - **Cloud Integration**: AWS SSM for SECRET_KEY, Secrets Manager for DB, RDS Proxy, production `ALLOWED_HOSTS`
+  - **Performance**: DRF rate limiting and throttling
