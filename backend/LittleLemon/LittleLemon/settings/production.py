@@ -23,29 +23,6 @@ rds_proxy_endpoint = os.environ.get("DB_HOST")
 if not rds_proxy_endpoint:
     raise RuntimeError("DB_HOST not set in environment variables")
 
-'''
-Na paginacao sobrescrever o get_next_link e get_previous_link parpraa que a URL seja /v1/api/ em vez de /api/
-from rest_framework.pagination import PageNumberPagination
-
-class APIGatewayPageNumberPagination(PageNumberPagination):
-    def get_next_link(self):
-        url = super().get_next_link()
-        if url:
-            return url.replace('/api/', '/v1/api/', 1)
-        return url
-
-    def get_previous_link(self):
-        url = super().get_previous_link()
-        if url:
-            return url.replace('/api/', '/v1/api/', 1)
-        return url
-        
-        
-REST_FRAMEWORK = {
-    "DEFAULT_PAGINATION_CLASS": "LittleLemon.settings.production.APIGatewayPageNumberPagination",
-}
-    
-'''
 
 
 DATABASES = {
