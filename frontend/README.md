@@ -1,13 +1,23 @@
 # Frontend – Meta AWS Capstone
 
 ## Overview
-Production-ready Django frontend for a restaurant platform, designed for cloud-native deployment on AWS Elastic Beanstalk. Implements Server-Side Rendering (SSR) for fast load, SEO, and robust integration with a JWT-authenticated API.
+Django-based customer interface for a restaurant platform, designed for cloud-native deployment on AWS Elastic Beanstalk. Implements Server-Side Rendering (SSR) for fast load and SEO, with limited functionality serving as a **demonstration** of frontend-API integration and AWS deployment patterns.
+
+**⚠️ Note:** This is a **demo implementation** with basic functionality. Not suitable for production restaurant operations.
+
+**Current Implementation Status:**
+- **Implemented**: Menu browsing, user authentication (login/signup), table booking form (demo only - no backend API)
+- **Missing**: Backend booking API, complete ordering system, cart management, order tracking, role-based interfaces
+- **Purpose**: Demonstrates frontend-API integration and AWS deployment patterns
 
 ## Features
-- Modular Django templates: home, menu,booking, login, signup.
-- JWT authentication via API Gateway.
-- Organized views for menu, auth, and base flows.
-- Static/media assets offloaded to S3.
+- **Demo customer interface**: menu browsing, authentication, table booking form
+- Server-Side Rendering (SSR) for SEO and fast initial load
+- JWT authentication integration with backend API
+- AWS Elastic Beanstalk deployment with health checks
+- Static/media assets served from S3
+
+**Important:** This is a demonstration frontend with limited functionality.
 
 ## Project Structure
 - `ui_app/` – Django app (views, templates, static);
@@ -18,7 +28,7 @@ Production-ready Django frontend for a restaurant platform, designed for cloud-n
 ## Local Development
 - Configure `.env` with `API_BASE_URL` (point to API Gateway or local backend), `DJANGO_SETTINGS_MODULE`, and secrets.
 - Use `run-local.sh` for local dev; `run-prod.sh` for prod-like runs.
-- All settings and secrets loaded from `.env` (NEEVER commit to hte GitHub).
+- All settings and secrets loaded from `.env` (**NEVER** commit to GitHub).
 
 ## Deployment (Frontend on Elastic Beanstalk)
 - Runtime: ASGI with Gunicorn + Uvicorn (see `frontend/Procfile`).
@@ -60,49 +70,37 @@ All pages are rendered server-side using Django templates. This guarantees fast 
 
 
 
-## Open Issues and Next Steps 
+## Known Limitations & Future Work
 
-1) Signup returns 500
-- Repro: Visit `/signup`, submit form → server returns 500.
-- Suspects: Incorrect Djoser payload (username, password, re_password, email), missing CSRF/session headers, misconfigured `API_BASE_URL`, backend validation error not handled.
-- Actions:
-  - Inspect browser Network tab and EB/CloudWatch logs for the failing request.
-  - Align payload with Djoser requirements; validate fields client-side.
-  - Ensure CSRF/Session handling is correct for POST.
-  - Handle non-2xx responses with user-friendly messages.
-- Acceptance: Signup succeeds or shows clear validation errors; no 500.
+**Current Issues:**
+- Table booking form exists but backend API not implemented
+- Limited error handling and user feedback
+- Basic UI styling and user experience
 
-2) Booking page missing form
-- Actions:
-  - Implement booking form UI (template + view + URL).
-  - Add client-side validation and success/empty/error states.
-  - Connect to API (if available) or add a placeholder handler until backend is ready.
-- Acceptance: User can submit a booking and see confirmation or errors.
+**Planned Improvements:**
+- Complete ordering system with cart management
+- Role-based interfaces for managers and delivery crew
+- Enhanced UX with loading states and better error messages
+- Comprehensive testing and accessibility improvements
 
-3) Auth UX polish
-- Add loading states and inline error messages to login/signup.
-- Verify `CSRF_TRUSTED_ORIGINS` and `API_BASE_URL` alignment between frontend and backend.
-- Keep tokens server-side only; maintain session-cookie-based requests.
+**For Development:**
+- Monitor CloudWatch logs for errors and performance
+- Ensure `CSRF_TRUSTED_ORIGINS` and `API_BASE_URL` alignment
+- Maintain secure server-side JWT token storage
 
-4) QA and Accessibility
-- Add basic unit/integration tests for auth flow.
-- Improve a11y: form labels, aria attributes, focus management, keyboard navigation.
+## Project Credits and Customizations
 
-5) Ops and Configuration
-- Monitor EB/CloudWatch logs for signup errors and 4xx/5xx spikes.
-- Recheck EB env vars: `API_BASE_URL`, `DJANGO_SETTINGS_MODULE`, secrets.
-- Confirm Nginx health checks and redirects remain green after changes.
-
-## Project credits and customizations
-
+**Base Implementation:**
 The core frontend (templates, static files, base views) was provided by the Meta course.
-- Custom work:
-  - Implemented auth_views.py for authentication flows.
-  - Created/modified login and signup templates.
-  - Developed auth_utils.py for JWT integration with the API Gateway.
-  - Adapted and extended configuration for Elastic Beanstalk deployment, API Gateway connectivity, and JWT authentication.
 
-Additional changes: adjusted environment variables, health checks, and security settings to support production deployment on AWS.
+**Custom Development:**
+- Authentication system integration (auth_views.py, auth_utils.py) 
+- Login and signup templates and authentication flows
+- Table booking demo form (UI only - backend API pending implementation)
+- JWT token management with backend API
+- AWS Elastic Beanstalk deployment configuration
+- Production security settings and health checks
+- Environment variable management and S3 integration
 
 ## References
 - [Django Documentation](https://docs.djangoproject.com/ )
