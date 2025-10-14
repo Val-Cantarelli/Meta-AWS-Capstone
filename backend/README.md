@@ -86,6 +86,7 @@ The API uses JWT authentication via Djoser with role-based access control throug
 **OpenAPI Documentation:**
 - Auto-generated schema via drf-spectacular
 - Interactive docs available at `/api/schema/swagger-ui/`
+- Complete OpenAPI 3.0 schema: `openapi-schema.yaml`
 
 ## Local Development
 Prereqs: Python 3.11 and Pipenv.
