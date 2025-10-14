@@ -2,16 +2,7 @@
 
 Production-ready REST API for a restaurant management system, designed as the core of an API-first architecture. Features JWT authentication, role-based access control, comprehensive cart and order management, and cloud-native AWS deployment capabilities.
 
-This document provides an overview of the backend architecture, setup, and key features. For detailed API documentation, see the [`littlelemon-documentation/api/`](../littlelemon-documentation/api/) directory.
-
-##  API Documentation
-
-- **[Complete Endpoints Reference](../littlelemon-documentation/api/endpoints.md)** - All endpoints, parameters, and examples
-- **[Authentication Guide](../littlelemon-documentation/api/authentication.md)** - JWT setup, tokens, and auth workflows  
-- **[Permissions Matrix](../littlelemon-documentation/api/permissions.md)** - Role-based access control details
-- **[Usage Examples](../littlelemon-documentation/api/examples.md)** - Common workflows and request/response examples
-
-
+This document provides a comprehensive overview of the backend architecture, setup, and key features.
 
 ## Stack
 - Python 3.11
@@ -60,8 +51,6 @@ The API uses JWT authentication via Djoser with role-based access control throug
 - `POST /auth/jwt/refresh` - Refresh access token  
 - `POST /auth/users/` - User registration
 
-> **Detailed Documentation:** See [`api/authentication.md`](../littlelemon-documentation/api/authentication.md) for complete JWT configuration, endpoints, and examples.
-
 ## API Endpoints & Permissions
 
 **Core Resources:**
@@ -76,8 +65,6 @@ The API uses JWT authentication via Djoser with role-based access control throug
 - **Delivery Crew**: View assigned orders, update delivery status
 - **Customers**: Browse menu, manage cart, create and view own orders
 - **Anonymous**: Browse menu items and categories
-
-> **Complete API Reference:** See [`api/endpoints.md`](../littlelemon-documentation/api/endpoints.md) for all endpoints, parameters, examples, and [`api/permissions.md`](../littlelemon-documentation/api/permissions.md) for detailed permission matrix.
 
 ## API Features
 
@@ -99,8 +86,6 @@ The API uses JWT authentication via Djoser with role-based access control throug
 **OpenAPI Documentation:**
 - Auto-generated schema via drf-spectacular
 - Interactive docs available at `/api/schema/swagger-ui/`
-
-> **Usage Examples:** See [`api/examples.md`](../littlelemon-documentation/api/examples.md) for complete request/response examples and common workflows.
 
 ## Local Development
 Prereqs: Python 3.11 and Pipenv.
