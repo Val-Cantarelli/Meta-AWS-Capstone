@@ -117,3 +117,8 @@ flowchart LR
 - `backend/` – Django REST API
 - `frontend/` – Django UI app  
 - `littlelemon-backend-cdk/` – Infrastructure as Code (AWS CDK)
+
+
+## License
+
+This project is open-source and available under the [MIT License](./LICENSE).
