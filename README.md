@@ -30,6 +30,8 @@ This repository focuses on:
 
 ## Architecture
 
+![alt text](/img/diagramMigrationAWS.png)
+
 - **Frontend:** Django app on AWS Elastic Beanstalk (basic customer interface with limited functionality);
 - **API:** AWS Lambda behind Amazon API Gateway HTTP API (v2) - fully featured REST API;
 - **Database:** Amazon RDS, accessed by Lambda via Amazon RDS Proxy;

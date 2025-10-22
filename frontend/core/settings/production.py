@@ -10,6 +10,7 @@ API_BASE_URL = os.environ.get("API_BASE_URL")
 SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY") or os.environ.get("SECRET_KEY")
 
 SESSION_COOKIE_SECURE = True
+SESSION_COOKIE_HTTPONLY = True  # Prevent JavaScript access to session cookie
 CSRF_COOKIE_SECURE = True
 #(optional)SESSION_EXPIRE_AT_BROWSER_CLOSE = True 
 CSRF_TRUSTED_ORIGINS = ['https://www.vahltech.com','https://vahltech.com','https://*.elasticbeanstalk.com']
