@@ -15,7 +15,7 @@ The [APIRest](https://github.com/Val-Cantarelli/MetaDeveloperProfessionalCertifi
 ## Overview
 
 
-The project offers a fully cloud-based solution for small and medium-sized entrepreneurs in the food service sector, with an estimated monthly maintenance cost capped at USD 150.00. The system is designed to be generic enough for different types of restaurants. It is also flexible enough to meet the needs of the three main business actors: managers, employees, and end customers (as well as the admin who holds all the privileges).
+The project offers a fully cloud-based solution for small and medium-sized entrepreneurs in the food service sector, with an estimated operational cost of **USD 45-50/month** in production. During development and migration with AWS Free Tier benefits, costs remain around **USD 80** total. The system is designed to be generic enough for different types of restaurants while being flexible enough to meet the needs of the three main business actors: managers, employees, and end customers (as well as the admin who holds all the privileges).
 
 The goal is to enable restaurants to implement, at low cost and with high availability, a complete online ordering and reservation system — from the digital menu and table bookings to delivery — by leveraging AWS managed services to reduce operational effort and increase scalability.
 
@@ -48,7 +48,7 @@ This repository focuses on:
 - Backend on Lambda (Mangum ASGI): complete REST API with JWT authentication, role-based permissions (manager/delivery-crew/customer), shopping cart, order management, menu administration, and comprehensive filtering/pagination;
 - Stateless across environments: frontend makes HTTP calls to the API Gateway, enabling independent scaling and clear separation of concerns. 
 
-Purpose: validate frontend integration and API functionality in the cloud with reliable database connectivity, keeping operational costs around USD 100/month while leaving room for future real-time features without major re-architecture.
+Purpose: validate frontend integration and API functionality in the cloud with reliable database connectivity, keeping operational costs around **USD 45-50/month** while leaving room for future real-time features without major re-architecture.
 
 ## Current Implementation Status
 
