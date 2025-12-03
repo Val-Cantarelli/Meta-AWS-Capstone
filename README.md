@@ -8,10 +8,6 @@ The [APIRest](https://github.com/Val-Cantarelli/MetaDeveloperProfessionalCertifi
 
 
 
-## Live
-- https://www.vahltech.com
-
-
 ## Overview
 
 
