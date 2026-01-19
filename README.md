@@ -6,16 +6,10 @@ The [APIRest](https://github.com/Val-Cantarelli/MetaDeveloperProfessionalCertifi
 [![Meta Certificate](https://img.shields.io/badge/Meta-Back--End%20Developer%20Certificate-0668E1?style=for-the-badge&logo=meta&logoColor=white)](https://www.coursera.org/professional-certificates/meta-back-end-developer)
 [![Original Course Project](https://img.shields.io/badge/View-Original%20Course%20Project-28a745?style=for-the-badge&logo=github&logoColor=white)](https://github.com/Val-Cantarelli/MetaDeveloperProfessionalCertificate)
 
-
-
-## Live
-- https://www.vahltech.com
-
-
 ## Overview
 
 
-The project offers a fully cloud-based solution for small and medium-sized entrepreneurs in the food service sector, with an estimated operational cost of **USD 45-50/month** in production. During development and migration with AWS Free Tier benefits, costs remain around **USD 80** total. The system is designed to be generic enough for different types of restaurants while being flexible enough to meet the needs of the three main business actors: managers, employees, and end customers (as well as the admin who holds all the privileges).
+The project offers a fully cloud-based solution for small and medium-sized entrepreneurs in the food service sector, with an estimated operational cost of **~USD 85-90/month** in production for a Lambda-in-VPC architecture with RDS Proxy. The system is designed to be generic enough for different types of restaurants while being flexible enough to meet the needs of the three main business actors: managers, employees, and end customers (as well as the admin who holds all the privileges).
 
 The goal is to enable restaurants to implement, at low cost and with high availability, a complete online ordering and reservation system — from the digital menu and table bookings to delivery — by leveraging AWS managed services to reduce operational effort and increase scalability.
 
@@ -48,7 +42,28 @@ This repository focuses on:
 - Backend on Lambda (Mangum ASGI): complete REST API with JWT authentication, role-based permissions (manager/delivery-crew/customer), shopping cart, order management, menu administration, and comprehensive filtering/pagination;
 - Stateless across environments: frontend makes HTTP calls to the API Gateway, enabling independent scaling and clear separation of concerns. 
 
-Purpose: validate frontend integration and API functionality in the cloud with reliable database connectivity, keeping operational costs around **USD 45-50/month** while leaving room for future real-time features without major re-architecture.
+Purpose: validate frontend integration and API functionality in the cloud with reliable database connectivity, keeping operational costs around **~USD 85-90/month** while leaving room for future real-time features without major re-architecture.
+
+## Cost Breakdown
+
+Based on realistic production usage (~1,000 API requests/day, ~10,000 frontend page views/month, 1GB DB storage):
+
+| Service | Description | Est. Monthly Cost (USD) |
+|---------|-------------|-------------------------|
+| VPC Interface Endpoints | Secrets Manager, SSM, RDS Proxy (PrivateLink) | ~$45.00 |
+| Amazon RDS (t3/t4g.micro) | Instance + 20 GB storage | ~$21.00 |
+| RDS Proxy | Persistent connection pooling | ~$3.00 |
+| Elastic Beanstalk (EC2) | Django frontend under light load | ~$10.00 |
+| Application Load Balancer | HTTPS listener + LCU usage | ~$5.00 |
+| API Gateway | ~30,000 HTTP requests | ~$1.50 |
+| Lambda | ~30,000 invocations | ~$0.20 |
+| Route 53 | Hosted zone + DNS | ~$0.50 |
+| Secrets Manager | 1 secret | ~$0.40 |
+| S3 | Static assets (~1 GB) | ~$0.10 |
+| CloudWatch | Logs from Lambda and ALB | ~$0.50 |
+| **Total Estimated** | **Light production use** | **~$85–90/month** |
+
+*Note: Costs may vary based on actual usage patterns. If Lambda runs outside VPC or Aurora Serverless v2 is used, monthly costs can drop to $5-12 (planned for future architecture version).*
 
 ## Current Implementation Status
 
