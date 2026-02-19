@@ -23,13 +23,22 @@ This repository focuses on:
 5. Setting up CI/CD (evaluating GitHub Actions vs AWS native tools);
 6. Documenting the AWS infrastructure and operational setup.
 
+## Tech Stack
+
+- Backend: Python + Django & Django REST Framework (REST API)
+- Frontend: Django templates (AWS Elastic Beanstalk, ASGI stack: Gunicorn + Uvicorn)
+- Database: Amazon RDS (MySQL) behind RDS Proxy
+- Infrastructure: AWS (Lambda, API Gateway, RDS, S3, Elastic Beanstalk, Route 53, Application Load Balancer)
+- IaC: AWS CDK
+
+
 ## Architecture
 
 ![alt text](/img/diagramMigrationAWS.png)
 
 - **Frontend:** Django app on AWS Elastic Beanstalk (basic customer interface with limited functionality);
 - **API:** AWS Lambda behind Amazon API Gateway HTTP API (v2) - fully featured REST API;
-- **Database:** Amazon RDS, accessed by Lambda via Amazon RDS Proxy;
+- **Database:** Amazon RDS(MySQL), accessed by Lambda via Amazon RDS Proxy;
 - **Assets:** Amazon S3 for static/media.
 
 
@@ -40,7 +49,8 @@ This repository focuses on:
 ## Technical Details
 
 - Frontend on Elastic Beanstalk (ASGI – Gunicorn + Uvicorn): provides basic customer interface with Django templates (menu browsing, user authentication, table booking). Ordering system, cart management, order tracking, and role-based access are API-only;
-- Backend on Lambda (Mangum ASGI): complete REST API with JWT authentication, role-based permissions (manager/delivery-crew/customer), shopping cart, order management, menu administration, and comprehensive filtering/pagination;
+- Backend on Lambda (Mangum ASGI): complete REST API with JWT authentication, role-based permissions (manager/delivery-crew/customer), shopping cart, order management, menu administration, and comprehensive filtering/pagination. The production AWS environment is currently deactivated to avoid unnecessary monthly costs, but can be fully recreated via the provided CDK templates.
+
 - Stateless across environments: frontend makes HTTP calls to the API Gateway, enabling independent scaling and clear separation of concerns. 
 
 Purpose: validate frontend integration and API functionality in the cloud with reliable database connectivity, keeping operational costs around **~USD 85-90/month** while leaving room for future real-time features without major re-architecture.
