@@ -126,6 +126,15 @@ Notes:
 - ALLOWED_HOSTS: include your API Gateway/EB host. Example present: `6qpkzrhv4c.execute-api.us-east-1.amazonaws.com`
 - API Gateway (optional): if using stage `/v1`, tweak pagination to rewrite links (commented in `production.py`).
 
+
+## Production security and infrastructure
+
+- IAM: dedicated Lambda execution role with scoped permissions (RDS, CloudWatch Logs, Secrets Manager).
+- Network security: RDS in private subnets, Lambda security groups configured, controlled NAT Gateway usage.
+- API Gateway: access restricted via `execute-api:Invoke` permissions and proper access control.
+- Django production: secure settings enabled (`DEBUG = False`, `ALLOWED_HOSTS` set, secure cookies).
+- Monitoring: CloudWatch Logs enabled for Lambda functions.
+
 ## Operations and Observability
 - Health checks: `/health` endpoint responds 200 for load balancers
 - Logging: rely on platform logs (EB/ALB or API Gateway/Lambda + CloudWatch) for request tracing and error diagnostics

@@ -3,9 +3,15 @@
 
 AWS CDK Infrastructure as Code for the Little Lemon API backend, implementing a serverless architecture with Lambda functions, API Gateway, and RDS database with VPC networking.
 
+> Note: Not all AWS resources were originally created via CDK. Some components (e.g. initial security groups, ALB configuration, Route 53 records) were provisioned manually in the AWS console while I was learning the platform.
+>
+> The CDK stack captures the core backend infrastructure (Lambda, API Gateway, RDS, RDS Proxy, secrets, etc.), and the production environment is currently deactivated to avoid monthly costs. A future improvement would be to fully migrate remaining manual resources into IaC for a complete, reproducible setup.
+
+
 ## Architecture Overview
 
-This CDK project deploys the backend infrastructure for the Little Lemon restaurant API:
+This CDK project defines the backend infrastructure for the Little Lemon restaurant API, provisioning some resources and integrating with existing ones where applicable:
+
 
 - **Compute**: AWS Lambda function running Django REST API
 - **API Gateway**: HTTP API for routing requests to Lambda
